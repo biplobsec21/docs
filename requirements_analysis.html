@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>TukTakKaj — Requirements Analysis</title>
+      <style>
+            body {
+                  font-family: Arial, Helvetica, sans-serif;
+                  font-size: 14px;
+                  line-height: 1.5;
+                  max-width: 860px;
+                  margin: 24px auto;
+                  padding: 0 16px;
+                  color: #1a1a1a;
+                  background: #fff
+            }
+
+            h1 {
+                  font-size: 20px
+            }
+
+            .flow {
+                  margin: 0 0 22px;
+                  padding-bottom: 14px;
+                  border-bottom: 1px solid #ddd
+            }
+
+            .flow h2 {
+                  font-size: 16px;
+                  margin: 0 0 6px
+            }
+
+            .flow pre {
+                  font-family: Consolas, "Courier New", monospace;
+                  font-size: 14px;
+                  line-height: 1.25;
+                  margin: 0;
+                  overflow-x: auto;
+                  background: #f5f5f5;
+                  padding: 10px 12px
+            }
+
+            .module {
+                  margin: 0 0 22px;
+                  padding-bottom: 14px;
+                  border-bottom: 1px solid #ddd
+            }
+
+            .module h2 {
+                  font-size: 16px;
+                  margin: 0 0 6px
+            }
+
+            .module ul {
+                  margin: 0 0 10px;
+                  padding-left: 22px
+            }
+
+            .subflow {
+                  margin: 0 0 10px
+            }
+
+            .subflow b {
+                  display: block;
+                  margin-bottom: 4px
+            }
+
+            .subflow pre {
+                  font-family: Consolas, "Courier New", monospace;
+                  font-size: 14px;
+                  line-height: 1.25;
+                  margin: 4px 0 0;
+                  overflow-x: auto;
+                  background: #f5f5f5;
+                  padding: 10px 12px
+            }
+
+            .rules {
+                  font-size: 14px;
+                  background: #f5f5f5;
+                  border-left: 3px solid #999;
+                  padding: 8px 12px
+            }
+
+            .rules b {
+                  display: block;
+                  margin-bottom: 4px
+            }
+
+            .rules ul {
+                  margin: 0;
+                  padding-left: 18px
+            }
+
+            .note {
+                  font-size: 14px;
+                  color: #555
+            }
+
+            @media (prefers-color-scheme:dark) {
+                  body {
+                        background: #161616;
+                        color: #e8e8e8
+                  }
+
+                  .rules {
+                        background: #242424;
+                        border-color: #777
+                  }
+
+                  .module {
+                        border-color: #333
+                  }
+
+                  .note {
+                        color: #aaa
+                  }
+
+                  .flow pre,
+                  .subflow pre {
+                        background: #242424
+                  }
+
+                  .flow {
+                        border-color: #333
+                  }
+            }
+      </style>
+</head>
+
+<body>
+      <h1>TukTakKaj — Requirements Analysis</h1>
+      <p class="note"> </p>
+      <div class="flow">
+            <h2>System Flow Overview:</h2>
+            <pre>                    ┌──────────────────┐
+                    │  SERVICE SEEKER  │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                       CREATE TASK
+                             │
+                             ▼
+                         BIDDING
+                             │
+              ┌──────────────┼──────────────┐
+              ▼              ▼              ▼
+            BID A          BID B          BID C
+              │              │              │
+              └──────────────┼──────────────┘
+                             ▼
+                       NEGOTIATION
+                             │
+                             ▼
+                       ACCEPT BID
+                             │
+                             ▼
+                         PAYMENT
+                             │
+                             ▼
+                       ┌───────────┐
+                       │  ESCROW   │
+                       └─────┬─────┘
+                             │
+                             ▼
+                       TASK ASSIGNED
+                             │
+                             ▼
+                        TUKTAKER
+                             │
+                       &quot;I HAVE ARRIVED&quot;
+                             │
+                             ▼
+                       TASK COMPLETED
+                             │
+                             ▼
+                    SERVICE SEEKER ACCEPTS
+                             │
+                             ▼
+                       RELEASE ESCROW
+                             │
+                 ┌───────────┴───────────┐
+                 ▼                       ▼
+            COMMISSION                TUKTAKER
+                 │                    WALLET
+                 │                       │
+                 ▼                       ▼
+                VAT                   REDEEM
+                                         │
+                                         ▼
+                                  BKASH/NAGAD/QR
+
+                 ┌───────────────────────┐
+                 │       RATING          │
+                 │ Service Seeker ↔      │
+                 │ TukTaker              │
+                 └───────────────────────┘</pre>
+      </div>
+      <div class="module">
+            <h2>1. Service Seeker Account:</h2>
+            <ul>
+                  <li>Sign up from the &quot;Post a Task&quot; option, with a welcome page showing high-level company
+                        information</li>
+                  <li>Choose account type: Personal or Business</li>
+                  <li>Register with mobile number as the account ID, verified by OTP</li>
+                  <li>Create password; change password and forgot password</li>
+                  <li>Enter first name(s) and last name</li>
+                  <li>Enter location: District, Thana, Ward/Village, Post code, Road name/Bari</li>
+                  <li>Add special instructions (optional)</li>
+                  <li>Submit and receive an instant success pop-up, then post tasks straight away</li>
+                  <li>Update profile: mobile number, payment options, location</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>All fields are mandatory except Special instructions.</li>
+                        <li>Mobile number must be registered under the user&#x27;s NID. Warning shown: &quot;Mobile
+                              number has to be registered under your NID&quot;. How this is checked is TBC.</li>
+                        <li>Success message: &quot;Congratulations! Your account has been created successfully. You are
+                              all set to post task&quot;</li>
+                        <li>Update message: &quot;Your details have been updated successfully&quot;</li>
+                        <li>Password rules are &quot;standard&quot; here and &quot;strong&quot; under Security; one
+                              final policy is TBC.</li>
+                        <li>TBC: extra Business account fields (company name, trade licence, BIN); age check for
+                              Seekers; OTP expiry and retry limits.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>2. TukTaker Account:</h2>
+            <ul>
+                  <li>18+ eligibility check (Yes/No dropdown)</li>
+                  <li>Personal account type only</li>
+                  <li>Register with mobile number (account number) and OTP; create password; change and forgot password
+                  </li>
+                  <li>Capture NID front photo, NID back photo and an app-directed selfie</li>
+                  <li>Enter NID number</li>
+                  <li>First name(s), last name and date of birth auto-populated from the NID image</li>
+                  <li>Enter gender and address as per NID</li>
+                  <li>Enter current address: District, Thana/Upozila, Address 1, Address 2</li>
+                  <li>Enter work location: District, Thana, Ward/Village, Post code, Road name/Bari</li>
+                  <li>Submit and enter Pending verification</li>
+                  <li>Admin manually verifies NID and picture; account becomes Verified and shows a &quot;V&quot; with
+                        tick</li>
+                  <li>SMS/Email notification when verified</li>
+                  <li>Verified TukTaker can browse suitable tasks and bid</li>
+                  <li>Update profile: mobile number, payment options, location</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Answering &quot;No&quot; to 18+ disables all next steps. Message: &quot;Sorry, you need to
+                              be minimum 18 years old to work with us&quot;</li>
+                        <li>Date of birth must indicate 18 years or older, checked at account creation. Message:
+                              &quot;Opps! Look like you are entering a date of birth indicating you are not 18 years
+                              yet.&quot;</li>
+                        <li>All fields are mandatory.</li>
+                        <li>Submit message: &quot;Congratulations! Your account has been created successfully. Please
+                              stay tuned while we verify your account&quot;</li>
+                        <li>Verified message: &quot;Congratulations! Your account has been verified. You are ready to
+                              start browsing suitable tasks&quot;</li>
+                        <li>Only Verified TukTakers can search tasks and bid.</li>
+                        <li>NID capture method, NID number and NID address handling to be discussed with the developer.
+                        </li>
+                        <li>Fingerprint collection is not in MVP (TBC).</li>
+                        <li>TBC: rejection and re-submission flow, verification time target, which profile changes need
+                              re-verification.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>3. Task Categories:</h2>
+            <ul>
+                  <li>Utilities: Electrical, Gas, Water, Internet, Cable TV</li>
+                  <li>Cleaning: Domestic, Commercial, Industrial</li>
+                  <li>Small Construction: Painting, Tiling, Window/Grill, Mason, Carpenter, Other</li>
+                  <li>Moving: House, Shop, Factory, Warehouse, Office, Educational institute</li>
+                  <li>Delivery (goods, documents)</li>
+                  <li>Tutor</li>
+                  <li>Catering</li>
+                  <li>On-demand Patient Care Assistance (PCA)</li>
+                  <li>Personal Assistant</li>
+                  <li>Other (any task type)</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Delivery requires the TukTaker to be 18+ and the task must include pick-up and drop-off
+                              addresses.</li>
+                        <li>&quot;Other&quot; needs search optimised for keyword matching.</li>
+                        <li>Personal Assistant description must be worded carefully to avoid compliance issues.</li>
+                        <li>An emergency PCA service with hotline may be added in future.</li>
+                        <li>Not in MVP (TBC): Car/truck rental, Driver hire, Maid, Cloth alteration, Nursing, Short-time
+                              apartment service.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>4. Task Posting (Service Seeker Flow):</h2>
+            <ul>
+                  <li>Login</li>
+                  <li>Select category and sub-category</li>
+                  <li>Describe the task in detail</li>
+                  <li>Upload photo or measurement where applicable</li>
+                  <li>Select date and time</li>
+                  <li>Select location: District, Thana, Ward/Village, Post code, Road name/Bari</li>
+                  <li>Answer pet question (Cat / Dog)</li>
+                  <li>Set budget</li>
+                  <li>Select payment option (bKash, Nagad)</li>
+                  <li>Review task summary: description, date, time, location, budget, payment option</li>
+                  <li>Confirm and post</li>
+                  <li>Review bids and give a counter offer</li>
+                  <li>Accept offer and pay</li>
+                  <li>Accept task completion; payment is released from the vault</li>
+                  <li>Rate the TukTaker</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>All steps are mandatory.</li>
+                        <li>Pet message: &quot;Dog must be leashed and supervised by owner while the task is being
+                              completed&quot;</li>
+                        <li>Payment goes through the mobile-payment gateway and is held in escrow until the Seeker
+                              accepts completion.</li>
+                        <li>Seeker supplies spare parts for all works.</li>
+                        <li>Task photos are kept for 3 months.</li>
+                        <li>A Seeker can cancel free of charge before bidding closes (see Cancellation).</li>
+                        <li>TBC: when bidding closes, how the budget works against bids, counter-offer limits, task
+                              editing after posting, auto-release if the Seeker never accepts.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>5. Bidding &amp; Task Execution (TukTaker Flow):</h2>
+            <ul>
+                  <li>Login</li>
+                  <li>Set location</li>
+                  <li>Search tasks</li>
+                  <li>Offer a bid</li>
+                  <li>Review counter offer</li>
+                  <li>Accept task</li>
+                  <li>Notify arrival (&quot;I have arrived&quot;)</li>
+                  <li>Confirm task completed</li>
+                  <li>Confirm payment received</li>
+                  <li>Rate the Service Seeker</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>All steps are mandatory.</li>
+                        <li>Only Verified TukTakers can bid.</li>
+                        <li>TukTaker pays own communication costs to and from the site.</li>
+                        <li>A cancelled task is re-opened for bidding automatically.</li>
+                        <li>Arrival notice decides whether the Seeker&#x27;s call-out fee applies.</li>
+                        <li>TukTakers are self-employed contractors paid on commission, not employees.</li>
+                        <li>TBC: search filters and radius, editing or withdrawing a bid, &quot;Set app to ready
+                              mode&quot; (no description in the sheet), no-show handling.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>6. Payments, Escrow &amp; Payouts:</h2>
+            <ul>
+                  <li>Payment methods: bKash, Nagad, Bangla QR</li>
+                  <li>Seeker pays after accepting an offer; money is held in escrow (vault)</li>
+                  <li>Payment released to the TukTaker after the Seeker accepts completion</li>
+                  <li>TukTaker earnings accumulate at account level</li>
+                  <li>TukTaker redeems earnings to bKash, Nagad or Bangla QR</li>
+                  <li>Optional tip from Seeker to TukTaker</li>
+                  <li>Company receiving accounts: bank, bKash, Nagad, Bangla QR through the e-commerce gateway</li>
+            </ul>
+            <div class="subflow"><b>High-Level Flow:</b>In this diagram: Customer = Service Seeker, Freelancer =
+                  TukTaker, Marketplace = the TukTakKaj platform.
+                  <pre>CUSTOMER
+   │
+   │ 1. Purchase Service
+   │
+   ▼
+SSLCOMMERZ
+   │
+   │ 2. Payment Collection
+   │
+   ▼
+MARKETPLACE
+   │
+   │ 3. Order/Service Processing
+   │
+   ▼
+FREELANCER
+   │
+   │ 4. Service Completed
+   │
+   ▼
+AVAILABLE EARNING
+   │
+   │ 5. Freelancer Requests Withdrawal
+   │
+   ▼
+PAYOUT / DISBURSEMENT PROVIDER
+   │
+   │ 6. Send Money
+   │
+   ▼
+FREELANCER&#x27;S
+bKash / Nagad / Bank Account</pre>
+            </div>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Debit/Credit card is not in MVP (TBC).</li>
+                        <li>Redeem amount: minimum 500 BDT, maximum 10,000 BDT; charge of 5 BDT per redemption; paid out
+                              through SSL Commerz.</li>
+                        <li>Tips are optional and must be positive (100 accepted, -100 rejected); no commission on tips.
+                        </li>
+                        <li>Release message: &quot;Payment has been released.&quot;</li>
+                        <li>Tip message: &quot;Well done! Keep up the good work. You have received &lt;tips_amount&gt;
+                              taka tips&quot;</li>
+                        <li>Goodwill credits are not redeemable as cash.</li>
+                        <li>TBC: whether the 10,000 BDT cap is per transaction, day or month; failed or double payments;
+                              payout wallet nomination point; Bangla QR missing from task-posting payment options.</li>
+                        <li>Payout diagram lists a bank account as a destination; the sheet lists only bKash, Nagad and
+                              Bangla QR for redemption (TBC).</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>7. Commission &amp; VAT:</h2>
+            <ul>
+                  <li>Start with a flat commission on TukTaker earnings</li>
+                  <li>Later introduce tiers: Silver, Gold, Platinum</li>
+                  <li>Tier based on tasks completed in a period, total task value and rating</li>
+                  <li>15% VAT on the commission</li>
+                  <li>VAT accumulated per service for the year-end tax return</li>
+                  <li>Platform keeps 50% of cancellation fees as commission</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>No commission on tips.</li>
+                        <li>Conflict in the sheet: flat 20% with tiers 20/18/16 (Split payment) versus flat 17% with
+                              tiers 17/15/13 (Our charge to TukTakers). Founders must choose one.</li>
+                        <li>Flat rate may be adjusted as the platform grows (percentage TBC).</li>
+                        <li>VAT applies to the commission, not the full task value.</li>
+                        <li>A connection fee for Seekers and special offers are future options (TBC).</li>
+                        <li>TBC: who bears the VAT, tier thresholds, downgrade rules.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>8. Cancellation:</h2>
+            <ul>
+                  <li>TukTaker may cancel within 2 hours of accepting the task</li>
+                  <li>Penalty is deducted from the TukTaker&#x27;s next service payment</li>
+                  <li>Cancelled task re-opens for bidding and the Seeker is notified</li>
+                  <li>Seeker may cancel before bidding closes at no cost</li>
+                  <li>Seeker cancelling after bidding closes is charged a fee</li>
+                  <li>Seeker cancelling after the TukTaker arrives is charged a call-out fee</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Seeker fee after bidding closes: 10% of task value.</li>
+                        <li>Call-out fee: up to 250 BDT, deducted through escrow to cover the platform fee and the
+                              TukTaker&#x27;s time. Flat versus percentage to be reviewed.</li>
+                        <li>TukTaker message: &quot;Cancelling a task impacts your rating. Next time try to accommodate
+                              as best as you can&quot;</li>
+                        <li>Penalty message: &quot;Penalty &lt;penalty_amount&gt; from last service has been deducted
+                              from this service fee&quot;</li>
+                        <li>Re-open message: &quot;Your task has been re-opened for bidding. Please keep an eye&quot;
+                        </li>
+                        <li>Seeker messages: &quot;Your task has been cancelled&quot;; &quot;Call out fee
+                              &lt;cancellation_amount&gt; taka has been deducted from your service charges for this
+                              task&quot;</li>
+                        <li>TBC: penalty amount, TukTaker cancellation after 2 hours, how the 10% and call-out fee
+                              combine.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>9. Refunds &amp; Dispute Resolution:</h2>
+            <ul>
+                  <li>Back-end field to refund an agreed amount to the account level (TukTaker and Seeker)</li>
+                  <li>Refund visible in the billing dashboard</li>
+                  <li>Admin grants goodwill credit to a TukTaker account</li>
+                  <li>Admin grants goodwill credit to a Seeker account</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>5% of the task value is deducted as an admin fee to settle a refund.</li>
+                        <li>Goodwill credits are not redeemable to bKash or Nagad; they offset service fees on the next
+                              task(s).</li>
+                        <li>A maximum credit limit must be set to prevent fraud.</li>
+                        <li>TukTaker credit message: &quot;We have provided &lt;credit_amount&gt; taka credits to your
+                              account level. This &lt;credit_amount&gt; taka will be used towards your service fees for
+                              the next task with us&quot;</li>
+                        <li>Seeker credit message: &quot;We have provided &lt;credit_amount&gt; taka credits to your
+                              account. You can use this &lt;credit_amount&gt; towards your service fee for the next task
+                              with us&quot;</li>
+                        <li>TBC: who bears the 5% fee, refund approval steps, how a dispute is raised, credit expiry.
+                        </li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>10. Ratings &amp; Testimonials:</h2>
+            <ul>
+                  <li>Seeker rates TukTaker from 1 to 5 stars</li>
+                  <li>TukTaker rates Seeker from 1 to 5 stars</li>
+                  <li>Short testimonials from TukTakers and Seekers for the website and app</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Rating is mandatory for both sides.</li>
+                        <li>Cancelling a task affects the TukTaker&#x27;s rating.</li>
+                        <li>Rating feeds Silver/Gold/Platinum tiers.</li>
+                        <li>Collect testimonials during the pilot where possible.</li>
+                        <li>TBC: written comments, blind reveal, rating calculation, consequences of low ratings.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>11. Invoicing &amp; Billing Dashboards:</h2>
+            <ul>
+                  <li>Invoice process kept ready for Seekers and TukTakers, monthly or quarterly (TBC)</li>
+                  <li>Select a period and press &quot;Generate Invoice&quot;; user can print and save</li>
+                  <li>Invoice shows company name, address, logo, trade licence number, customer account number, name,
+                        address</li>
+                  <li>Invoice shows period, number of services, per-service category, sub-category and short description
+                  </li>
+                  <li>Invoice shows total value, VAT amount, hotline and email</li>
+                  <li>Billing dashboard at account level for each user, with an entry for every task</li>
+                  <li>Totals tallied month-wise and year-wise</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Invoice charge: 20 BDT per invoice.</li>
+                        <li>Invoices are mainly for business customers&#x27; company records.</li>
+                        <li>Value-added service charges are not in MVP (TBC).</li>
+                        <li>TukTaker invoice wording is copied from the Seeker version and needs its own content
+                              (earnings, commission, VAT, net payout).</li>
+                        <li>Refunds, penalties and credits should appear in the dashboard.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>12. Admin, Reporting &amp; System Maintenance:</h2>
+            <ul>
+                  <li>User report: total TukTakers and Seekers for a date-time range</li>
+                  <li>Revenue report: total revenue for a period</li>
+                  <li>Task report: total tasks for a period</li>
+                  <li>VAT report: total VAT for a period</li>
+                  <li>Super User and General User roles</li>
+                  <li>TukTaker verification, refunds and goodwill credits handled by admin</li>
+                  <li>System partitioning where possible</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Super Users can access and do things General Users cannot.</li>
+                        <li>Major app and web updates are deployed at midnight to reduce downtime.</li>
+                        <li>The admin sheet tab is empty, so admin screens are not specified yet.</li>
+                        <li>&quot;Set app to ready mode&quot; has no description (TBC).</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>13. Security, Data Protection &amp; Retention:</h2>
+            <ul>
+                  <li>Protect customer data and business data</li>
+                  <li>Secure repository</li>
+                  <li>Regular backups to cloud plus an extra copy (external hard drive to start)</li>
+                  <li>Strong passwords: upper and lower case, phrase, numbers, special characters</li>
+                  <li>Data retention policy</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Retention: task images 3 months; seeker-TukTaker chat history 1 year; emails minimum 10
+                              years; feedback form submissions 5 years; user profiles forever unless the user formally
+                              requests removal.</li>
+                        <li>Personal data of Seekers and TukTakers is not shared with third parties for advertising or
+                              mass marketing.</li>
+                        <li>Backup is marked TBC for MVP; backup interval to be agreed.</li>
+                        <li>TBC: a chat feature is not described in any flow; NID image retention and encryption;
+                              removal-request process.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>14. Legal, Compliance &amp; Disclaimers:</h2>
+            <ul>
+                  <li>Hold a company trade licence</li>
+                  <li>Comply with VAT and NBR requirements</li>
+                  <li>Show disclaimers to users</li>
+                  <li>Define Service Seeker and TukTaker terms</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Spare parts for all works are supplied by the Service Seeker.</li>
+                        <li>Both parties take their own safety and security precautions during a task.</li>
+                        <li>Seeker releases payment only after accepting satisfactory completion.</li>
+                        <li>TukTaker pays own communication costs to and from site.</li>
+                        <li>No commission on tips.</li>
+                        <li>TukTakers are self-employed contractors, not employees.</li>
+                        <li>Customised agreements per service type are future (TBC).</li>
+                        <li>14 further Disclaimer rows in the sheet are blank and need content.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>15. Business Operations, Brand &amp; Marketing:</h2>
+            <ul>
+                  <li>Email accounts: info, admin, feedback</li>
+                  <li>Hotline number and hours of operation</li>
+                  <li>Company address: D-3, CPDL Chandralok, 645/C Zakir Hossain Road, Khulshi, Chattogram</li>
+                  <li>Company logo and slogan</li>
+                  <li>App option to call 999 in an emergency</li>
+                  <li>Domains: TukTakKaj.com as primary, TukiTakiKaj.com redirecting to it</li>
+                  <li>Advertising on Metro and targeted ads in pilot areas</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Hotline number and hours are TBC; slogan is pending; level of emergency engagement is not
+                              defined.</li>
+                        <li>Renew domains early; buy extra domains such as .com.bd versions with redirection.</li>
+                        <li>Ad content rules (halal-compliant): avoid images of females, animals, cartoons; avoid music,
+                              instruments and dancing; avoid deceptive content.</li>
+                        <li>Not in MVP: email &quot;media&quot;, radio advertising, merchandise (T-shirt, helmet,
+                              gloves, cap, umbrella, stickers, posters, hand-outs), blog, case studies, partnerships,
+                              publishing customer, service or revenue counts, donations and sponsorship.</li>
+                  </ul>
+            </div>
+      </div>
+      <div class="module">
+            <h2>16. Future Scope (Not in MVP):</h2>
+            <ul>
+                  <li>Fingerprint collection for TukTakers</li>
+                  <li>Debit/Credit card payments</li>
+                  <li>Connection fee for Seekers</li>
+                  <li>Special offers for TukTakers and Seekers</li>
+                  <li>Value-added service charges</li>
+                  <li>Extra categories: Car/truck rental, Driver hire, Maid, Cloth alteration, Nursing, Short-time
+                        apartment service</li>
+                  <li>Customised agreements by service type</li>
+                  <li>Training and certification</li>
+                  <li>Emergency PCA service with hotline</li>
+            </ul>
+            <div class="rules"><b>Conditions / Business Rules:</b>
+                  <ul>
+                        <li>Backup is marked TBC for MVP and should be settled before launch.</li>
+                        <li>Nursing, Maid and Driver categories need a compliance review before launch.</li>
+                  </ul>
+            </div>
+      </div>
+</body>
+
+</html>
