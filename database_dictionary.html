@@ -193,6 +193,22 @@
             font-size: 15px;
         }
 
+        .schema-block summary::after {
+            content: "";
+            flex: 0 0 9px;
+            width: 9px;
+            height: 9px;
+            margin-left: 4px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: rotate(45deg);
+            transition: transform 160ms ease;
+        }
+
+        .schema-block[open] summary::after {
+            transform: rotate(225deg);
+        }
+
         .schema-count {
             flex: 0 0 auto;
             color: var(--muted);
