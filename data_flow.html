@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Table-driven data flow and core table relationships for TukTakKaj.">
+  <title>TukTakKaj — Data Flow &amp; Table Relationships</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --panel: #fff;
+      --ink: #071629;
+      --muted: #586779;
+      --line: #dce4ed;
+      --accent: #78bf24;
+      --blue: #eaf2ff;
+      --green: #edf7e6;
+      --violet: #f2edff;
+      --orange: #fff3e4;
+      --red: #fff0ee;
+      --shadow: 0 8px 24px rgba(7, 22, 41, .06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.6 Arial, Helvetica, sans-serif;
+    }
+
+    a { color: #1456a0; }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 28px auto 56px;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 16px 22px;
+      background: var(--ink);
+      border-bottom: 4px solid var(--accent);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-logo {
+      width: 176px;
+      height: 66px;
+      object-fit: contain;
+    }
+
+    .site-header h1 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.2;
+    }
+
+    .site-header p {
+      margin: 5px 0 0;
+      color: #c5d0dc;
+    }
+
+    .home-link {
+      margin-left: auto;
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid #647486;
+      border-radius: 6px;
+      padding: 7px 11px;
+      white-space: nowrap;
+    }
+
+    .intro,
+    .section,
+    .note {
+      margin-top: 22px;
+      padding: 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 21px;
+      line-height: 1.3;
+    }
+
+    h3 {
+      margin: 0 0 7px;
+      font-size: 16px;
+    }
+
+    p { margin: 0 0 10px; }
+    .muted { color: var(--muted); }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .legend span,
+    .tag {
+      display: inline-block;
+      padding: 3px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .flow {
+      display: grid;
+      gap: 0;
+      margin-top: 20px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .step-marker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 36px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .step-line {
+      width: 2px;
+      flex: 1;
+      min-height: 18px;
+      background: var(--line);
+    }
+
+    .step:last-child .step-line { display: none; }
+
+    .step-card {
+      margin-bottom: 14px;
+      padding: 17px 18px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .step-card p:last-child { margin-bottom: 0; }
+    .step-card .tables { margin-top: 9px; }
+
+    code,
+    .table-name {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .93em;
+    }
+
+    .table-name {
+      display: inline-block;
+      margin: 2px 4px 2px 0;
+      padding: 3px 7px;
+      border-radius: 5px;
+      background: #f0f3f7;
+      color: #142c49;
+      white-space: nowrap;
+    }
+
+    .branch-grid,
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .branch {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .branch p:last-child { margin-bottom: 0; }
+    .branch.dispute { background: var(--red); }
+    .branch.payout { background: var(--green); }
+    .branch.comms { background: var(--blue); }
+    .branch.ops { background: var(--violet); }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 11px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf1f6;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    td { font-size: 14px; }
+    tbody tr:last-child td { border-bottom: 0; }
+
+    .callout {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-left: 4px solid var(--accent);
+      border-radius: 4px;
+      background: #f4f9ef;
+      color: #364735;
+    }
+
+    .callout strong { color: var(--ink); }
+
+    .section > p:last-child { margin-bottom: 0; }
+
+    @media (max-width: 600px) {
+      .page { width: min(100% - 20px, 1120px); margin-top: 10px; }
+      .site-header { gap: 10px; padding: 13px; }
+      .brand-logo { width: 135px; height: 52px; }
+      .home-link { margin-left: 0; }
+      .intro, .section, .note { padding: 16px; }
+      .step { grid-template-columns: 38px minmax(0, 1fr); gap: 9px; }
+      .step-number { width: 31px; height: 31px; flex-basis: 31px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { width: 100%; margin: 0; }
+      .intro, .section, .note, .site-header { box-shadow: none; }
+      .home-link { display: none; }
+      .step-card, .branch { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <img class="brand-logo" src="tuktak-logo.png" alt="TukTak Technology">
+      <div>
+        <h1>TukTakKaj — Data Flow</h1>
+        <p>How platform activity moves through the database tables</p>
+      </div>
+      <a class="home-link" href="index.html">Documentation home</a>
+    </header>
+
+    <section class="intro">
+      <h2>Purpose and reading guide</h2>
+      <p class="muted">This is a table-level view of the TukTakKaj service marketplace: a Seeker posts work, TukTakers bid, payment is held in escrow, the task is completed, and the money is settled and paid out. Each stage names the tables that store its durable records.</p>
+      <p class="muted">Solid flow below describes the normal task lifecycle. Side paths describe disputes, refunds, notifications, and operational support. Table names use <code>schema.table</code> notation.</p>
+      <div class="legend" aria-label="Schema areas">
+        <span>ref / catalog — reference and task definitions</span>
+        <span>iam — users and profiles</span>
+        <span>task — task lifecycle</span>
+        <span>payment / finance — money movement</span>
+        <span>trust / comms / billing — service and records</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Primary data flow</h2>
+      <div class="flow">
+        <article class="step">
+          <div class="step-marker"><span class="step-number">1</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>Accounts and eligibility</h3>
+            <p>Each person has one identity; role-specific profile records store their Seeker, Business, or TukTaker details. KYC and uploaded documents support verification.</p>
+            <div class="tables"><span class="table-name">iam.users</span><span class="table-name">iam.seeker_profiles</span><span class="table-name">iam.business_profiles</span><span class="table-name">iam.tuktaker_profiles</span><span class="table-name">iam.kyc_submissions</span><span class="table-name">ops.files</span></div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-marker"><span class="step-number">2</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>Task definition and draft</h3>
+            <p>The Seeker chooses a service category, enters its configured form answers, sets the budget and service area, and can attach files. Delivery categories can add pickup, drop-off, and stop locations.</p>
+            <div class="tables"><span class="table-name">catalog.categories</span><span class="table-name">catalog.category_fields</span><span class="table-name">task.tasks</span><span class="table-name">task.task_locations</span><span class="table-name">task.task_attachments</span><span class="table-name">ref.districts</span><span class="table-name">ref.upazilas</span><span class="table-name">ref.areas</span></div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-marker"><span class="step-number">3</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>Publish and discover</h3>
+            <p>Publishing validates the category, required form fields, and any required locations. The task changes to <code>open</code>; eligible TukTakers can find it by category, area, or proximity.</p>
+            <div class="tables"><span class="table-name">task.tasks</span><span class="table-name">task.task_status_history</span><span class="table-name">catalog.tuktaker_categories</span><span class="table-name">ref.service_areas</span><span class="table-name">ref.service_area_upazilas</span></div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-marker"><span class="step-number">4</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>Bids, negotiation, and selection</h3>
+            <p>TukTakers submit bids. Each counter-offer round is retained separately; the Seeker accepts one bid, while other bids can be rejected, withdrawn, or expire.</p>
+            <div class="tables"><span class="table-name">task.bids</span><span class="table-name">task.bid_offers</span><span class="table-name">task.tasks</span></div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-marker"><span class="step-number">5</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>Assignment and Seeker payment</h3>
+            <p>Acceptance creates an assignment attempt with the agreed amount. A payment is initiated through a configured provider; provider callbacks are recorded and processed idempotently. A successful payment links to a finance ledger transaction.</p>
+            <div class="tables"><span class="table-name">task.assignments</span><span class="table-name">task.tasks</span><span class="table-name">payment.providers</span><span class="table-name">payment.user_payment_methods</span><span class="table-name">payment.payments</span><span class="table-name">payment.gateway_events</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span></div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-marker"><span class="step-number">6</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>Escrow hold and task execution</h3>
+            <p>Payment is held against the assignment. Arrival, start, completion request, and acceptance are captured as assignment events and state changes. Status history keeps the task's status transitions.</p>
+            <div class="tables"><span class="table-name">payment.escrow_holds</span><span class="table-name">payment.escrow_events</span><span class="table-name">task.assignment_events</span><span class="table-name">task.assignments</span><span class="table-name">task.task_status_history</span></div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-marker"><span class="step-number">7</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>Settlement and accounting</h3>
+            <p>After acceptance (or the configured release path), the settlement records the gross amount and snapshots the commission, VAT, and pricing-rule IDs used. A balanced ledger transaction records the money split, and statement rows make the results readable to each user.</p>
+            <div class="tables"><span class="table-name">finance.task_settlements</span><span class="table-name">finance.pricing_plans</span><span class="table-name">finance.commission_rules</span><span class="table-name">finance.vat_rules</span><span class="table-name">finance.vat_entries</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span><span class="table-name">finance.ledger_accounts</span><span class="table-name">billing.statement_entries</span></div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-marker"><span class="step-number">8</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>TukTaker payout and close-out</h3>
+            <p>The TukTaker requests redemption from their wallet to a verified payout destination. The payout request is tied to ledger transactions; completed services can then receive ratings and feedback.</p>
+            <div class="tables"><span class="table-name">payment.payout_requests</span><span class="table-name">payment.payout_batches</span><span class="table-name">payment.user_payment_methods</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span><span class="table-name">billing.statement_entries</span><span class="table-name">trust.ratings</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Related and exception flows</h2>
+      <div class="branch-grid">
+        <article class="branch dispute">
+          <h3>Dispute, freeze, and resolution</h3>
+          <p>An open dispute may freeze escrow. Staff review messages and evidence, then resolve through a release/refund/adjustment path.</p>
+          <p><span class="table-name">trust.disputes</span><span class="table-name">trust.dispute_messages</span><span class="table-name">trust.dispute_evidence</span><span class="table-name">payment.escrow_holds</span><span class="table-name">payment.refunds</span><span class="table-name">finance.manual_adjustments</span></p>
+        </article>
+        <article class="branch payout">
+          <h3>Refunds and cancellations</h3>
+          <p>Refunds, cancellation fees, penalties, and credits are distinct records; money changes are posted to the ledger rather than editing prior entries.</p>
+          <p><span class="table-name">payment.refunds</span><span class="table-name">task.cancellations</span><span class="table-name">finance.penalties</span><span class="table-name">finance.credits</span><span class="table-name">finance.ledger_transactions</span></p>
+        </article>
+        <article class="branch comms">
+          <h3>Messages and notifications</h3>
+          <p>Task conversations and user notifications are linked to their task/user context. Delivery status and notification preferences are stored separately from task state.</p>
+          <p><span class="table-name">comms.conversations</span><span class="table-name">comms.messages</span><span class="table-name">comms.user_notifications</span><span class="table-name">comms.notification_preferences</span></p>
+        </article>
+        <article class="branch ops">
+          <h3>Integration and governance</h3>
+          <p>Outbox events support reliable integration delivery; idempotency keys protect retryable requests. Audit, privacy retention, and legal holds govern sensitive data lifecycle.</p>
+          <p><span class="table-name">ops.outbox_events</span><span class="table-name">ops.idempotency_keys</span><span class="table-name">audit.audit_logs</span><span class="table-name">ops.data_retention_policies</span><span class="table-name">ops.legal_holds</span><span class="table-name">ops.retention_execution_log</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Core table relationships</h2>
+      <p class="muted">The keys below are based on declared foreign keys in the schema. “One-to-many” means a parent row can be associated with multiple child rows.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Parent table</th><th>Child table</th><th>Relationship key</th><th>Why it exists</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="table-name">iam.users</span></td><td><span class="table-name">iam.seeker_profiles</span>, <span class="table-name">iam.business_profiles</span>, <span class="table-name">iam.tuktaker_profiles</span></td><td>Profile <code>user_id</code> → user <code>id</code></td><td>One identity can carry the appropriate marketplace profile(s).</td></tr>
+            <tr><td><span class="table-name">catalog.categories</span></td><td><span class="table-name">catalog.category_fields</span></td><td><code>category_fields.category_id</code> → <code>categories.id</code></td><td>Defines task form fields per category.</td></tr>
+            <tr><td><span class="table-name">catalog.categories</span></td><td><span class="table-name">task.tasks</span></td><td><code>tasks.category_id</code> → <code>categories.id</code></td><td>Each task belongs to one service category.</td></tr>
+            <tr><td><span class="table-name">task.tasks</span></td><td><span class="table-name">task.task_locations</span>, <span class="table-name">task.task_attachments</span>, <span class="table-name">task.bids</span></td><td>Child <code>task_id</code> → <code>tasks.id</code></td><td>Stores task details, uploaded evidence, and competing offers.</td></tr>
+            <tr><td><span class="table-name">task.bids</span></td><td><span class="table-name">task.bid_offers</span>, <span class="table-name">task.assignments</span></td><td>Offers use <code>bid_id</code>; assignment uses <code>bid_id</code></td><td>Preserves negotiation rounds and the selected bid.</td></tr>
+            <tr><td><span class="table-name">task.assignments</span></td><td><span class="table-name">payment.payments</span>, <span class="table-name">payment.escrow_holds</span>, <span class="table-name">finance.task_settlements</span></td><td>Payment/escrow/settlement use <code>assignment_id</code></td><td>Connects the accepted work attempt to payment, held funds, and final settlement.</td></tr>
+            <tr><td><span class="table-name">payment.payments</span></td><td><span class="table-name">payment.escrow_holds</span></td><td><code>escrow_holds.payment_id</code> → <code>payments.id</code></td><td>Identifies the payment funding a particular escrow hold.</td></tr>
+            <tr><td><span class="table-name">finance.ledger_transactions</span></td><td><span class="table-name">finance.ledger_entries</span></td><td><code>ledger_entries.transaction_id</code> → <code>ledger_transactions.id</code></td><td>Stores debit and credit lines; a posted transaction must balance.</td></tr>
+            <tr><td><span class="table-name">finance.ledger_accounts</span></td><td><span class="table-name">finance.ledger_entries</span></td><td><code>ledger_entries.account_id</code> → <code>ledger_accounts.id</code></td><td>Each ledger line changes an account balance.</td></tr>
+            <tr><td><span class="table-name">finance.task_settlements</span></td><td><span class="table-name">billing.invoice_lines</span></td><td><code>invoice_lines.settlement_id</code> → <code>task_settlements.id</code></td><td>Lets invoices include the final task settlement.</td></tr>
+            <tr><td><span class="table-name">finance.ledger_transactions</span></td><td><span class="table-name">billing.statement_entries</span></td><td><code>statement_entries.ledger_transaction_id</code> → <code>ledger_transactions.id</code></td><td>Links user-facing statement rows to their posted money movement.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <strong>Important ledger design:</strong> ledger entries are append-only and are never edited or deleted. Correct a posted movement with a reversal transaction. The ledger transaction’s task/assignment references are intentionally loose references (not foreign keys); payment, escrow, and settlement rows provide the explicit business links.
+      </div>
+    </section>
+
+    <section class="note">
+      <h2>Data handling principles represented in this flow</h2>
+      <div class="support-grid">
+        <p><strong>Snapshot rules:</strong> settlements retain rule IDs and computed values so later rule changes do not rewrite history.</p>
+        <p><strong>Money:</strong> store BDT amounts as fixed-precision numeric values; every ledger movement must balance.</p>
+        <p><strong>Lifecycle:</strong> task and assignment status records keep workflow state and event history.</p>
+        <p><strong>Privacy:</strong> sensitive identity documents are file metadata in <code>ops.files</code>; retention jobs must respect legal holds.</p>
+      </div>
+      <p class="muted">Reference source: TukTakKaj PostgreSQL schema v2 and its database design notes. This diagram summarizes the intended table-level flow; it is not a replacement for foreign-key definitions or application workflow validation.</p>
+    </section>
+  </main>
+</body>
+</html>

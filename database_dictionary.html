@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TukTakKaj — Database Dictionary</title>
+    <style>
+        :root {
+            --bg: #f7f8fa;
+            --panel: #ffffff;
+            --primary: #071629;
+            --accent: #78bf24;
+            --muted: #556273;
+            --line: #dfe5ee;
+            --soft: #eef5e9;
+            --link: #0d5ad1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--primary);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin: 0 0 22px;
+            padding: 12px 18px;
+            background: var(--primary);
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .brand-logo {
+            display: block;
+            width: 184px;
+            height: 72px;
+            object-fit: contain;
+        }
+
+        .site-header h1 {
+            margin: 0;
+            color: #fff;
+            font-size: clamp(22px, 3vw, 32px);
+        }
+
+        .home-link {
+            margin-left: auto;
+            padding: 7px 11px;
+            border: 1px solid #647486;
+            border-radius: 6px;
+            color: #fff;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .home-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+        }
+
+        .page {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 16px 40px;
+        }
+
+        .summary,
+        .module {
+            margin: 0 0 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .summary h2,
+        .module h2 {
+            font-size: 18px;
+            margin: 0 0 8px;
+        }
+
+        .summary p,
+        .module p,
+        .module li {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 14px 0 0;
+        }
+
+        .stat {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        th {
+            background: #f3f6fa;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .table-list {
+            margin: 16px 0 0;
+            padding-left: 18px;
+        }
+
+        .table-list li {
+            margin: 0 0 10px;
+            line-height: 1.55;
+        }
+
+        .table-name {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .meta {
+            display: inline-block;
+            margin-top: 4px;
+            color: var(--primary);
+            background: var(--soft);
+            border-left: 3px solid var(--accent);
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .schema-block {
+            margin: 0 0 22px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .schema-block summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            list-style: none;
+            cursor: pointer;
+            padding: 14px 18px;
+            background: linear-gradient(180deg, #f7faf4, #f3f8ee);
+            border-bottom: 1px solid var(--line);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .schema-count {
+            flex: 0 0 auto;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .schema-block summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .schema-content {
+            display: grid;
+            gap: 16px;
+            padding: 18px;
+        }
+
+        .table-card {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #fff;
+            padding: 14px 14px 8px;
+        }
+
+        .table-card h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+            color: var(--primary);
+        }
+
+        .table-card p {
+            margin: 0 0 10px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .table-card ul {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--primary);
+            font-size: 13px;
+        }
+
+        .table-card li {
+            margin: 0 0 7px;
+            line-height: 1.5;
+        }
+
+        .field-type {
+            display: inline-block;
+            margin-left: 4px;
+            padding: 0 4px;
+            border-radius: 3px;
+            background: var(--soft);
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .note {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #d5dfe7;
+        }
+
+        .note-box {
+            background: #f8faf8;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+
+        a {
+            color: var(--link);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .site-header {
+                padding: 10px 12px;
+            }
+
+            .brand-logo {
+                width: 144px;
+                height: 56px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <img class="brand-logo" src="tuktak-logo.png" alt="TukTak Technology logo">
+        <h1>TukTakKaj — Database Dictionary</h1>
+        <a class="home-link" href="index.html">Documentation home</a>
+    </header>
+
+    <main class="page">
+        <section class="summary">
+            <h2>System overview</h2>
+            <p>
+                This database is organized by business domain and designed to support the TukTakKaj marketplace,
+                including user identity, task posting, bidding, payments, finance, trust, support, and reporting.
+            </p>
+
+            <div class="stats">
+                <div class="stat"><strong>134</strong> Tables</div>
+                <div class="stat"><strong>1617</strong> Fields</div>
+                <div class="stat"><strong>14</strong> Schemas</div>
+                <div class="stat"><strong>PostgreSQL</strong> 15+</div>
+            </div>
+        </section>
+
+        <section class="summary">
+            <h2>Key conventions</h2>
+            <p>
+                The data model follows a consistent naming and lifecycle pattern across the platform:
+            </p>
+            <ul class="table-list">
+                <li><strong>id</strong> = internal database key</li>
+                <li><strong>public_id</strong> = UUID used in APIs</li>
+                <li><strong>created_at / updated_at</strong> = timestamp tracking</li>
+                <li><strong>deleted_at</strong> = soft delete marker</li>
+                <li><strong>version</strong> = optimistic locking counter</li>
+                <li><strong>*_enc</strong> and <strong>*_hash</strong> = encrypted and hashed sensitive fields</li>
+                <li><strong>Money</strong> is stored in BDT with 2 decimal places</li>
+            </ul>
+        </section>
+
+        <section class="summary">
+            <h2>Module summary</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Schema</th>
+                            <th>Purpose</th>
+                            <th>Tables</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ref</td>
+                            <td>Reference geography, service areas, currencies</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>ops</td>
+                            <td>System settings, files, encryption, retention, outbox</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>iam</td>
+                            <td>Users, profiles, roles, KYC and access</td>
+                            <td>26</td>
+                        </tr>
+                        <tr>
+                            <td>catalog</td>
+                            <td>Categories, form fields, skills, certifications</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>task</td>
+                            <td>Marketplace tasks, bids, assignments, cancellations</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>payment</td>
+                            <td>Payments, escrow, payouts, refunds, reconciliation</td>
+                            <td>15</td>
+                        </tr>
+                        <tr>
+                            <td>finance</td>
+                            <td>Commission, VAT, settlements, pricing and ledger</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>trust</td>
+                            <td>Ratings, disputes, reviews and risk</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>comms</td>
+                            <td>Chat, notifications, tickets, emails</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <td>billing</td>
+                            <td>Invoices and billing dashboard</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>content</td>
+                            <td>Legal docs, FAQs, disclaimers, preferences</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>marketing</td>
+                            <td>Promotions, referrals and redemptions</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>audit</td>
+                            <td>Immutable trail of sensitive changes</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>reporting</td>
+                            <td>KPIs, report generation and scheduling</td>
+                            <td>3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="module">
+            <h2>Table detail overview</h2>
+            <p>These sections show the main tables and the most important field names and purpose in each domain.</p>
+        </section>
+
+        <details class="schema-block" open>
+            <summary><span>ref — Reference data and geography</span><span class="schema-count">Tables: 8</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>ref.divisions</h3>
+                    <p>Bangladesh divisions. Top-level geography used in service areas and addresses.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">integer</span> — primary key</li>
+                        <li><strong>code</strong> <span class="field-type">text</span> — division code</li>
+                        <li><strong>name_en</strong> <span class="field-type">text</span> — English name</li>
+                        <li><strong>name_bn</strong> <span class="field-type">text</span> — Bangla name</li>
+                        <li><strong>geo</strong> <span class="field-type">geography(Point,4326)</span> — map position</li>
+                        <li><strong>is_active</strong> <span class="field-type">boolean</span> — active flag</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>ref.districts</h3>
+                    <p>Districts under each division.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">integer</span> — primary key</li>
+                        <li><strong>division_id</strong> <span class="field-type">integer</span> — parent division</li>
+                        <li><strong>name_en</strong> <span class="field-type">text</span> — district name</li>
+                        <li><strong>name_bn</strong> <span class="field-type">text</span> — Bangla name</li>
+                        <li><strong>geo</strong> <span class="field-type">geography(Point,4326)</span> — location</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>ref.upazilas</h3>
+                    <p>Upazila or thana records under each district.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">integer</span> — primary key</li>
+                        <li><strong>district_id</strong> <span class="field-type">integer</span> — parent district</li>
+                        <li><strong>name_en</strong> <span class="field-type">text</span> — upazila name</li>
+                        <li><strong>name_bn</strong> <span class="field-type">text</span> — Bangla name</li>
+                        <li><strong>is_active</strong> <span class="field-type">boolean</span> — active flag</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>ref.areas</h3>
+                    <p>Detailed location records such as ward, union, village, or mahalla.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">integer</span> — primary key</li>
+                        <li><strong>upazila_id</strong> <span class="field-type">integer</span> — parent upazila</li>
+                        <li><strong>area_type</strong> <span class="field-type">text</span> — location type</li>
+                        <li><strong>name_en</strong> <span class="field-type">text</span> — area name</li>
+                        <li><strong>name_bn</strong> <span class="field-type">text</span> — Bangla name</li>
+                        <li><strong>geo</strong> <span class="field-type">geography(Point,4326)</span> — map coordinate</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>ref.post_codes</h3>
+                    <p>Bangladesh postal codes and their post office/upazila mapping.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">integer</span> — primary key</li>
+                        <li><strong>post_code</strong> <span class="field-type">text</span> — four-digit postal code</li>
+                        <li><strong>post_office</strong> <span class="field-type">text</span> — post office name</li>
+                        <li><strong>upazila_id</strong> <span class="field-type">integer</span> — related upazila, when known</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>ref.service_areas</h3>
+                    <p>Regions where the platform plans, pilots, or runs services.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">integer</span> — primary key</li>
+                        <li><strong>code</strong> <span class="field-type">text</span> — unique service area code</li>
+                        <li><strong>name</strong> <span class="field-type">text</span> — display name</li>
+                        <li><strong>boundary</strong> <span class="field-type">geography(MultiPolygon,4326)</span> — optional geographic boundary</li>
+                        <li><strong>status</strong> <span class="field-type">text</span> — planned, pilot, live, or paused</li>
+                        <li><strong>launched_at</strong> <span class="field-type">date</span> — launch date</li>
+                        <li><strong>created_at</strong> <span class="field-type">timestamptz</span> — record creation time</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>ref.service_area_upazilas</h3>
+                    <p>Join table mapping service areas to the upazilas they cover.</p>
+                    <ul>
+                        <li><strong>service_area_id</strong> <span class="field-type">integer</span> — linked service area; part of primary key</li>
+                        <li><strong>upazila_id</strong> <span class="field-type">integer</span> — covered upazila; part of primary key</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>ref.currencies</h3>
+                    <p>Supported currencies and their display/precision settings.</p>
+                    <ul>
+                        <li><strong>code</strong> <span class="field-type">ops.currency_code</span> — currency code and primary key</li>
+                        <li><strong>name</strong> <span class="field-type">text</span> — currency name</li>
+                        <li><strong>symbol</strong> <span class="field-type">text</span> — display symbol</li>
+                        <li><strong>minor_units</strong> <span class="field-type">smallint</span> — decimal precision, defaults to 2</li>
+                        <li><strong>is_active</strong> <span class="field-type">boolean</span> — whether the currency is enabled</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>ops — Platform settings, files, security, and retention</span><span class="schema-count">Tables: 12</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>ops.files</h3>
+                    <p>Metadata for uploaded files stored in object storage.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, public_id <span class="field-type">uuid</span>, owner_user_id <span class="field-type">bigint</span>, purpose <span class="field-type">ops.file_purpose</span>, storage_provider <span class="field-type">text</span>, bucket <span class="field-type">text</span>, object_key <span class="field-type">text</span>, mime_type <span class="field-type">text</span>, size_bytes <span class="field-type">bigint</span>, scan_status <span class="field-type">ops.scan_status</span>, created_at <span class="field-type">timestamptz</span>, deleted_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.system_settings</h3>
+                    <p>Admin-managed settings that control application behavior.</p>
+                    <p><strong>Key fields:</strong> scope <span class="field-type">text</span>, key <span class="field-type">text</span>, value <span class="field-type">jsonb</span>, description <span class="field-type">text</span>, is_secret <span class="field-type">boolean</span>, updated_by <span class="field-type">bigint</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.feature_flags</h3>
+                    <p>Feature toggles and gradual rollout configuration.</p>
+                    <p><strong>Key fields:</strong> key <span class="field-type">text</span>, description <span class="field-type">text</span>, is_enabled <span class="field-type">boolean</span>, rollout_pct <span class="field-type">smallint</span>, rules <span class="field-type">jsonb</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.outbox_events</h3>
+                    <p>Transactional event queue for reliably delivering integration events.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, aggregate_type <span class="field-type">text</span>, aggregate_id <span class="field-type">text</span>, event_type <span class="field-type">text</span>, payload <span class="field-type">jsonb</span>, created_at <span class="field-type">timestamptz</span>, available_at <span class="field-type">timestamptz</span>, processed_at <span class="field-type">timestamptz</span>, attempts <span class="field-type">integer</span>, last_error <span class="field-type">text</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.idempotency_keys</h3>
+                    <p>Prevents duplicate processing when clients retry API requests.</p>
+                    <p><strong>Key fields:</strong> scope <span class="field-type">text</span>, key <span class="field-type">text</span>, request_hash <span class="field-type">bytea</span>, response_code <span class="field-type">integer</span>, response_body <span class="field-type">jsonb</span>, locked_until <span class="field-type">timestamptz</span>, created_at <span class="field-type">timestamptz</span>, expires_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.data_retention_policies</h3>
+                    <p>Defines retention periods and lifecycle actions for stored data.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, entity <span class="field-type">text</span>, retain_for <span class="field-type">interval</span>, action <span class="field-type">ops.retention_action</span>, legal_basis <span class="field-type">text</span>, notify_before_days <span class="field-type">integer</span>, requires_approval <span class="field-type">boolean</span>, archive_destination <span class="field-type">text</span>, is_active <span class="field-type">boolean</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.backup_runs</h3>
+                    <p>Backup execution and restore-test records.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, backup_type <span class="field-type">text</span>, destination <span class="field-type">text</span>, started_at <span class="field-type">timestamptz</span>, finished_at <span class="field-type">timestamptz</span>, size_bytes <span class="field-type">bigint</span>, status <span class="field-type">text</span>, checksum <span class="field-type">text</span>, restore_tested_at <span class="field-type">timestamptz</span>, notes <span class="field-type">text</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.app_releases</h3>
+                    <p>App version information and minimum supported versions.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, platform <span class="field-type">text</span>, version <span class="field-type">text</span>, min_supported_version <span class="field-type">text</span>, force_update <span class="field-type">boolean</span>, release_notes <span class="field-type">text</span>, released_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.maintenance_windows</h3>
+                    <p>Planned downtime windows and localized user messages.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, title <span class="field-type">text</span>, starts_at <span class="field-type">timestamptz</span>, ends_at <span class="field-type">timestamptz</span>, is_read_only <span class="field-type">boolean</span>, message_en <span class="field-type">text</span>, message_bn <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.encryption_keys</h3>
+                    <p>Key-version registry used to manage encryption and key rotation.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, key_version <span class="field-type">smallint</span>, key_alias <span class="field-type">text</span>, algorithm <span class="field-type">text</span>, kms_provider <span class="field-type">text</span>, kms_key_id <span class="field-type">text</span>, is_primary <span class="field-type">boolean</span>, is_active <span class="field-type">boolean</span>, rotated_at <span class="field-type">timestamptz</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.legal_holds</h3>
+                    <p>Compliance holds that prevent deletion of specified data.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, public_id <span class="field-type">uuid</span>, hold_code <span class="field-type">text</span>, hold_type <span class="field-type">text</span>, scope <span class="field-type">text</span>, target_user_id <span class="field-type">bigint</span>, target_task_id <span class="field-type">bigint</span>, data_categories <span class="field-type">text[]</span>, starts_at <span class="field-type">timestamptz</span>, ends_at <span class="field-type">timestamptz</span>, status <span class="field-type">text</span>, issued_by <span class="field-type">bigint</span>, approved_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>ops.retention_execution_log</h3>
+                    <p>Audit trail of retention and data lifecycle jobs.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, policy_id <span class="field-type">integer</span>, action_taken <span class="field-type">text</span>, records_affected <span class="field-type">integer</span>, legal_hold_id <span class="field-type">bigint</span>, executed_by <span class="field-type">bigint</span>, job_reference <span class="field-type">text</span>, error_message <span class="field-type">text</span>, details <span class="field-type">jsonb</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>iam — Users, profiles, sessions, KYC</span><span class="schema-count">Tables: 26</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>iam.users</h3>
+                    <p>Master identity for all Seekers, TukTakers, and staff.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — internal user ID</li>
+                        <li><strong>public_id</strong> <span class="field-type">uuid</span> — public UUID</li>
+                        <li><strong>mobile</strong> <span class="field-type">ops.bd_mobile</span> — phone number</li>
+                        <li><strong>email</strong> <span class="field-type">citext</span> — email address</li>
+                        <li><strong>password_hash</strong> <span class="field-type">text</span> — authentication hash</li>
+                        <li><strong>status</strong> <span class="field-type">iam.user_status</span> — active, blocked, disabled, etc.</li>
+                        <li><strong>is_staff</strong> <span class="field-type">boolean</span> — staff/admin flag</li>
+                        <li><strong>created_at</strong> <span class="field-type">timestamptz</span> — signup timestamp</li>
+                        <li><strong>updated_at</strong> <span class="field-type">timestamptz</span> — last update</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>iam.seeker_profiles</h3>
+                    <p>Seeker account details and activity counters.</p>
+                    <ul>
+                        <li><strong>user_id</strong> <span class="field-type">bigint</span> — parent user</li>
+                        <li><strong>first_name</strong> <span class="field-type">text</span> — first name</li>
+                        <li><strong>last_name</strong> <span class="field-type">text</span> — last name</li>
+                        <li><strong>date_of_birth</strong> <span class="field-type">date</span> — DOB</li>
+                        <li><strong>gender</strong> <span class="field-type">iam.gender</span> — sex/gender</li>
+                        <li><strong>profile_photo_file_id</strong> <span class="field-type">bigint</span> — profile image</li>
+                        <li><strong>tasks_posted_count</strong> <span class="field-type">integer</span> — total tasks created</li>
+                        <li><strong>total_spent</strong> <span class="field-type">ops.money</span> — lifetime spend</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>iam.tuktaker_profiles</h3>
+                    <p>Worker service profile and verification state.</p>
+                    <ul>
+                        <li><strong>user_id</strong> <span class="field-type">bigint</span> — parent user</li>
+                        <li><strong>first_name</strong> <span class="field-type">text</span> — first name</li>
+                        <li><strong>last_name</strong> <span class="field-type">text</span> — last name</li>
+                        <li><strong>verification_status</strong> <span class="field-type">iam.verification_status</span> — pending/verified/rejected</li>
+                        <li><strong>is_ready</strong> <span class="field-type">boolean</span> — online availability</li>
+                        <li><strong>service_radius_km</strong> <span class="field-type">numeric(5,1)</span> — coverage radius</li>
+                        <li><strong>last_known_geo</strong> <span class="field-type">geography(Point,4326)</span> — last known coordinate</li>
+                        <li><strong>total_earned</strong> <span class="field-type">ops.money</span> — lifetime income</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>iam.auth_sessions</h3>
+                    <p>Login sessions and refresh-token tracking.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — session key</li>
+                        <li><strong>user_id</strong> <span class="field-type">bigint</span> — owning user</li>
+                        <li><strong>refresh_token_hash</strong> <span class="field-type">bytea</span> — session token hash</li>
+                        <li><strong>user_agent</strong> <span class="field-type">text</span> — browser/device details</li>
+                        <li><strong>ip</strong> <span class="field-type">inet</span> — client IP</li>
+                        <li><strong>expires_at</strong> <span class="field-type">timestamptz</span> — expiration time</li>
+                        <li><strong>revoked_at</strong> <span class="field-type">timestamptz</span> — session invalidation time</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>iam.otp_requests</h3>
+                    <p>One-time password requests for signup, login, password reset, and sensitive actions.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, mobile <span class="field-type">ops.bd_mobile</span>, user_id <span class="field-type">bigint</span>, purpose <span class="field-type">iam.otp_purpose</span>, channel <span class="field-type">iam.otp_channel</span>, code_hash <span class="field-type">bytea</span>, attempts <span class="field-type">smallint</span>, max_attempts <span class="field-type">smallint</span>, expires_at <span class="field-type">timestamptz</span>, verified_at <span class="field-type">timestamptz</span>, provider <span class="field-type">text</span>, ip <span class="field-type">inet</span>, device_uid <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+
+                <div class="table-card">
+                    <h3>iam.kyc_submissions</h3>
+                    <p>Identity verification attempts.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — submission ID</li>
+                        <li><strong>tuktaker_user_id</strong> <span class="field-type">bigint</span> — worker being verified</li>
+                        <li><strong>status</strong> <span class="field-type">iam.kyc_status</span> — pending/approved/rejected</li>
+                        <li><strong>submitted_at</strong> <span class="field-type">timestamptz</span> — verification date</li>
+                        <li><strong>reviewed_by</strong> <span class="field-type">bigint</span> — staff reviewer</li>
+                        <li><strong>reviewer_notes</strong> <span class="field-type">text</span> — review explanation</li>
+                        <li><strong>nid_number_hash</strong> <span class="field-type">bytea</span> — encrypted or hashed NID</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>iam.password_history</h3>
+                    <p>Stores prior password hashes to prevent password reuse.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, password_hash <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.devices</h3>
+                    <p>Registered user devices and push notification tokens.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, device_uid <span class="field-type">text</span>, platform <span class="field-type">text</span>, push_provider <span class="field-type">text</span>, push_token <span class="field-type">text</span>, app_version <span class="field-type">text</span>, os_version <span class="field-type">text</span>, device_model <span class="field-type">text</span>, is_active <span class="field-type">boolean</span>, first_seen_at <span class="field-type">timestamptz</span>, last_seen_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.login_events</h3>
+                    <p>Security log of successful and failed login attempts.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, mobile <span class="field-type">text</span>, success <span class="field-type">boolean</span>, failure_reason <span class="field-type">text</span>, ip <span class="field-type">inet</span>, user_agent <span class="field-type">text</span>, device_uid <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.roles</h3>
+                    <p>Staff role definitions such as Support Agent or Finance Admin.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, description <span class="field-type">text</span>, is_super_user <span class="field-type">boolean</span>, is_system <span class="field-type">boolean</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.permissions</h3>
+                    <p>Fine-grained permissions grouped by application module.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, module <span class="field-type">text</span>, description <span class="field-type">text</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.role_permissions</h3>
+                    <p>Maps permissions to roles.</p>
+                    <p><strong>Key fields:</strong> role_id <span class="field-type">integer</span>, permission_id <span class="field-type">integer</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.user_roles</h3>
+                    <p>Staff role assignments, including grant and expiry details.</p>
+                    <p><strong>Key fields:</strong> user_id <span class="field-type">bigint</span>, role_id <span class="field-type">integer</span>, granted_by <span class="field-type">bigint</span>, granted_at <span class="field-type">timestamptz</span>, expires_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.staff_profiles</h3>
+                    <p>Employee details for staff accounts.</p>
+                    <p><strong>Key fields:</strong> user_id <span class="field-type">bigint</span>, employee_no <span class="field-type">text</span>, full_name <span class="field-type">text</span>, department <span class="field-type">text</span>, designation <span class="field-type">text</span>, work_email <span class="field-type">citext</span>, is_active <span class="field-type">boolean</span>, created_at <span class="field-type">timestamptz</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.business_profiles</h3>
+                    <p>Business identity and verification details for seeker accounts.</p>
+                    <p><strong>Key fields:</strong> seeker_user_id <span class="field-type">bigint</span>, company_name <span class="field-type">text</span>, trade_licence_no <span class="field-type">text</span>, bin <span class="field-type">text</span>, tin <span class="field-type">text</span>, invoice_email <span class="field-type">citext</span>, verification_status <span class="field-type">iam.verification_status</span>, verified_at <span class="field-type">timestamptz</span>, verified_by <span class="field-type">bigint</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.tuktaker_service_upazilas</h3>
+                    <p>Maps TukTakers to the upazilas where they accept work.</p>
+                    <p><strong>Key fields:</strong> user_id <span class="field-type">bigint</span>, upazila_id <span class="field-type">integer</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.tuktaker_availability</h3>
+                    <p>Weekly working hours used for matching and scheduling.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, weekday <span class="field-type">smallint</span>, start_time <span class="field-type">time</span>, end_time <span class="field-type">time</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.user_addresses</h3>
+                    <p>Saved user addresses for home, work, billing, and other purposes.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, kind <span class="field-type">iam.address_kind</span>, division_id <span class="field-type">integer</span>, district_id <span class="field-type">integer</span>, upazila_id <span class="field-type">integer</span>, area_id <span class="field-type">integer</span>, post_code <span class="field-type">text</span>, road_name_house <span class="field-type">text</span>, address_line1 <span class="field-type">text</span>, address_line2 <span class="field-type">text</span>, landmark <span class="field-type">text</span>, geo <span class="field-type">geography(Point,4326)</span>, is_default <span class="field-type">boolean</span>, created_at <span class="field-type">timestamptz</span>, updated_at <span class="field-type">timestamptz</span>, deleted_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.user_blocks</h3>
+                    <p>Records users who have blocked one another.</p>
+                    <p><strong>Key fields:</strong> blocker_user_id <span class="field-type">bigint</span>, blocked_user_id <span class="field-type">bigint</span>, reason <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.kyc_providers</h3>
+                    <p>Configuration and health status for identity verification providers.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, provider_type <span class="field-type">text</span>, supported_docs <span class="field-type">text[]</span>, config <span class="field-type">jsonb</span>, priority <span class="field-type">integer</span>, health_status <span class="field-type">text</span>, is_active <span class="field-type">boolean</span>, created_at <span class="field-type">timestamptz</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.kyc_verification_rules</h3>
+                    <p>Configurable KYC requirements and provider selection rules.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, requires_nid_front <span class="field-type">boolean</span>, requires_nid_back <span class="field-type">boolean</span>, requires_selfie <span class="field-type">boolean</span>, requires_face_match <span class="field-type">boolean</span>, requires_fingerprint <span class="field-type">boolean</span>, min_age_years <span class="field-type">smallint</span>, primary_provider_id <span class="field-type">integer</span>, fallback_provider_id <span class="field-type">integer</span>, is_active <span class="field-type">boolean</span>, created_at <span class="field-type">timestamptz</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.kyc_documents</h3>
+                    <p>Document files and OCR data attached to KYC submissions.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, submission_id <span class="field-type">bigint</span>, doc_type <span class="field-type">iam.kyc_doc_type</span>, slot <span class="field-type">smallint</span>, file_id <span class="field-type">bigint</span>, ocr_data <span class="field-type">jsonb</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.kyc_rejection_reasons</h3>
+                    <p>Standardized KYC rejection reasons and resubmission rules.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, description_en <span class="field-type">text</span>, description_bn <span class="field-type">text</span>, allows_resubmission <span class="field-type">boolean</span>, is_active <span class="field-type">boolean</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.kyc_api_logs</h3>
+                    <p>Audit and performance records for KYC provider API calls.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, provider_id <span class="field-type">integer</span>, user_id <span class="field-type">bigint</span>, submission_id <span class="field-type">bigint</span>, call_type <span class="field-type">text</span>, request_payload <span class="field-type">jsonb</span>, response_payload <span class="field-type">jsonb</span>, response_status <span class="field-type">text</span>, latency_ms <span class="field-type">integer</span>, cost <span class="field-type">numeric(10,4)</span>, error_message <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.kyc_decryption_audit</h3>
+                    <p>Immutable record of staff access to decrypted KYC information.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, submission_id <span class="field-type">bigint</span>, accessed_by <span class="field-type">bigint</span>, field_accessed <span class="field-type">text</span>, purpose <span class="field-type">text</span>, ip <span class="field-type">inet</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>iam.data_removal_requests</h3>
+                    <p>Tracks formal user requests to delete personal data.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, status <span class="field-type">iam.removal_status</span>, reason <span class="field-type">text</span>, requested_at <span class="field-type">timestamptz</span>, processed_by <span class="field-type">bigint</span>, completed_at <span class="field-type">timestamptz</span>, rejection_reason <span class="field-type">text</span>, retained_data_note <span class="field-type">text</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>catalog — Categories, fields, and worker skills</span><span class="schema-count">Tables: 7</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>catalog.categories</h3>
+                    <p>Service category tree. Root categories have no parent; tasks must reference an active leaf
+                        category.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">integer</span> — category ID</li>
+                        <li><strong>parent_id</strong> <span class="field-type">integer</span> — parent category; null for a root category</li>
+                        <li><strong>level</strong> <span class="field-type">smallint</span> — hierarchy depth, calculated from the parent</li>
+                        <li><strong>slug</strong> <span class="field-type">text</span> — URL/category key</li>
+                        <li><strong>name_en</strong> <span class="field-type">text</span> — English label</li>
+                        <li><strong>name_bn</strong> <span class="field-type">text</span> — Bangla label</li>
+                        <li><strong>description</strong> <span class="field-type">text</span> — category description</li>
+                        <li><strong>icon_key</strong> <span class="field-type">text</span> — UI icon identifier</li>
+                        <li><strong>launch_status</strong> <span class="field-type">catalog.launch_status</span> — MVP, planned, future, paused, or retired</li>
+                        <li><strong>is_active</strong> <span class="field-type">boolean</span> — whether users can select the category</li>
+                        <li><strong>requires_pickup_dropoff</strong> <span class="field-type">boolean</span> — require both route locations before publishing
+                        </li>
+                        <li><strong>min_tuktaker_age</strong> <span class="field-type">smallint</span> — minimum worker age for category eligibility</li>
+                        <li><strong>requires_compliance_review</strong> <span class="field-type">boolean</span> / <strong>compliance_cleared_at</strong> —
+                            compliance gate and clearance time</li>
+                        <li><strong>allow_free_text_search</strong> <span class="field-type">boolean</span> — allow free-text category matching, used by Other
+                        </li>
+                        <li><strong>form_schema</strong> <span class="field-type">jsonb</span> — optional JSON form configuration</li>
+                        <li><strong>search_keywords</strong> <span class="field-type">text[]</span> / <strong>search_vector</strong> — category terms and
+                            indexed search text</li>
+                        <li><strong>sort_order</strong> <span class="field-type">integer</span>, <strong>created_at</strong>, <strong>updated_at</strong> —
+                            display order and timestamps</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>catalog.category_fields</h3>
+                    <p>Dynamic form fields for a given task category.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">integer</span> — field ID</li>
+                        <li><strong>category_id</strong> <span class="field-type">integer</span> — category link</li>
+                        <li><strong>field_key</strong> <span class="field-type">text</span> — form field key</li>
+                        <li><strong>label_en</strong> <span class="field-type">text</span> — form label</li>
+                        <li><strong>label_bn</strong> <span class="field-type">text</span> — Bangla form label</li>
+                        <li><strong>field_type</strong> <span class="field-type">text</span> — text, textarea, number, date, boolean, select, multiselect, or
+                            file</li>
+                        <li><strong>is_required</strong> <span class="field-type">boolean</span> — required-answer flag</li>
+                        <li><strong>options</strong> <span class="field-type">jsonb</span> / <strong>validation</strong> — choices and JSON validation rules
+                        </li>
+                        <li><strong>sort_order</strong> <span class="field-type">integer</span> / <strong>is_active</strong> — field order and availability</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>catalog.tuktaker_categories</h3>
+                    <p>Categories the TukTaker can perform.</p>
+                    <ul>
+                        <li><strong>user_id</strong> <span class="field-type">bigint</span> — TukTaker ID</li>
+                        <li><strong>category_id</strong> <span class="field-type">integer</span> — skill category</li>
+                        <li><strong>years_experience</strong> <span class="field-type">smallint</span> — experience level</li>
+                        <li><strong>is_primary</strong> <span class="field-type">boolean</span> — primary skill flag</li>
+                        <li><strong>added_at</strong> <span class="field-type">timestamptz</span> — skill creation time</li>
+                    </ul>
+                </div>
+                <div class="table-card">
+                    <h3>catalog.category_price_hints</h3>
+                    <p>Suggested price ranges for a category in a service area.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, category_id <span class="field-type">integer</span>, service_area_id <span class="field-type">integer</span>, min_amount <span class="field-type">ops.money</span>, typical_amount <span class="field-type">ops.money</span>, max_amount <span class="field-type">ops.money</span>, effective_from <span class="field-type">date</span>, effective_to <span class="field-type">date</span>
+                </div>
+                <div class="table-card">
+                    <h3>catalog.certifications</h3>
+                    <p>Training and certification types that workers can hold.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, issuer <span class="field-type">text</span>, category_id <span class="field-type">integer</span>, is_required_for_category <span class="field-type">boolean</span>, is_active <span class="field-type">boolean</span>
+                </div>
+                <div class="table-card">
+                    <h3>catalog.tuktaker_certifications</h3>
+                    <p>Certifications held and verified for a TukTaker.</p>
+                    <p><strong>Key fields:</strong> user_id <span class="field-type">bigint</span>, certification_id <span class="field-type">integer</span>, issued_at <span class="field-type">date</span>, expires_at <span class="field-type">date</span>, file_id <span class="field-type">bigint</span>, verified_by <span class="field-type">bigint</span>, verified_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>catalog.search_synonyms</h3>
+                    <p>Alternate search terms used to expand marketplace searches.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, term <span class="field-type">text</span>, synonym <span class="field-type">text</span>, locale <span class="field-type">character(2)</span>, category_id <span class="field-type">integer</span>
+                </div>
+                <div class="table-card">
+                    <h3>Delivery category setup</h3>
+                    <p><strong>Delivery</strong> is the parent category; <strong>Goods</strong> and
+                        <strong>Documents</strong> are selectable leaf categories. Both leaves require pickup and
+                        drop-off locations and have a minimum TukTaker age of 18.</p>
+                    <ul>
+                        <li><strong>item_description</strong> <span class="field-type">textarea</span> — required on Delivery; form validation config sets a
+                            5-character minimum</li>
+                        <li><strong>approx_weight_kg</strong> <span class="field-type">number</span> — required for Goods; form validation config sets a 0.1 kg
+                            minimum</li>
+                        <li><strong>is_fragile</strong> <span class="field-type">boolean</span> and <strong>declared_value_bdt</strong> <span class="field-type">number</span> — optional Goods details
+                        </li>
+                        <li><strong>document_type</strong> <span class="field-type">select</span> — required for Documents; letter, contract, certificate,
+                            bank/legal, or other</li>
+                        <li><strong>signature_required</strong> <span class="field-type">boolean</span> — optional Documents delivery instruction</li>
+                        <li>Form answers are stored in <strong>task.tasks.attributes</strong>; the database checks
+                            required answers on publish, while configured value constraints are validated by the
+                            application.</li>
+                        <li>Publish flow: create as draft, add pickup and drop-off rows, then publish. Direct insertion
+                            as open is rejected.</li>
+                    </ul>
+                </div>
+                <div class="table-card">
+                    <h3>Category search configuration</h3>
+                    <p>Seed data supplies English, Banglish, and Bangla keywords and synonym mappings for category
+                        search, including delivery terms such as courier, parcel, package, and কুরিয়ার.</p>
+                    <p><strong>Tables:</strong> catalog.categories.search_keywords, catalog.categories.search_vector,
+                        catalog.search_synonyms</p>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>task — Jobs, bids, assignments, cancellations</span><span class="schema-count">Tables: 12</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>task.tasks</h3>
+                    <p>Main task posting record created by a seeker.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — task ID</li>
+                        <li><strong>public_id</strong> <span class="field-type">uuid</span> — public UUID</li>
+                        <li><strong>seeker_id</strong> <span class="field-type">bigint</span> — post owner</li>
+                        <li><strong>category_id</strong> <span class="field-type">integer</span> — service category</li>
+                        <li><strong>title</strong> <span class="field-type">text</span> — task title</li>
+                        <li><strong>description</strong> <span class="field-type">text</span> — task description</li>
+                        <li><strong>attributes</strong> <span class="field-type">jsonb</span> — JSON answers to the category’s dynamic form fields</li>
+                        <li><strong>status</strong> <span class="field-type">task.task_status</span> — open, assigned, completed, cancelled</li>
+                        <li><strong>budget_amount</strong> <span class="field-type">ops.money</span> — expected spend</li>
+                        <li><strong>scheduled_start_at</strong> <span class="field-type">timestamptz</span> — planned start</li>
+                        <li><strong>current_assignment_id</strong> <span class="field-type">bigint</span> — active job link</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>task.bids</h3>
+                    <p>Offers placed by TukTakers on a task.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — bid ID</li>
+                        <li><strong>task_id</strong> <span class="field-type">bigint</span> — parent task</li>
+                        <li><strong>tuktaker_id</strong> <span class="field-type">bigint</span> — bidder</li>
+                        <li><strong>initial_amount</strong> <span class="field-type">ops.money</span> — initial quote</li>
+                        <li><strong>current_amount</strong> <span class="field-type">ops.money</span> — current quote</li>
+                        <li><strong>status</strong> <span class="field-type">task.bid_status</span> — pending/accepted/rejected</li>
+                        <li><strong>message</strong> <span class="field-type">text</span> — bidder note</li>
+                        <li><strong>accepted_at</strong> <span class="field-type">timestamptz</span> — acceptance timestamp</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>task.assignments</h3>
+                    <p>Accepted bid that becomes the live work relationship.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — assignment ID</li>
+                        <li><strong>task_id</strong> <span class="field-type">bigint</span> — associated task</li>
+                        <li><strong>bid_id</strong> <span class="field-type">bigint</span> — accepted bid</li>
+                        <li><strong>seeker_id</strong> <span class="field-type">bigint</span> — customer</li>
+                        <li><strong>tuktaker_id</strong> <span class="field-type">bigint</span> — assigned worker</li>
+                        <li><strong>agreed_amount</strong> <span class="field-type">ops.money</span> — final price</li>
+                        <li><strong>status</strong> <span class="field-type">task.assignment_status</span> — pending, active, completed, cancelled</li>
+                        <li><strong>started_at</strong> <span class="field-type">timestamptz</span> — work start</li>
+                        <li><strong>completed_at</strong> <span class="field-type">timestamptz</span> — completion time</li>
+                    </ul>
+                </div>
+                <div class="table-card">
+                    <h3>task.task_locations</h3>
+                    <p>Service, pickup, drop-off, and extra-stop addresses with route order and contact details.
+                        Delivery Goods and Documents require at least one pickup and one drop-off before publication.
+                    </p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, kind <span class="field-type">task.location_kind</span> (service/pickup/dropoff/stop), seq <span class="field-type">smallint</span>, district_id <span class="field-type">integer</span>, upazila_id <span class="field-type">integer</span>, area_id <span class="field-type">integer</span>, ward_village <span class="field-type">text</span>, post_code <span class="field-type">text</span>, road_name_house <span class="field-type">text</span>, address_line <span class="field-type">text</span>, landmark <span class="field-type">text</span>, geo <span class="field-type">geography(Point,4326)</span>, contact_name <span class="field-type">text</span>, contact_mobile <span class="field-type">ops.bd_mobile</span>, notes <span class="field-type">text</span>
+                </div>
+                <div class="table-card">
+                    <h3>task.bid_offers</h3>
+                    <p>History of price and message exchanges during bid negotiation.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, bid_id <span class="field-type">bigint</span>, round_no <span class="field-type">smallint</span>, offered_by <span class="field-type">task.offer_by</span>, offered_by_user_id <span class="field-type">bigint</span>, amount <span class="field-type">ops.money</span>, message <span class="field-type">text</span>, status <span class="field-type">task.offer_status</span>, expires_at <span class="field-type">timestamptz</span>, created_at <span class="field-type">timestamptz</span>, responded_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>task.assignment_events</h3>
+                    <p>Timeline of assignment lifecycle events and evidence.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, assignment_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, event_type <span class="field-type">text</span>, actor_user_id <span class="field-type">bigint</span>, geo <span class="field-type">geography(Point,4326)</span>, notes <span class="field-type">text</span>, media_file_id <span class="field-type">bigint</span>, metadata <span class="field-type">jsonb</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>task.task_status_history</h3>
+                    <p>Append-only history of task status changes.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, from_status <span class="field-type">task.task_status</span>, to_status <span class="field-type">task.task_status</span>, changed_by <span class="field-type">bigint</span>, reason <span class="field-type">text</span>, metadata <span class="field-type">jsonb</span>, changed_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>task.task_attachments</h3>
+                    <p>Photos, measurements, and other evidence attached to a task.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, file_id <span class="field-type">bigint</span>, kind <span class="field-type">task.attachment_kind</span>, uploaded_by <span class="field-type">bigint</span>, caption <span class="field-type">text</span>, sort_order <span class="field-type">smallint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>task.saved_tasks</h3>
+                    <p>Tasks bookmarked by users.</p>
+                    <p><strong>Key fields:</strong> user_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, saved_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>task.task_invitations</h3>
+                    <p>Direct invitations asking a TukTaker to bid on a task.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, tuktaker_id <span class="field-type">bigint</span>, status <span class="field-type">text</span>, expires_at <span class="field-type">timestamptz</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>task.cancellation_reasons</h3>
+                    <p>Standard cancellation reason options for each participant role.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, applies_to <span class="field-type">text</span>, description_en <span class="field-type">text</span>, description_bn <span class="field-type">text</span>, is_active <span class="field-type">boolean</span>
+                </div>
+                <div class="table-card">
+                    <h3>task.cancellations</h3>
+                    <p>Cancellation record including fees, penalties, and allocation.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, assignment_id <span class="field-type">bigint</span>, cancelled_by_user_id <span class="field-type">bigint</span>, cancelled_by_role <span class="field-type">text</span>, stage <span class="field-type">task.cancel_stage</span>, reason_id <span class="field-type">integer</span>, reason_text <span class="field-type">text</span>, task_amount_basis <span class="field-type">ops.money</span>, fee_kind <span class="field-type">text</span>, fee_amount <span class="field-type">ops.money</span>, penalty_amount <span class="field-type">ops.money</span>, platform_share <span class="field-type">ops.money</span>, counterparty_share <span class="field-type">ops.money</span>, vat_amount <span class="field-type">ops.money</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>payment — Escrow, payouts, refunds</span><span class="schema-count">Tables: 15</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>payment.payments</h3>
+                    <p>Original payment record for a task or milestone.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — payment ID</li>
+                        <li><strong>task_id</strong> <span class="field-type">bigint</span> — payment belongs to task</li>
+                        <li><strong>assignment_id</strong> <span class="field-type">bigint</span> — current assignment</li>
+                        <li><strong>seeker_id</strong> <span class="field-type">bigint</span> — payer</li>
+                        <li><strong>provider_id</strong> <span class="field-type">integer</span> — gateway or wallet</li>
+                        <li><strong>amount</strong> <span class="field-type">ops.money</span> — payment amount</li>
+                        <li><strong>currency</strong> <span class="field-type">ops.currency_code</span> — currency code</li>
+                        <li><strong>status</strong> <span class="field-type">payment.payment_status</span> — initiated/paid/failed</li>
+                        <li><strong>gateway_tran_id</strong> <span class="field-type">text</span> — provider transaction id</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>payment.escrow_holds</h3>
+                    <p>Funds held safely until completion or final dispute resolution.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — hold ID</li>
+                        <li><strong>assignment_id</strong> <span class="field-type">bigint</span> — assignment linked</li>
+                        <li><strong>payment_id</strong> <span class="field-type">bigint</span> — payment source</li>
+                        <li><strong>amount_held</strong> <span class="field-type">ops.money</span> — escrow total</li>
+                        <li><strong>status</strong> <span class="field-type">payment.escrow_status</span> — held, released, disputed</li>
+                        <li><strong>held_at</strong> <span class="field-type">timestamptz</span> — hold start</li>
+                        <li><strong>released_at</strong> <span class="field-type">timestamptz</span> — release time</li>
+                        <li><strong>release_reason</strong> <span class="field-type">payment.release_reason</span> — settlement reason</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>payment.payout_requests</h3>
+                    <p>Withdrawal request for proceeds due to a TukTaker.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — request ID</li>
+                        <li><strong>tuktaker_id</strong> <span class="field-type">bigint</span> — worker receiving funds</li>
+                        <li><strong>amount</strong> <span class="field-type">ops.money</span> — payout total</li>
+                        <li><strong>fee_amount</strong> <span class="field-type">ops.money</span> — provider or admin fee</li>
+                        <li><strong>net_amount</strong> <span class="field-type">ops.money</span> — amount after fees</li>
+                        <li><strong>payment_method_id</strong> <span class="field-type">bigint</span> — destination account</li>
+                        <li><strong>status</strong> <span class="field-type">payment.payout_status</span> — pending/approved/processed</li>
+                        <li><strong>gateway_ref</strong> <span class="field-type">text</span> — provider reference</li>
+                    </ul>
+                </div>
+                <div class="table-card">
+                    <h3>payment.providers</h3>
+                    <p>Payment channels such as mobile wallets, cards, and banks.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, provider_type <span class="field-type">payment.provider_type</span>, supports_pay_in <span class="field-type">boolean</span>, supports_payout <span class="field-type">boolean</span>, is_mvp <span class="field-type">boolean</span>, is_active <span class="field-type">boolean</span>, display_order <span class="field-type">smallint</span>, config <span class="field-type">jsonb</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.user_payment_methods</h3>
+                    <p>Saved and optionally verified payment accounts for users.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, public_id <span class="field-type">uuid</span>, user_id <span class="field-type">bigint</span>, provider_id <span class="field-type">integer</span>, purpose <span class="field-type">payment.method_purpose</span>, account_ref_enc <span class="field-type">bytea</span>, account_ref_hash <span class="field-type">bytea</span>, account_ref_masked <span class="field-type">text</span>, holder_name <span class="field-type">text</span>, qr_file_id <span class="field-type">bigint</span>, is_default <span class="field-type">boolean</span>, status <span class="field-type">payment.method_status</span>, verified_at <span class="field-type">timestamptz</span>, last_used_at <span class="field-type">timestamptz</span>, created_at <span class="field-type">timestamptz</span>, updated_at <span class="field-type">timestamptz</span>, deleted_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.escrow_rules</h3>
+                    <p>Configuration for escrow holds, dispute windows, and automatic release.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, auto_release_hours <span class="field-type">integer</span>, dispute_window_hours <span class="field-type">integer</span>, dispute_blocks_release <span class="field-type">boolean</span>, allow_partial_refund <span class="field-type">boolean</span>, on_dispute_timeout <span class="field-type">text</span>, platform_hold_hours <span class="field-type">integer</span>, plan_id <span class="field-type">integer</span>, status <span class="field-type">finance.schedule_status</span>, effective_from <span class="field-type">timestamptz</span>, effective_to <span class="field-type">timestamptz</span>, created_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.gateway_events</h3>
+                    <p>Stores payment gateway callbacks and webhook processing results.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, gateway <span class="field-type">text</span>, event_type <span class="field-type">text</span>, external_id <span class="field-type">text</span>, payment_id <span class="field-type">bigint</span>, payout_id <span class="field-type">bigint</span>, payload <span class="field-type">jsonb</span>, headers <span class="field-type">jsonb</span>, signature_valid <span class="field-type">boolean</span>, received_at <span class="field-type">timestamptz</span>, processed_at <span class="field-type">timestamptz</span>, attempts <span class="field-type">smallint</span>, processing_error <span class="field-type">text</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.escrow_events</h3>
+                    <p>Chronological record of escrow freezes, releases, and related actions.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, escrow_hold_id <span class="field-type">bigint</span>, action <span class="field-type">text</span>, amount <span class="field-type">ops.money</span>, beneficiary_user_id <span class="field-type">bigint</span>, performed_by <span class="field-type">bigint</span>, reason <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.tips</h3>
+                    <p>Optional extra payments from Seekers to TukTakers.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, public_id <span class="field-type">uuid</span>, assignment_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, seeker_id <span class="field-type">bigint</span>, tuktaker_id <span class="field-type">bigint</span>, amount <span class="field-type">ops.money</span>, status <span class="field-type">payment.tip_status</span>, payment_id <span class="field-type">bigint</span>, message <span class="field-type">text</span>, ledger_transaction_id <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>, paid_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.refunds</h3>
+                    <p>Refund requests and processing records for disputes or cancellations.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, public_id <span class="field-type">uuid</span>, payment_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, assignment_id <span class="field-type">bigint</span>, beneficiary_user_id <span class="field-type">bigint</span>, dispute_id <span class="field-type">bigint</span>, gross_amount <span class="field-type">ops.money</span>, admin_fee_amount <span class="field-type">ops.money</span>, admin_fee_borne_by <span class="field-type">text</span>, net_amount <span class="field-type">ops.money</span>, destination <span class="field-type">payment.refund_destination</span>, status <span class="field-type">payment.refund_status</span>, reason <span class="field-type">text</span>, requested_by <span class="field-type">bigint</span>, approved_by <span class="field-type">bigint</span>, approved_at <span class="field-type">timestamptz</span>, gateway_refund_ref <span class="field-type">text</span>, processed_at <span class="field-type">timestamptz</span>, failure_reason <span class="field-type">text</span>, ledger_transaction_id <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.payout_rules</h3>
+                    <p>Defines payout limits, fees, processing time, and eligibility requirements.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, provider_id <span class="field-type">integer</span>, min_amount <span class="field-type">ops.money</span>, max_amount_per_txn <span class="field-type">ops.money</span>, daily_limit <span class="field-type">ops.money</span>, weekly_limit <span class="field-type">ops.money</span>, monthly_limit <span class="field-type">ops.money</span>, fee_type <span class="field-type">finance.calc_type</span>, fee_value <span class="field-type">numeric(12,4)</span>, fee_min <span class="field-type">ops.money</span>, fee_max <span class="field-type">ops.money</span>, requires_verified_kyc <span class="field-type">boolean</span>, min_tier_id <span class="field-type">integer</span>, processing_hours <span class="field-type">integer</span>, status <span class="field-type">finance.schedule_status</span>, effective_from <span class="field-type">timestamptz</span>, effective_to <span class="field-type">timestamptz</span>, created_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.payout_batches</h3>
+                    <p>Groups payout requests for submission to a provider.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, provider_id <span class="field-type">integer</span>, status <span class="field-type">payment.batch_status</span>, item_count <span class="field-type">integer</span>, total_amount <span class="field-type">ops.money</span>, gateway_batch_ref <span class="field-type">text</span>, created_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>, submitted_at <span class="field-type">timestamptz</span>, completed_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.payout_attempts</h3>
+                    <p>Records each gateway attempt when processing a payout.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, payout_id <span class="field-type">bigint</span>, attempt_no <span class="field-type">smallint</span>, gateway_ref <span class="field-type">text</span>, amount <span class="field-type">ops.money</span>, status <span class="field-type">text</span>, request_payload <span class="field-type">jsonb</span>, response_payload <span class="field-type">jsonb</span>, error_message <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.reconciliation_runs</h3>
+                    <p>Reconciliation run comparing expected payments with gateway statements.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, gateway <span class="field-type">text</span>, period_start <span class="field-type">date</span>, period_end <span class="field-type">date</span>, statement_file_id <span class="field-type">bigint</span>, status <span class="field-type">text</span>, expected_total <span class="field-type">ops.money</span>, settled_total <span class="field-type">ops.money</span>, difference <span class="field-type">ops.money</span>, run_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>, finished_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>payment.reconciliation_items</h3>
+                    <p>Line-level matches and exceptions within a reconciliation run.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, run_id <span class="field-type">bigint</span>, payment_id <span class="field-type">bigint</span>, payout_id <span class="field-type">bigint</span>, gateway_ref <span class="field-type">text</span>, expected_amount <span class="field-type">ops.money</span>, settled_amount <span class="field-type">ops.money</span>, match_status <span class="field-type">text</span>, notes <span class="field-type">text</span>, resolved_by <span class="field-type">bigint</span>, resolved_at <span class="field-type">timestamptz</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>finance — Ledger, settlements, and pricing rules</span><span class="schema-count">Tables: 20</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>finance.ledger_accounts</h3>
+                    <p>Chart of accounts for wallet, escrow, commissions, VAT, and cash flow.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — ledger account ID</li>
+                        <li><strong>code</strong> <span class="field-type">text</span> — account code</li>
+                        <li><strong>kind</strong> <span class="field-type">finance.account_kind</span> — asset, liability, equity, revenue, expense</li>
+                        <li><strong>currency</strong> <span class="field-type">ops.currency_code</span> — account currency</li>
+                        <li><strong>balance</strong> <span class="field-type">numeric(16,2)</span> — current balance</li>
+                        <li><strong>owner_user_id</strong> <span class="field-type">bigint</span> — user owning the account</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>finance.ledger_transactions</h3>
+                    <p>Money movement headers that record financial changes in the system.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — transaction ID</li>
+                        <li><strong>txn_type</strong> <span class="field-type">finance.txn_type</span> — credit/debit or event type</li>
+                        <li><strong>status</strong> <span class="field-type">finance.txn_status</span> — pending/posted/reversed</li>
+                        <li><strong>description</strong> <span class="field-type">text</span> — explanation</li>
+                        <li><strong>currency</strong> <span class="field-type">ops.currency_code</span> — transaction currency</li>
+                        <li><strong>ref_type</strong> <span class="field-type">text</span> — linked object type</li>
+                        <li><strong>ref_id</strong> <span class="field-type">bigint</span> — linked object ID</li>
+                        <li><strong>created_at</strong> <span class="field-type">timestamptz</span> — transaction time</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>finance.task_settlements</h3>
+                    <p>Final payout breakdown for a completed task.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — settlement ID</li>
+                        <li><strong>task_id</strong> <span class="field-type">bigint</span> — task reference</li>
+                        <li><strong>assignment_id</strong> <span class="field-type">bigint</span> — assignment reference</li>
+                        <li><strong>gross_amount</strong> <span class="field-type">ops.money</span> — amount before fees</li>
+                        <li><strong>commission_amount</strong> <span class="field-type">ops.money</span> — platform commission</li>
+                        <li><strong>vat_amount</strong> <span class="field-type">ops.money</span> — VAT charge</li>
+                        <li><strong>net_to_tuktaker</strong> <span class="field-type">ops.money</span> — payout to worker</li>
+                        <li><strong>status</strong> <span class="field-type">finance.settlement_status</span> — pending/settled</li>
+                    </ul>
+                </div>
+                <div class="table-card">
+                    <h3>finance.pricing_plans</h3>
+                    <p>Commission policies grouped by scope, such as global, category, or service area.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, description <span class="field-type">text</span>, scope <span class="field-type">finance.plan_scope</span>, category_id <span class="field-type">integer</span>, service_area_id <span class="field-type">integer</span>, user_segment <span class="field-type">text</span>, is_default <span class="field-type">boolean</span>, status <span class="field-type">finance.schedule_status</span>, priority <span class="field-type">integer</span>, effective_from <span class="field-type">timestamptz</span>, effective_to <span class="field-type">timestamptz</span>, created_by <span class="field-type">bigint</span>, approved_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.commission_rules</h3>
+                    <p>Commission calculation formula associated with a pricing plan.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, plan_id <span class="field-type">integer</span>, mode <span class="field-type">finance.commission_mode</span>, flat_amount <span class="field-type">ops.money</span>, base_percentage <span class="field-type">ops.pct</span>, hybrid_flat_amount <span class="field-type">ops.money</span>, hybrid_percentage <span class="field-type">ops.pct</span>, hybrid_combination <span class="field-type">finance.hybrid_combination</span>, min_commission <span class="field-type">ops.money</span>, max_commission <span class="field-type">ops.money</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.commission_tier_rates</h3>
+                    <p>Commission percentages and limits by TukTaker tier.</p>
+                    <p><strong>Key fields:</strong> rule_id <span class="field-type">integer</span>, tier_id <span class="field-type">integer</span>, commission_pct <span class="field-type">ops.pct</span>, min_commission <span class="field-type">ops.money</span>, max_commission <span class="field-type">ops.money</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.vat_rules</h3>
+                    <p>VAT policy, calculation, rounding, and tax-bearer rules.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, vat_pct <span class="field-type">ops.pct</span>, bearer <span class="field-type">finance.vat_bearer</span>, shared_seeker_pct <span class="field-type">ops.pct</span>, shared_tuktaker_pct <span class="field-type">ops.pct</span>, taxable_base <span class="field-type">text</span>, calc_method <span class="field-type">text</span>, rounding_mode <span class="field-type">finance.rounding_mode</span>, rounding_precision <span class="field-type">smallint</span>, min_vat <span class="field-type">ops.money</span>, max_vat <span class="field-type">ops.money</span>, plan_id <span class="field-type">integer</span>, status <span class="field-type">finance.schedule_status</span>, effective_from <span class="field-type">timestamptz</span>, effective_to <span class="field-type">timestamptz</span>, created_by <span class="field-type">bigint</span>, approved_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.fee_schedules</h3>
+                    <p>Fixed or percentage fees such as invoice, refund, and tip fees.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, code <span class="field-type">finance.fee_code</span>, calc_type <span class="field-type">finance.calc_type</span>, value <span class="field-type">numeric(12,4)</span>, min_amount <span class="field-type">ops.money</span>, max_amount <span class="field-type">ops.money</span>, currency <span class="field-type">ops.currency_code</span>, category_id <span class="field-type">integer</span>, tier_id <span class="field-type">integer</span>, service_area_id <span class="field-type">integer</span>, status <span class="field-type">finance.schedule_status</span>, effective_from <span class="field-type">timestamptz</span>, effective_to <span class="field-type">timestamptz</span>, notes <span class="field-type">text</span>, created_by <span class="field-type">bigint</span>, approved_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.cancellation_rules</h3>
+                    <p>Cancellation fees, penalties, call-out charges, and allocation rules.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, stage <span class="field-type">task.cancel_stage</span>, cancelled_by_role <span class="field-type">text</span>, fee_calc <span class="field-type">finance.calc_type</span>, fee_value <span class="field-type">numeric(12,4)</span>, fee_min <span class="field-type">ops.money</span>, fee_max <span class="field-type">ops.money</span>, callout_fee_amount <span class="field-type">ops.money</span>, callout_fee_cap <span class="field-type">ops.money</span>, combination <span class="field-type">finance.fee_combination</span>, combined_cap <span class="field-type">ops.money</span>, platform_share_pct <span class="field-type">ops.pct</span>, counterparty_share_pct <span class="field-type">ops.pct</span>, free_window_minutes <span class="field-type">integer</span>, plan_id <span class="field-type">integer</span>, priority <span class="field-type">integer</span>, status <span class="field-type">finance.schedule_status</span>, effective_from <span class="field-type">timestamptz</span>, effective_to <span class="field-type">timestamptz</span>, created_by <span class="field-type">bigint</span>, approved_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.tuktaker_tiers</h3>
+                    <p>Worker tier definitions, thresholds, and benefits.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, rank <span class="field-type">smallint</span>, min_tasks_in_period <span class="field-type">integer</span>, min_total_task_value <span class="field-type">ops.money</span>, min_avg_rating <span class="field-type">numeric(3,2)</span>, evaluation_period_days <span class="field-type">integer</span>, downgrade_grace_days <span class="field-type">integer</span>, benefits <span class="field-type">jsonb</span>, is_active <span class="field-type">boolean</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.tuktaker_tier_history</h3>
+                    <p>Historical tier assignments and evaluation context for TukTakers.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, tier_id <span class="field-type">integer</span>, effective_from <span class="field-type">timestamptz</span>, effective_to <span class="field-type">timestamptz</span>, reason <span class="field-type">text</span>, metrics <span class="field-type">jsonb</span>, created_by <span class="field-type">bigint</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.user_plan_assignments</h3>
+                    <p>Pricing plan assigned to a user over a defined period.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, plan_id <span class="field-type">integer</span>, effective_from <span class="field-type">timestamptz</span>, effective_to <span class="field-type">timestamptz</span>, reason <span class="field-type">text</span>, created_by <span class="field-type">bigint</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.ledger_entries</h3>
+                    <p>Debit and credit lines that make up each ledger transaction.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, transaction_id <span class="field-type">bigint</span>, account_id <span class="field-type">bigint</span>, direction <span class="field-type">character(1)</span>, amount <span class="field-type">numeric(16,2)</span>, currency <span class="field-type">ops.currency_code</span>, category <span class="field-type">finance.entry_category</span>, user_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, memo <span class="field-type">text</span>, posted_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.vat_returns</h3>
+                    <p>Periodic VAT filing totals and submission records.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, period_start <span class="field-type">date</span>, period_end <span class="field-type">date</span>, total_taxable <span class="field-type">ops.money</span>, total_vat <span class="field-type">ops.money</span>, status <span class="field-type">text</span>, challan_no <span class="field-type">text</span>, submitted_at <span class="field-type">timestamptz</span>, submitted_by <span class="field-type">bigint</span>, file_id <span class="field-type">bigint</span>, notes <span class="field-type">text</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.vat_entries</h3>
+                    <p>VAT amounts accrued from taxable services and cancellations.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, source <span class="field-type">finance.vat_source</span>, settlement_id <span class="field-type">bigint</span>, cancellation_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, taxable_amount <span class="field-type">ops.money</span>, vat_rate <span class="field-type">ops.pct</span>, vat_amount <span class="field-type">ops.money</span>, tax_period <span class="field-type">date</span>, fiscal_year <span class="field-type">smallint</span>, status <span class="field-type">finance.vat_status</span>, vat_return_id <span class="field-type">bigint</span>, ledger_transaction_id <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.credits</h3>
+                    <p>Goodwill credits granted to users by authorized staff.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, public_id <span class="field-type">uuid</span>, user_id <span class="field-type">bigint</span>, recipient_role <span class="field-type">text</span>, amount <span class="field-type">ops.money</span>, remaining_amount <span class="field-type">ops.money</span>, status <span class="field-type">finance.credit_status</span>, reason <span class="field-type">text</span>, dispute_id <span class="field-type">bigint</span>, granted_by <span class="field-type">bigint</span>, approved_by <span class="field-type">bigint</span>, expires_at <span class="field-type">timestamptz</span>, redeemable_as_cash <span class="field-type">boolean</span>, ledger_transaction_id <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.credit_applications</h3>
+                    <p>Records credits applied to a task or settlement.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, credit_id <span class="field-type">bigint</span>, settlement_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, amount <span class="field-type">ops.money</span>, applied_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.penalties</h3>
+                    <p>Penalties assigned to TukTakers, including outstanding balances and waivers.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, assignment_id <span class="field-type">bigint</span>, cancellation_id <span class="field-type">bigint</span>, reason <span class="field-type">text</span>, amount <span class="field-type">ops.money</span>, remaining_amount <span class="field-type">ops.money</span>, status <span class="field-type">finance.penalty_status</span>, waived_by <span class="field-type">bigint</span>, waived_at <span class="field-type">timestamptz</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.penalty_applications</h3>
+                    <p>Penalty deductions applied to task settlements.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, penalty_id <span class="field-type">bigint</span>, settlement_id <span class="field-type">bigint</span>, amount <span class="field-type">ops.money</span>, applied_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>finance.manual_adjustments</h3>
+                    <p>Admin-requested financial corrections with approval and execution tracking.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, adjustment_type <span class="field-type">finance.adjustment_type</span>, user_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, dispute_id <span class="field-type">bigint</span>, amount <span class="field-type">ops.money</span>, reason <span class="field-type">text</span>, status <span class="field-type">finance.adjustment_status</span>, requested_by <span class="field-type">bigint</span>, approved_by <span class="field-type">bigint</span>, requested_at <span class="field-type">timestamptz</span>, decided_at <span class="field-type">timestamptz</span>, executed_at <span class="field-type">timestamptz</span>, decision_note <span class="field-type">text</span>, ledger_transaction_id <span class="field-type">bigint</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>trust — Reputation and dispute handling</span><span class="schema-count">Tables: 8</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>trust.ratings</h3>
+                    <p>Star ratings and comments after completion of a task.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — rating record ID</li>
+                        <li><strong>assignment_id</strong> <span class="field-type">bigint</span> — task assignment</li>
+                        <li><strong>rater_id</strong> <span class="field-type">bigint</span> — user leaving rating</li>
+                        <li><strong>ratee_id</strong> <span class="field-type">bigint</span> — user being rated</li>
+                        <li><strong>stars</strong> <span class="field-type">ops.stars</span> — 1 to 5 score</li>
+                        <li><strong>comment</strong> <span class="field-type">text</span> — rating note</li>
+                        <li><strong>created_at</strong> <span class="field-type">timestamptz</span> — rating timestamp</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>trust.disputes</h3>
+                    <p>Disputes raised against a task or worker with resolution decision.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — dispute ID</li>
+                        <li><strong>task_id</strong> <span class="field-type">bigint</span> — related task</li>
+                        <li><strong>assignment_id</strong> <span class="field-type">bigint</span> — referenced assignment</li>
+                        <li><strong>raised_by</strong> <span class="field-type">bigint</span> — person raising complaint</li>
+                        <li><strong>category</strong> <span class="field-type">trust.dispute_category</span> — dispute reason category</li>
+                        <li><strong>status</strong> <span class="field-type">trust.dispute_status</span> — open/in review/resolved</li>
+                        <li><strong>resolution</strong> <span class="field-type">trust.dispute_resolution</span> — final decision</li>
+                        <li><strong>resolution_amount</strong> <span class="field-type">ops.money</span> — adjustment amount</li>
+                    </ul>
+                </div>
+                <div class="table-card">
+                    <h3>trust.rating_summaries</h3>
+                    <p>Aggregated rating counts, totals, and averages by user role.</p>
+                    <p><strong>Key fields:</strong> user_id <span class="field-type">bigint</span>, role <span class="field-type">trust.party_role</span>, rating_count <span class="field-type">integer</span>, rating_sum <span class="field-type">integer</span>, star_1 <span class="field-type">integer</span>, star_2 <span class="field-type">integer</span>, star_3 <span class="field-type">integer</span>, star_4 <span class="field-type">integer</span>, star_5 <span class="field-type">integer</span>, rating_avg <span class="field-type">numeric(3,2)</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>trust.testimonials</h3>
+                    <p>Public-facing customer or TukTaker quotes with consent and approval status.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, role <span class="field-type">trust.party_role</span>, display_name <span class="field-type">text</span>, location_label <span class="field-type">text</span>, body <span class="field-type">text</span>, stars <span class="field-type">ops.stars</span>, language <span class="field-type">character(2)</span>, source <span class="field-type">text</span>, consent_to_publish <span class="field-type">boolean</span>, status <span class="field-type">trust.testimonial_status</span>, approved_by <span class="field-type">bigint</span>, published_at <span class="field-type">timestamptz</span>, sort_order <span class="field-type">integer</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>trust.dispute_messages</h3>
+                    <p>Messages exchanged by participants and staff within a dispute.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, dispute_id <span class="field-type">bigint</span>, author_id <span class="field-type">bigint</span>, author_kind <span class="field-type">text</span>, body <span class="field-type">text</span>, is_internal <span class="field-type">boolean</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>trust.dispute_evidence</h3>
+                    <p>Files and descriptions submitted as evidence for a dispute.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, dispute_id <span class="field-type">bigint</span>, file_id <span class="field-type">bigint</span>, submitted_by <span class="field-type">bigint</span>, description <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>trust.user_reports</h3>
+                    <p>User reports about abuse or misconduct related to a person or task.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, reporter_id <span class="field-type">bigint</span>, reported_user_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, reason <span class="field-type">text</span>, details <span class="field-type">text</span>, status <span class="field-type">text</span>, handled_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>, handled_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>trust.risk_events</h3>
+                    <p>Fraud and abuse signals recorded for review.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, signal_type <span class="field-type">text</span>, severity <span class="field-type">smallint</span>, score <span class="field-type">numeric(6,2)</span>, details <span class="field-type">jsonb</span>, reviewed_at <span class="field-type">timestamptz</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>comms — Messages, notifications, and support</span><span class="schema-count">Tables: 9</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>comms.conversations</h3>
+                    <p>Messaging thread between a seeker and a TukTaker.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — conversation ID</li>
+                        <li><strong>task_id</strong> <span class="field-type">bigint</span> — job reference</li>
+                        <li><strong>seeker_id</strong> <span class="field-type">bigint</span> — buyer</li>
+                        <li><strong>tuktaker_id</strong> <span class="field-type">bigint</span> — worker</li>
+                        <li><strong>last_message_at</strong> <span class="field-type">timestamptz</span> — newest message time</li>
+                        <li><strong>created_at</strong> <span class="field-type">timestamptz</span> — conversation created</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>comms.messages</h3>
+                    <p>Actual chat message records.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — message ID</li>
+                        <li><strong>conversation_id</strong> <span class="field-type">bigint</span> — parent thread</li>
+                        <li><strong>sender_id</strong> <span class="field-type">bigint</span> — author</li>
+                        <li><strong>message_type</strong> <span class="field-type">comms.message_type</span> — text/image/audio/file</li>
+                        <li><strong>body</strong> <span class="field-type">text</span> — message text</li>
+                        <li><strong>created_at</strong> <span class="field-type">timestamptz</span> — send time</li>
+                    </ul>
+                </div>
+
+                <div class="table-card">
+                    <h3>comms.support_tickets</h3>
+                    <p>Customer support issue record.</p>
+                    <ul>
+                        <li><strong>id</strong> <span class="field-type">bigint</span> — ticket ID</li>
+                        <li><strong>user_id</strong> <span class="field-type">bigint</span> — reporting user</li>
+                        <li><strong>task_id</strong> <span class="field-type">bigint</span> — linked task</li>
+                        <li><strong>subject</strong> <span class="field-type">text</span> — issue summary</li>
+                        <li><strong>status</strong> <span class="field-type">comms.ticket_status</span> — open/closed/pending</li>
+                        <li><strong>priority</strong> <span class="field-type">smallint</span> — urgency</li>
+                        <li><strong>assigned_to</strong> <span class="field-type">bigint</span> — assigned support staff</li>
+                    </ul>
+                </div>
+                <div class="table-card">
+                    <h3>comms.notification_templates</h3>
+                    <p>Reusable, versioned message content for notification channels and locales.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, channel <span class="field-type">comms.channel</span>, locale <span class="field-type">character(2)</span>, version <span class="field-type">integer</span>, subject <span class="field-type">text</span>, body <span class="field-type">text</span>, variables <span class="field-type">text[]</span>, is_active <span class="field-type">boolean</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>comms.notification_preferences</h3>
+                    <p>User opt-in or opt-out preferences by notification category and channel.</p>
+                    <p><strong>Key fields:</strong> user_id <span class="field-type">bigint</span>, category <span class="field-type">text</span>, channel <span class="field-type">comms.channel</span>, enabled <span class="field-type">boolean</span>
+                </div>
+                <div class="table-card">
+                    <h3>comms.user_notifications</h3>
+                    <p>Notification delivery lifecycle and provider status for each user message.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, template_code <span class="field-type">text</span>, channel <span class="field-type">comms.channel</span>, title <span class="field-type">text</span>, body <span class="field-type">text</span>, data <span class="field-type">jsonb</span>, entity_type <span class="field-type">text</span>, entity_id <span class="field-type">bigint</span>, status <span class="field-type">comms.notif_status</span>, provider <span class="field-type">text</span>, provider_message_id <span class="field-type">text</span>, scheduled_at <span class="field-type">timestamptz</span>, sent_at <span class="field-type">timestamptz</span>, delivered_at <span class="field-type">timestamptz</span>, read_at <span class="field-type">timestamptz</span>, attempts <span class="field-type">smallint</span>, failed_reason <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>comms.email_logs</h3>
+                    <p>Sent email records retained according to the email retention policy.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, from_address <span class="field-type">text</span>, to_address <span class="field-type">text</span>, subject <span class="field-type">text</span>, template_code <span class="field-type">text</span>, body_text <span class="field-type">text</span>, provider_message_id <span class="field-type">text</span>, status <span class="field-type">text</span>, sent_at <span class="field-type">timestamptz</span>, created_at <span class="field-type">timestamptz</span>, retain_until <span class="field-type">date</span>
+                </div>
+                <div class="table-card">
+                    <h3>comms.support_ticket_messages</h3>
+                    <p>Replies and attachments exchanged within a support ticket.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, ticket_id <span class="field-type">bigint</span>, author_id <span class="field-type">bigint</span>, is_staff <span class="field-type">boolean</span>, is_internal <span class="field-type">boolean</span>, body <span class="field-type">text</span>, file_id <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>comms.feedback_submissions</h3>
+                    <p>Feedback and ratings submitted through user feedback forms.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, name <span class="field-type">text</span>, email <span class="field-type">citext</span>, mobile <span class="field-type">text</span>, category <span class="field-type">text</span>, rating <span class="field-type">ops.stars</span>, message <span class="field-type">text</span>, source <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>, retain_until <span class="field-type">date</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>billing — Invoices and statement dashboard</span><span class="schema-count">Tables: 3</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>billing.invoices</h3>
+                    <p>Invoice snapshot issued to a Seeker or TukTaker for a billing period.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, public_id <span class="field-type">uuid</span>, invoice_no <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, recipient_role <span class="field-type">text</span>, period_type <span class="field-type">billing.invoice_period</span>, period_start <span class="field-type">date</span>, period_end <span class="field-type">date</span>, issuer_snapshot <span class="field-type">jsonb</span>, customer_snapshot <span class="field-type">jsonb</span>, service_count <span class="field-type">integer</span>, subtotal <span class="field-type">ops.money</span>, commission_total <span class="field-type">ops.money</span>, vat_total <span class="field-type">ops.money</span>, total <span class="field-type">ops.money</span>, invoice_fee <span class="field-type">ops.money</span>, fee_payment_id <span class="field-type">bigint</span>, net_payout_total <span class="field-type">ops.money</span>, status <span class="field-type">billing.invoice_status</span>, pdf_file_id <span class="field-type">bigint</span>, generated_by <span class="field-type">bigint</span>, generated_at <span class="field-type">timestamptz</span>, issued_at <span class="field-type">timestamptz</span>, voided_at <span class="field-type">timestamptz</span>, void_reason <span class="field-type">text</span>
+                </div>
+                <div class="table-card">
+                    <h3>billing.invoice_lines</h3>
+                    <p>Service and financial line items included in an invoice.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, invoice_id <span class="field-type">bigint</span>, line_no <span class="field-type">integer</span>, task_id <span class="field-type">bigint</span>, settlement_id <span class="field-type">bigint</span>, service_date <span class="field-type">date</span>, category_name <span class="field-type">text</span>, sub_category_name <span class="field-type">text</span>, description <span class="field-type">text</span>, amount <span class="field-type">ops.money</span>, commission_amount <span class="field-type">ops.money</span>, vat_amount <span class="field-type">ops.money</span>, net_amount <span class="field-type">ops.money</span>
+                </div>
+                <div class="table-card">
+                    <h3>billing.statement_entries</h3>
+                    <p>User-facing ledger of payments, earnings, fees, refunds, credits, and payouts.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, entry_type <span class="field-type">billing.statement_type</span>, task_id <span class="field-type">bigint</span>, task_no <span class="field-type">bigint</span>, category_name <span class="field-type">text</span>, description <span class="field-type">text</span>, amount <span class="field-type">ops.money</span>, balance_after <span class="field-type">ops.money</span>, ledger_transaction_id <span class="field-type">bigint</span>, occurred_at <span class="field-type">timestamptz</span>, entry_year <span class="field-type">smallint</span>, entry_month <span class="field-type">smallint</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>content — Legal documents and app content</span><span class="schema-count">Tables: 7</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>content.company_profile</h3>
+                    <p>Company details used by the app and generated invoices.</p>
+                    <p><strong>Key fields:</strong> key <span class="field-type">text</span>, value <span class="field-type">jsonb</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>content.legal_documents</h3>
+                    <p>Terms and policy document definitions, audience, and category scope.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, title <span class="field-type">text</span>, audience <span class="field-type">text</span>, category_id <span class="field-type">integer</span>, is_mandatory <span class="field-type">boolean</span>, is_active <span class="field-type">boolean</span>
+                </div>
+                <div class="table-card">
+                    <h3>content.legal_document_versions</h3>
+                    <p>Localized, versioned legal text with publication and effective dates.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, document_id <span class="field-type">integer</span>, version <span class="field-type">integer</span>, locale <span class="field-type">character(2)</span>, body <span class="field-type">text</span>, effective_from <span class="field-type">timestamptz</span>, published_at <span class="field-type">timestamptz</span>, created_by <span class="field-type">bigint</span>
+                </div>
+                <div class="table-card">
+                    <h3>content.user_acceptances</h3>
+                    <p>Evidence that a user accepted a particular legal document version.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, document_version_id <span class="field-type">integer</span>, accepted_at <span class="field-type">timestamptz</span>, ip <span class="field-type">inet</span>, user_agent <span class="field-type">text</span>, device_uid <span class="field-type">text</span>, revoked_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>content.disclaimers</h3>
+                    <p>Localized warnings shown in task, bidding, payment, or other app flows.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, code <span class="field-type">text</span>, context <span class="field-type">text</span>, locale <span class="field-type">character(2)</span>, body <span class="field-type">text</span>, is_active <span class="field-type">boolean</span>, sort_order <span class="field-type">integer</span>
+                </div>
+                <div class="table-card">
+                    <h3>content.system_messages</h3>
+                    <p>Localized UI messages and pop-ups keyed by message code.</p>
+                    <p><strong>Key fields:</strong> code <span class="field-type">text</span>, locale <span class="field-type">character(2)</span>, message <span class="field-type">text</span>, message_type <span class="field-type">text</span>, updated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>content.faqs</h3>
+                    <p>Localized, audience-specific frequently asked questions.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">integer</span>, audience <span class="field-type">text</span>, locale <span class="field-type">character(2)</span>, question <span class="field-type">text</span>, answer <span class="field-type">text</span>, sort_order <span class="field-type">integer</span>, is_published <span class="field-type">boolean</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>marketing — Promotions and referrals</span><span class="schema-count">Tables: 3</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>marketing.promotions</h3>
+                    <p>Discount and credit campaigns scoped by audience, category, service area, and period.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, code <span class="field-type">text</span>, name <span class="field-type">text</span>, promo_type <span class="field-type">marketing.promo_type</span>, audience <span class="field-type">text</span>, value <span class="field-type">numeric(12,4)</span>, max_discount <span class="field-type">ops.money</span>, min_task_amount <span class="field-type">ops.money</span>, category_id <span class="field-type">integer</span>, service_area_id <span class="field-type">integer</span>, usage_limit_total <span class="field-type">integer</span>, usage_limit_per_user <span class="field-type">integer</span>, used_count <span class="field-type">integer</span>, starts_at <span class="field-type">timestamptz</span>, ends_at <span class="field-type">timestamptz</span>, is_active <span class="field-type">boolean</span>, created_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>marketing.promotion_redemptions</h3>
+                    <p>Record of each promotion used by a user or applied to a task.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, promotion_id <span class="field-type">bigint</span>, user_id <span class="field-type">bigint</span>, task_id <span class="field-type">bigint</span>, discount_amount <span class="field-type">ops.money</span>, redeemed_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>marketing.referrals</h3>
+                    <p>Referral relationships and qualification/reward status.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, referrer_id <span class="field-type">bigint</span>, referred_id <span class="field-type">bigint</span>, status <span class="field-type">text</span>, reward_credit_id <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>, qualified_at <span class="field-type">timestamptz</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>audit — Sensitive-change log</span><span class="schema-count">Tables: 1</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>audit.audit_logs</h3>
+                    <p>Append-only, partitioned audit trail of sensitive user, staff, and system changes.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, actor_user_id <span class="field-type">bigint</span>, actor_kind <span class="field-type">text</span>, action <span class="field-type">text</span>, entity_type <span class="field-type">text</span>, entity_id <span class="field-type">text</span>, old_values <span class="field-type">jsonb</span>, new_values <span class="field-type">jsonb</span>, ip <span class="field-type">inet</span>, user_agent <span class="field-type">text</span>, request_id <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+            </div>
+        </details>
+
+        <details class="schema-block">
+            <summary><span>reporting — KPIs and report jobs</span><span class="schema-count">Tables: 3</span></summary>
+            <div class="schema-content">
+                <div class="table-card">
+                    <h3>reporting.daily_kpis</h3>
+                    <p>Precomputed daily performance metrics by service area.</p>
+                    <p><strong>Key fields:</strong> kpi_date <span class="field-type">date</span>, service_area_id <span class="field-type">integer</span>, new_seekers <span class="field-type">integer</span>, new_tuktakers <span class="field-type">integer</span>, verified_tuktakers <span class="field-type">integer</span>, tasks_posted <span class="field-type">integer</span>, tasks_completed <span class="field-type">integer</span>, tasks_cancelled <span class="field-type">integer</span>, bids_placed <span class="field-type">integer</span>, gmv <span class="field-type">ops.money</span>, commission_revenue <span class="field-type">ops.money</span>, fee_revenue <span class="field-type">ops.money</span>, vat_collected <span class="field-type">ops.money</span>, payouts_paid <span class="field-type">ops.money</span>, refunds_paid <span class="field-type">ops.money</span>, generated_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>reporting.report_runs</h3>
+                    <p>Ad hoc or scheduled report requests, processing status, and result file.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, public_id <span class="field-type">uuid</span>, report_type <span class="field-type">text</span>, requested_by <span class="field-type">bigint</span>, period_start <span class="field-type">timestamptz</span>, period_end <span class="field-type">timestamptz</span>, parameters <span class="field-type">jsonb</span>, status <span class="field-type">text</span>, result_file_id <span class="field-type">bigint</span>, row_count <span class="field-type">integer</span>, error_message <span class="field-type">text</span>, created_at <span class="field-type">timestamptz</span>, completed_at <span class="field-type">timestamptz</span>
+                </div>
+                <div class="table-card">
+                    <h3>reporting.report_schedules</h3>
+                    <p>Recurring report schedule, recipients, and next-run information.</p>
+                    <p><strong>Key fields:</strong> id <span class="field-type">bigint</span>, report_type <span class="field-type">text</span>, frequency <span class="field-type">text</span>, recipients <span class="field-type">text[]</span>, parameters <span class="field-type">jsonb</span>, is_active <span class="field-type">boolean</span>, last_run_at <span class="field-type">timestamptz</span>, next_run_at <span class="field-type">timestamptz</span>, created_by <span class="field-type">bigint</span>, created_at <span class="field-type">timestamptz</span>
+                </div>
+            </div>
+        </details>
+
+        <section class="module">
+            <h2>Recommended reading order</h2>
+            <ol class="table-list">
+                <li>iam.users, iam.seeker_profiles, iam.tuktaker_profiles</li>
+                <li>ref.* geography tables</li>
+                <li>catalog.categories and catalog.category_fields</li>
+                <li>task.tasks, task.bids, task.assignments</li>
+                <li>payment.payments, payment.escrow_holds, payment.payout_requests</li>
+                <li>finance.ledger_accounts, finance.ledger_transactions, finance.task_settlements</li>
+                <li>trust.disputes, trust.ratings</li>
+                <li>comms.* and billing.*</li>
+            </ol>
+        </section>
+
+        <section class="module">
+            <h2>Design principles</h2>
+            <div class="note">
+                The schema is intentionally structured around secure identity, financial correctness, auditability,
+                and clear lifecycle tracking. Sensitive user data is encrypted or hashed; every major money movement
+                is journaled through the ledger; and each workflow keeps history instead of overwriting it.
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

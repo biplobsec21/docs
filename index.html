@@ -2,10 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=requirements_analysis.html">
-  <title>TukTakKaj Requirements</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TukTakKaj Documentation</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --panel: #ffffff;
+      --primary: #071629;
+      --accent: #78bf24;
+      --line: #dfe5ee;
+      --muted: #5c6673;
+    }
+  
+    * {
+      box-sizing: border-box;
+    }
+  
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--primary);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+  
+    .wrap {
+      max-width: 980px;
+      margin: 36px auto;
+      padding: 0 18px 40px;
+    }
+  
+    .site-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+      background: var(--primary);
+      border-bottom: 4px solid var(--accent);
+      border-radius: 8px;
+      margin-bottom: 28px;
+    }
+  
+    .brand-logo {
+      display: block;
+      width: 180px;
+      height: 70px;
+      object-fit: contain;
+    }
+  
+    .site-header h1 {
+      margin: 0;
+      color: white;
+      font-size: clamp(22px, 3vw, 32px);
+    }
+  
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+  
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 22px 18px;
+      box-shadow: 0 2px 8px rgba(7, 22, 41, 0.04);
+    }
+  
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+  
+    .card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+  
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 6px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  
+    .btn:hover {
+      opacity: 0.96;
+    }
+  </style>
 </head>
 <body>
-  <p>Redirecting to the <a href="requirements_analysis.html">TukTakKaj requirements analysis</a>.</p>
+  <div class="wrap">
+    <header class="site-header">
+      <img class="brand-logo" src="tuktak-logo.png" alt="TukTak Technology logo">
+      <h1>TukTakKaj Documentation</h1>
+    </header>
+  
+    <div class="cards">
+      <div class="card">
+      <h2>Data Flow &amp; Table Relationships</h2>
+      <p>Follow task data from account creation through bidding, escrow, settlement, and payout.</p>
+      <a class="btn" href="data_flow.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h2>Requirements Analysis</h2>
+        <p>Initial project requirements and system design overview.</p>
+        <a class="btn" href="requirements_analysis.html">Open</a>
+      </div>
+  
+      <div class="card">
+        <h2>Database Dictionary</h2>
+        <p>Readable schema overview for tables, fields, and module structure.</p>
+        <a class="btn" href="database_dictionary.html">Open</a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
