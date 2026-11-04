@@ -184,6 +184,46 @@
                         border-color: #333
                   }
             }
+      
+            /* DT-CSS-START */
+            .dt-alert{margin:8px 0 10px;padding:8px 12px;border-left:4px solid #d08a00;background:#fff7e6;border-radius:3px;font-size:13.5px}
+            .dt-alert.has-conflict{border-color:#c62828;background:#fdecea}
+            .dt-alert.all-done{border-color:#2e7d32;background:#eaf6ea}
+            .dt-alert b.dt-h{display:block;margin-bottom:3px}
+            .dt-alert ul{margin:0;padding-left:18px}
+            .dt-alert li{margin:1px 0}
+            .dt-alert a,.dt-table a{color:inherit}
+            .dt-pill{display:inline-block;padding:0 7px;border-radius:9px;font-size:11.5px;font-weight:700;white-space:nowrap;vertical-align:1px}
+            .st-decided{background:#2e7d32;color:#fff}.st-partly{background:#7cb342;color:#fff}
+            .st-proposed{background:#f0a500;color:#1a1a1a}.st-expert{background:#6a1b9a;color:#fff}
+            .st-open{background:#9e9e9e;color:#fff}
+            .dt-kind{font-size:11.5px;font-weight:700;color:#c62828}.dt-kind.gap{color:#666}
+            .dt-banner{margin:0 0 22px;padding:10px 14px;border:1px solid #78bf24;border-left-width:5px;border-radius:4px;background:#f4faec}
+            .dt-banner h2{font-size:16px;margin:0 0 6px}.dt-banner p{margin:4px 0}
+            .dt-legend .dt-pill{margin-right:4px}
+            .dt-tracker{margin:28px 0 22px}.dt-tracker h2{font-size:18px;margin:0 0 6px}
+            .dt-filters{margin:8px 0 10px}
+            .dt-filters button{font:inherit;font-size:12.5px;padding:3px 9px;margin:0 4px 4px 0;border:1px solid #999;border-radius:12px;background:#fff;cursor:pointer;color:#1a1a1a}
+            .dt-filters button.on{background:#071629;color:#fff;border-color:#071629}
+            .dt-wrap{overflow-x:auto}
+            .dt-table{border-collapse:collapse;width:100%;font-size:13px}
+            .dt-table th,.dt-table td{border:1px solid #ddd;padding:6px 7px;vertical-align:top;text-align:left}
+            .dt-table th{background:#071629;color:#fff;position:sticky;top:0}
+            .dt-table tr:target td{background:#fff3c4}
+            .dt-table td.id{font-weight:700;white-space:nowrap}
+            .dt-table td.fd{min-width:110px}
+            .dt-table .issue{color:#555;display:block;margin-top:2px}
+            .dt-table code,.dt-alert code{font-size:12px;background:rgba(0,0,0,.06);padding:0 3px;border-radius:3px}
+            .dt-log{font-size:13px;color:#555;margin:6px 0 0}
+            @media (prefers-color-scheme:dark){
+              .dt-alert{background:#3a2e12}.dt-alert.has-conflict{background:#3d1d1d}.dt-alert.all-done{background:#1d3320}
+              .dt-banner{background:#1d2a12}.dt-table th,.dt-table td{border-color:#444}
+              .dt-table .issue,.dt-log{color:#aaa}.dt-table tr:target td{background:#4a3f12}
+              .dt-filters button{background:#242424;color:#e8e8e8}.dt-kind.gap{color:#aaa}
+              .dt-table code,.dt-alert code{background:rgba(255,255,255,.1)}
+            }
+            @media print{.dt-filters{display:none}.dt-table th{position:static}}
+            /* DT-CSS-END */
       </style>
 </head>
 
@@ -193,8 +233,22 @@
             <h1>TukTakKaj — Requirements Analysis</h1>
             <a class="home-link" href="index.html">Documentation home</a>
       </header>
+      <!-- DT-START:banner -->
+<div class="dt-banner" id="sec-G">
+            <h2>Review status: decisions &amp; contradictions</h2>
+            <p>This page was reviewed on 2026-11-04. <b>45 items</b> were raised, including <b>16 contradictions</b> (15 still open).
+            Each section below carries an alert box listing the items that affect it. The full list, with the recommended answer for each, is in the
+            <a href="#decision-tracker">Decisions &amp; Contradictions Tracker</a> at the bottom of the page.</p>
+            <p class="dt-legend"><span class="dt-pill st-decided">Decided</span> 3 <span class="dt-pill st-partly">Partly decided</span> 2 <span class="dt-pill st-proposed">Proposed — awaiting decision</span> 34 <span class="dt-pill st-expert">Needs expert sign-off</span> 2 <span class="dt-pill st-open">Open — not discussed</span> 4</p>
+            <p>Not covered by any section in the sheet: <a href="#D44">D44 Non-functional requirements missing</a>, <a href="#D45">D45 Safety features</a>.</p>
+            <p class="dt-log"><b>Change log</b> — 2026-11-04: added review alerts and the Decisions &amp; Contradictions Tracker. Decided so far: one mobile number per account (D02), expanded status lists (D16), <code>bidding_closes_at</code> (D12), 15-minute payment timeout (D15).</p>
+      </div>
+<!-- DT-END:banner -->
       <div class="flow">
-            <h2>System Flow Overview:</h2>
+            <h2 id="sec-0">System Flow Overview:</h2>
+            <!-- DT-START:alert-0 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 1 item, 1 still open</b><ul><li><a href="#D23"><b>D23</b> Payout destinations</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-0 -->
             <pre>                    ┌──────────────────┐
                     │  SERVICE SEEKER  │
                     └────────┬─────────┘
@@ -259,7 +313,10 @@
                  └───────────────────────┘</pre>
       </div>
       <div class="module">
-            <h2>1. Service Seeker Account:</h2>
+            <h2 id="sec-1">1. Service Seeker Account:</h2>
+            <!-- DT-START:alert-1 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 6 items, 5 still open</b><ul><li><a href="#D01"><b>D01</b> Seeker NID rule can't be checked</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D02"><b>D02</b> One mobile number for both roles?</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-decided">Decided</span></li><li><a href="#D03"><b>D03</b> Password policy: “standard” vs “strong”</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D04"><b>D04</b> OTP expiry and retry limits</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D05"><b>D05</b> Business account fields</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D06"><b>D06</b> Seeker DOB and gender stored but not required</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-1 -->
             <ul>
                   <li>Sign up from the &quot;Post a Task&quot; option, with a welcome page showing high-level company
                         information</li>
@@ -288,7 +345,10 @@
             </div>
       </div>
       <div class="module">
-            <h2>2. TukTaker Account:</h2>
+            <h2 id="sec-2">2. TukTaker Account:</h2>
+            <!-- DT-START:alert-2 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 5 items, 4 still open</b><ul><li><a href="#D02"><b>D02</b> One mobile number for both roles?</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-decided">Decided</span></li><li><a href="#D04"><b>D04</b> OTP expiry and retry limits</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D07"><b>D07</b> Rejected TukTaker flow</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D08"><b>D08</b> Work location: one vs many</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D40"><b>D40</b> NID hash can be reversed</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-2 -->
             <ul>
                   <li>18+ eligibility check (Yes/No dropdown)</li>
                   <li>Personal account type only</li>
@@ -329,7 +389,7 @@
             </div>
       </div>
       <div class="module">
-            <h2>3. Task Categories:</h2>
+            <h2 id="sec-3">3. Task Categories:</h2>
             <ul>
                   <li>Utilities: Electrical, Gas, Water, Internet, Cable TV</li>
                   <li>Cleaning: Domestic, Commercial, Industrial</li>
@@ -355,7 +415,10 @@
             </div>
       </div>
       <div class="module">
-            <h2>4. Task Posting (Service Seeker Flow):</h2>
+            <h2 id="sec-4">4. Task Posting (Service Seeker Flow):</h2>
+            <!-- DT-START:alert-4 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 8 items, 6 still open</b><ul><li><a href="#D09"><b>D09</b> Pet question has no “No pets” option</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D10"><b>D10</b> “All steps mandatory” vs “photo where applicable”</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D11"><b>D11</b> Payment method chosen at posting</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D12"><b>D12</b> When does bidding close?</a> — <span class="dt-pill st-partly">Partly decided</span></li><li><a href="#D13"><b>D13</b> Budget, counter-offers, editing bids and tasks</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D14"><b>D14</b> Escrow auto-release</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D15"><b>D15</b> Payment timeout after a bid is accepted</a> — <span class="dt-pill st-decided">Decided</span></li><li><a href="#D16"><b>D16</b> Task, bid, assignment, escrow and payout statuses</a> — <span class="dt-pill st-decided">Decided</span></li></ul></div>
+<!-- DT-END:alert-4 -->
             <ul>
                   <li>Login</li>
                   <li>Select category and sub-category</li>
@@ -389,7 +452,10 @@
             </div>
       </div>
       <div class="module">
-            <h2>5. Bidding &amp; Task Execution (TukTaker Flow):</h2>
+            <h2 id="sec-5">5. Bidding &amp; Task Execution (TukTaker Flow):</h2>
+            <!-- DT-START:alert-5 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 7 items, 6 still open</b><ul><li><a href="#D13"><b>D13</b> Budget, counter-offers, editing bids and tasks</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D16"><b>D16</b> Task, bid, assignment, escrow and payout statuses</a> — <span class="dt-pill st-decided">Decided</span></li><li><a href="#D17"><b>D17</b> “I have arrived” can be abused</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D18"><b>D18</b> “Confirm payment received” step</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D19"><b>D19</b> No-show handling</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D20"><b>D20</b> Chat and off-platform deals</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D21"><b>D21</b> “Set app to ready mode”</a> — <span class="dt-pill st-open">Open — not discussed</span></li></ul></div>
+<!-- DT-END:alert-5 -->
             <ul>
                   <li>Login</li>
                   <li>Set location</li>
@@ -416,7 +482,10 @@
             </div>
       </div>
       <div class="module">
-            <h2>6. Payments, Escrow &amp; Payouts:</h2>
+            <h2 id="sec-6">6. Payments, Escrow &amp; Payouts:</h2>
+            <!-- DT-START:alert-6 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 10 items, 8 still open</b><ul><li><a href="#D11"><b>D11</b> Payment method chosen at posting</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D14"><b>D14</b> Escrow auto-release</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D15"><b>D15</b> Payment timeout after a bid is accepted</a> — <span class="dt-pill st-decided">Decided</span></li><li><a href="#D16"><b>D16</b> Task, bid, assignment, escrow and payout statuses</a> — <span class="dt-pill st-decided">Decided</span></li><li><a href="#D22"><b>D22</b> Redemption cap period</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D23"><b>D23</b> Payout destinations</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D24"><b>D24</b> Legal check on holding money</a> — <span class="dt-pill st-expert">Needs expert sign-off</span></li><li><a href="#D25"><b>D25</b> Gateway fees and “tip fees”</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D26"><b>D26</b> Failed or double payments</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D27"><b>D27</b> Stored balances duplicate the ledger</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-6 -->
             <ul>
                   <li>Payment methods: bKash, Nagad, Bangla QR</li>
                   <li>Seeker pays after accepting an offer; money is held in escrow (vault)</li>
@@ -480,7 +549,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>7. Commission &amp; VAT:</h2>
+            <h2 id="sec-7">7. Commission &amp; VAT:</h2>
+            <!-- DT-START:alert-7 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 2 items, 2 still open</b><ul><li><a href="#D28"><b>D28</b> Commission: 20/18/16 vs 17/15/13</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D29"><b>D29</b> Who bears VAT, and on what</a> — <span class="dt-pill st-expert">Needs expert sign-off</span></li></ul></div>
+<!-- DT-END:alert-7 -->
             <ul>
                   <li>Start with a flat commission on TukTaker earnings</li>
                   <li>Later introduce tiers: Silver, Gold, Platinum</li>
@@ -502,7 +574,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>8. Cancellation:</h2>
+            <h2 id="sec-8">8. Cancellation:</h2>
+            <!-- DT-START:alert-8 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 6 items, 6 still open</b><ul><li><a href="#D12"><b>D12</b> When does bidding close?</a> — <span class="dt-pill st-partly">Partly decided</span></li><li><a href="#D17"><b>D17</b> “I have arrived” can be abused</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D19"><b>D19</b> No-show handling</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D30"><b>D30</b> TukTaker 2-hour cancellation window and penalty</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D31"><b>D31</b> Seeker cancellation fees vs payment timing</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D32"><b>D32</b> Unpaid penalties</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-8 -->
             <ul>
                   <li>TukTaker may cancel within 2 hours of accepting the task</li>
                   <li>Penalty is deducted from the TukTaker&#x27;s next service payment</li>
@@ -531,7 +606,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>9. Refunds &amp; Dispute Resolution:</h2>
+            <h2 id="sec-9">9. Refunds &amp; Dispute Resolution:</h2>
+            <!-- DT-START:alert-9 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 3 items, 3 still open</b><ul><li><a href="#D25"><b>D25</b> Gateway fees and “tip fees”</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D33"><b>D33</b> Who pays the 5% refund admin fee</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D34"><b>D34</b> Refund approvals, disputes, credit limits</a> — <span class="dt-pill st-partly">Partly decided</span></li></ul></div>
+<!-- DT-END:alert-9 -->
             <ul>
                   <li>Back-end field to refund an agreed amount to the account level (TukTaker and Seeker)</li>
                   <li>Refund visible in the billing dashboard</li>
@@ -556,7 +634,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>10. Ratings &amp; Testimonials:</h2>
+            <h2 id="sec-10">10. Ratings &amp; Testimonials:</h2>
+            <!-- DT-START:alert-10 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 1 item, 1 still open</b><ul><li><a href="#D35"><b>D35</b> “Mandatory” ratings can't be forced</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-10 -->
             <ul>
                   <li>Seeker rates TukTaker from 1 to 5 stars</li>
                   <li>TukTaker rates Seeker from 1 to 5 stars</li>
@@ -573,7 +654,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>11. Invoicing &amp; Billing Dashboards:</h2>
+            <h2 id="sec-11">11. Invoicing &amp; Billing Dashboards:</h2>
+            <!-- DT-START:alert-11 -->
+<div class="dt-alert "><b class="dt-h">⚠️ Discussed in review — 2 items, 2 still open</b><ul><li><a href="#D29"><b>D29</b> Who bears VAT, and on what</a> — <span class="dt-pill st-expert">Needs expert sign-off</span></li><li><a href="#D36"><b>D36</b> Invoice period and TukTaker invoice content</a> — <span class="dt-pill st-open">Open — not discussed</span></li></ul></div>
+<!-- DT-END:alert-11 -->
             <ul>
                   <li>Invoice process kept ready for Seekers and TukTakers, monthly or quarterly (TBC)</li>
                   <li>Select a period and press &quot;Generate Invoice&quot;; user can print and save</li>
@@ -597,7 +681,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>12. Admin, Reporting &amp; System Maintenance:</h2>
+            <h2 id="sec-12">12. Admin, Reporting &amp; System Maintenance:</h2>
+            <!-- DT-START:alert-12 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 3 items, 3 still open</b><ul><li><a href="#D21"><b>D21</b> “Set app to ready mode”</a> — <span class="dt-pill st-open">Open — not discussed</span></li><li><a href="#D34"><b>D34</b> Refund approvals, disputes, credit limits</a> — <span class="dt-pill st-partly">Partly decided</span></li><li><a href="#D37"><b>D37</b> Admin spec and roles</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-12 -->
             <ul>
                   <li>User report: total TukTakers and Seekers for a date-time range</li>
                   <li>Revenue report: total revenue for a period</li>
@@ -617,7 +704,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>13. Security, Data Protection &amp; Retention:</h2>
+            <h2 id="sec-13">13. Security, Data Protection &amp; Retention:</h2>
+            <!-- DT-START:alert-13 -->
+<div class="dt-alert has-conflict"><b class="dt-h">⚠️ Discussed in review — 6 items, 6 still open</b><ul><li><a href="#D03"><b>D03</b> Password policy: “standard” vs “strong”</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D20"><b>D20</b> Chat and off-platform deals</a> — <span class="dt-kind">Contradiction</span> · <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D27"><b>D27</b> Stored balances duplicate the ledger</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D38"><b>D38</b> Retention: profiles forever, NID images</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D39"><b>D39</b> Backups can't stay TBC</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D40"><b>D40</b> NID hash can be reversed</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-13 -->
             <ul>
                   <li>Protect customer data and business data</li>
                   <li>Secure repository</li>
@@ -639,7 +729,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>14. Legal, Compliance &amp; Disclaimers:</h2>
+            <h2 id="sec-14">14. Legal, Compliance &amp; Disclaimers:</h2>
+            <!-- DT-START:alert-14 -->
+<div class="dt-alert "><b class="dt-h">⚠️ Discussed in review — 2 items, 2 still open</b><ul><li><a href="#D24"><b>D24</b> Legal check on holding money</a> — <span class="dt-pill st-expert">Needs expert sign-off</span></li><li><a href="#D41"><b>D41</b> Blank disclaimer rows</a> — <span class="dt-pill st-open">Open — not discussed</span></li></ul></div>
+<!-- DT-END:alert-14 -->
             <ul>
                   <li>Hold a company trade licence</li>
                   <li>Comply with VAT and NBR requirements</li>
@@ -660,7 +753,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>15. Business Operations, Brand &amp; Marketing:</h2>
+            <h2 id="sec-15">15. Business Operations, Brand &amp; Marketing:</h2>
+            <!-- DT-START:alert-15 -->
+<div class="dt-alert "><b class="dt-h">⚠️ Discussed in review — 2 items, 2 still open</b><ul><li><a href="#D42"><b>D42</b> Hotline, hours, slogan, emergency engagement</a> — <span class="dt-pill st-open">Open — not discussed</span></li><li><a href="#D45"><b>D45</b> Safety features</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-15 -->
             <ul>
                   <li>Email accounts: info, admin, feedback</li>
                   <li>Hotline number and hours of operation</li>
@@ -684,7 +780,10 @@ bKash / Nagad / Bank Account</pre>
             </div>
       </div>
       <div class="module">
-            <h2>16. Future Scope (Not in MVP):</h2>
+            <h2 id="sec-16">16. Future Scope (Not in MVP):</h2>
+            <!-- DT-START:alert-16 -->
+<div class="dt-alert "><b class="dt-h">⚠️ Discussed in review — 2 items, 2 still open</b><ul><li><a href="#D39"><b>D39</b> Backups can't stay TBC</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li><li><a href="#D43"><b>D43</b> MVP scope cut</a> — <span class="dt-pill st-proposed">Proposed — awaiting decision</span></li></ul></div>
+<!-- DT-END:alert-16 -->
             <ul>
                   <li>Fingerprint collection for TukTakers</li>
                   <li>Debit/Credit card payments</li>
@@ -704,6 +803,69 @@ bKash / Nagad / Bank Account</pre>
                   </ul>
             </div>
       </div>
+      <!-- DT-START:tracker -->
+<div class="dt-tracker" id="decision-tracker">
+            <h2>Decisions &amp; Contradictions Tracker</h2>
+            <p class="note">Recommended answers are proposals for the founders to confirm, except items marked <b>Decided</b>.
+            Legal and VAT items need an expert's sign-off. The blank “Founder decision” column is for the decision meeting (print this page).</p>
+            <div class="dt-filters"><button class="on" data-f="all">All (45)</button><button data-f="conflict">Contradictions (16)</button><button data-f="decided">Decided (3)</button><button data-f="partly">Partly decided (2)</button><button data-f="proposed">Proposed — awaiting decision (34)</button><button data-f="expert">Needs expert sign-off (2)</button><button data-f="open">Open — not discussed (4)</button></div>
+            <div class="dt-wrap"><table class="dt-table">
+                  <thead><tr><th>ID</th><th>Section</th><th>Topic &amp; issue</th><th>Recommended answer</th><th>Status</th><th>Founder decision</th></tr></thead>
+                  <tbody>
+                  <tr id="D01" data-s="proposed" data-k="Contradiction"><td class="id">D01</td><td><a href="#sec-1">§1</a></td><td><b>Seeker NID rule can't be checked</b><br><span class="dt-kind">Contradiction</span><span class="issue">The Seeker must use a mobile number registered under their NID, but Seekers never provide an NID.</span></td><td>Drop the check for MVP. OTP plus a checkbox: “I confirm this number is registered in my name.” NID checks for Seekers can come later.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D02" data-s="decided" data-k="Contradiction"><td class="id">D02</td><td><a href="#sec-1">§1</a>, <a href="#sec-2">§2</a></td><td><b>One mobile number for both roles?</b><br><span class="dt-kind">Contradiction</span><span class="issue">The database allows one user with several profiles; the requirements describe two separate sign-ups.</span></td><td><b>Decision:</b> one unique mobile number per account, and one role per account (Seeker or TukTaker), to avoid complexity. Database: <code>iam.users.mobile</code> unique + <code>iam.users.account_role</code>.</td><td><span class="dt-pill st-decided">Decided</span></td><td class="fd"></td></tr>
+<tr id="D03" data-s="proposed" data-k="Contradiction"><td class="id">D03</td><td><a href="#sec-1">§1</a>, <a href="#sec-13">§13</a></td><td><b>Password policy: “standard” vs “strong”</b><br><span class="dt-kind">Contradiction</span><span class="issue">Section 1 says standard passwords; Section 13 says strong passwords.</span></td><td>One rule everywhere: at least 8 characters with upper case, lower case, a number and a special character.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D04" data-s="proposed" data-k="Gap"><td class="id">D04</td><td><a href="#sec-1">§1</a>, <a href="#sec-2">§2</a></td><td><b>OTP expiry and retry limits</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Not defined (TBC).</span></td><td>6 digits, expires in 3 minutes, 3 attempts, resend after 60 seconds, at most 5 per hour.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D05" data-s="proposed" data-k="Gap"><td class="id">D05</td><td><a href="#sec-1">§1</a></td><td><b>Business account fields</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Extra Business fields are TBC, but the schema already has business profiles (trade licence, BIN, TIN).</span></td><td>Company name, trade licence number, BIN (optional), contact person, invoice email. Manual, optional verification, needed only for invoices.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D06" data-s="proposed" data-k="Contradiction"><td class="id">D06</td><td><a href="#sec-1">§1</a></td><td><b>Seeker DOB and gender stored but not required</b><br><span class="dt-kind">Contradiction</span><span class="issue"><code>seeker_profiles</code> stores DOB and gender; the requirements never ask for them (age check for Seekers is also TBC).</span></td><td>Remove them, or make them optional. Collecting less personal data is safer.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D07" data-s="proposed" data-k="Gap"><td class="id">D07</td><td><a href="#sec-2">§2</a></td><td><b>Rejected TukTaker flow</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Rejection, re-submission, review time and which edits need re-verification are TBC.</span></td><td>Reject with a reason from a list (<code>kyc_rejection_reasons</code>); allow 3 resubmissions; review target 24–48 h. Re-verify after changes to name, DOB, NID, selfie or mobile; address and work-location changes don't need it.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D08" data-s="proposed" data-k="Contradiction"><td class="id">D08</td><td><a href="#sec-2">§2</a></td><td><b>Work location: one vs many</b><br><span class="dt-kind">Contradiction</span><span class="issue">The requirements give a TukTaker one work location; the schema stores many service upazilas plus a radius.</span></td><td>The schema's version wins (several upazilas + radius). Update this section to match.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D09" data-s="proposed" data-k="Contradiction"><td class="id">D09</td><td><a href="#sec-4">§4</a></td><td><b>Pet question has no “No pets” option</b><br><span class="dt-kind">Contradiction</span><span class="issue">The pet question is mandatory but only offers Cat or Dog.</span></td><td>“Any pets at the location?” — No / Cat / Dog / Other.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D10" data-s="proposed" data-k="Contradiction"><td class="id">D10</td><td><a href="#sec-4">§4</a></td><td><b>“All steps mandatory” vs “photo where applicable”</b><br><span class="dt-kind">Contradiction</span><span class="issue">The photo step can't be both mandatory and optional.</span></td><td>Photo is optional, except where a category requires it (e.g. measurements for Small Construction).</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D11" data-s="proposed" data-k="Contradiction"><td class="id">D11</td><td><a href="#sec-4">§4</a>, <a href="#sec-6">§6</a></td><td><b>Payment method chosen at posting</b><br><span class="dt-kind">Contradiction</span><span class="issue">The method is picked when posting, but payment happens after a bid is accepted. Bangla QR is missing from the posting options but listed in Section 6.</span></td><td>Choose the method at the payment step: bKash, Nagad or Bangla QR, all through SSLCommerz.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D12" data-s="partly" data-k="Gap"><td class="id">D12</td><td><a href="#sec-4">§4</a>, <a href="#sec-8">§8</a></td><td><b>When does bidding close?</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Cancellation fees, auto-reopen and task statuses depend on it, but it isn't defined.</span></td><td><b>Decided:</b> <code>tasks.bidding_closes_at</code> is added. <b>Proposed:</b> Seeker picks 2, 6, 24 (default) or 48 h, ending at least 2 h before the job; bidding also closes when a bid is accepted; no bids → task <code>expired</code>.</td><td><span class="dt-pill st-partly">Partly decided</span></td><td class="fd"></td></tr>
+<tr id="D13" data-s="proposed" data-k="Gap"><td class="id">D13</td><td><a href="#sec-4">§4</a>, <a href="#sec-5">§5</a></td><td><b>Budget, counter-offers, editing bids and tasks</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">The budget's role, counter-offer limits, bid edit/withdraw and task editing are TBC.</span></td><td>Budget is a guide shown to bidders. At most 3 counter-offer rounds, each offer expires after 12 h. Bids can be edited or withdrawn until one is accepted. Task editable until the first bid.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D14" data-s="proposed" data-k="Gap"><td class="id">D14</td><td><a href="#sec-4">§4</a>, <a href="#sec-6">§6</a></td><td><b>Escrow auto-release</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">If the Seeker never accepts completion, the TukTaker is never paid.</span></td><td>Seeker has 48 h after “job done” to accept or dispute; reminders at 24 h and 44 h; then automatic release. A dispute freezes the escrow.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D15" data-s="decided" data-k="Gap"><td class="id">D15</td><td><a href="#sec-4">§4</a>, <a href="#sec-6">§6</a></td><td><b>Payment timeout after a bid is accepted</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">If payment fails, the assignment would stay pending forever.</span></td><td><b>Decision:</b> 15-minute payment timeout (<code>assignments.payment_due_at</code>). If it lapses, the bid is released and the task reopens.</td><td><span class="dt-pill st-decided">Decided</span></td><td class="fd"></td></tr>
+<tr id="D16" data-s="decided" data-k="Gap"><td class="id">D16</td><td><a href="#sec-4">§4</a>, <a href="#sec-5">§5</a>, <a href="#sec-6">§6</a></td><td><b>Task, bid, assignment, escrow and payout statuses</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">The status lists in the schema didn't cover the flow (draft, withdrawn, arrived, refunded, failed…).</span></td><td><b>Decision:</b> adopted the expanded lists — see the <a href="database_dictionary.html">database dictionary</a> Status reference.</td><td><span class="dt-pill st-decided">Decided</span></td><td class="fd"></td></tr>
+<tr id="D17" data-s="proposed" data-k="Gap"><td class="id">D17</td><td><a href="#sec-5">§5</a>, <a href="#sec-8">§8</a></td><td><b>“I have arrived” can be abused</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Arrival decides the call-out fee, but nothing verifies it.</span></td><td>TukTaker GPS must be within 200 m of the address; if GPS fails, the Seeker reads out a 4-digit code shown in their app.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D18" data-s="proposed" data-k="Contradiction"><td class="id">D18</td><td><a href="#sec-5">§5</a></td><td><b>“Confirm payment received” step</b><br><span class="dt-kind">Contradiction</span><span class="issue">Money goes to the wallet, not into the TukTaker's hand, so there is nothing to confirm.</span></td><td>Replace with an automatic “Earnings added to your wallet” notification.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D19" data-s="proposed" data-k="Gap"><td class="id">D19</td><td><a href="#sec-5">§5</a>, <a href="#sec-8">§8</a></td><td><b>No-show handling</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Not defined (TBC).</span></td><td>If the TukTaker hasn't arrived 30 min after the scheduled time, the Seeker can cancel with a full refund and the TukTaker gets a penalty.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D20" data-s="proposed" data-k="Contradiction"><td class="id">D20</td><td><a href="#sec-5">§5</a>, <a href="#sec-13">§13</a></td><td><b>Chat and off-platform deals</b><br><span class="dt-kind">Contradiction</span><span class="issue">The retention policy mentions chat history, but no flow describes chat. Once parties talk, they can skip the platform.</span></td><td>Text chat inside the task opens once a bid is accepted; phone numbers stay masked; chat kept for 1 year.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D21" data-s="open" data-k="Gap"><td class="id">D21</td><td><a href="#sec-5">§5</a>, <a href="#sec-12">§12</a></td><td><b>“Set app to ready mode”</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Listed in the sheet with no description.</span></td><td>Not discussed yet — owner to describe what it means or drop it.</td><td><span class="dt-pill st-open">Open — not discussed</span></td><td class="fd"></td></tr>
+<tr id="D22" data-s="proposed" data-k="Gap"><td class="id">D22</td><td><a href="#sec-6">§6</a></td><td><b>Redemption cap period</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">The 10,000 BDT cap has no period (per transaction, day or month?).</span></td><td>Min 500 BDT; max 10,000 BDT per transaction and 25,000 BDT per day; 5 BDT fee.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D23" data-s="proposed" data-k="Contradiction"><td class="id">D23</td><td><a href="#sec-0">Overview</a>, <a href="#sec-6">§6</a></td><td><b>Payout destinations</b><br><span class="dt-kind">Contradiction</span><span class="issue">The payout diagram shows a bank account; the sheet lists bKash, Nagad and Bangla QR. Bangla QR is a pay-in method, not a payout.</span></td><td>MVP payouts to bKash or Nagad only; remove QR from payouts; bank payouts in phase 2.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D24" data-s="expert" data-k="Gap"><td class="id">D24</td><td><a href="#sec-6">§6</a>, <a href="#sec-14">§14</a></td><td><b>Legal check on holding money</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Escrow and wallet balances may fall under Bangladesh Bank digital-commerce escrow / e-money rules.</span></td><td>Hold funds in a PSP/bank-held escrow or trust account, not the operating account. Wallet is withdraw-only (no top-ups, no spending). <b>Needs written confirmation from SSLCommerz and a lawyer.</b></td><td><span class="dt-pill st-expert">Needs expert sign-off</span></td><td class="fd"></td></tr>
+<tr id="D25" data-s="proposed" data-k="Contradiction"><td class="id">D25</td><td><a href="#sec-6">§6</a>, <a href="#sec-9">§9</a></td><td><b>Gateway fees and “tip fees”</b><br><span class="dt-kind">Contradiction</span><span class="issue">Who pays gateway fees is undefined; the schema's <code>fee_schedules</code> lists tip fees while the rules say no commission on tips.</span></td><td>The platform absorbs pay-in gateway fees, including on tips, so tips reach the TukTaker in full.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D26" data-s="proposed" data-k="Gap"><td class="id">D26</td><td><a href="#sec-6">§6</a></td><td><b>Failed or double payments</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">TBC in the sheet.</span></td><td>Failed payment → 15-minute timeout (D15). Duplicate charges are caught by the existing idempotency keys and refunded automatically.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D27" data-s="proposed" data-k="Gap"><td class="id">D27</td><td><a href="#sec-6">§6</a>, <a href="#sec-13">§13</a></td><td><b>Stored balances duplicate the ledger</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue"><code>ledger_accounts.balance</code>, <code>total_spent</code> and <code>total_earned</code> repeat what the ledger holds and can drift.</span></td><td>Update them in the same DB transaction as ledger entries (row locking) and run a nightly check against the ledger.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D28" data-s="proposed" data-k="Contradiction"><td class="id">D28</td><td><a href="#sec-7">§7</a></td><td><b>Commission: 20/18/16 vs 17/15/13</b><br><span class="dt-kind">Contradiction</span><span class="issue">The sheet gives two different commission schemes.</span></td><td>Flat 17% at launch; add tiers 17/15/13 after 3–6 months of data (tier thresholds set then).</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D29" data-s="expert" data-k="Gap"><td class="id">D29</td><td><a href="#sec-7">§7</a>, <a href="#sec-11">§11</a></td><td><b>Who bears VAT, and on what</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Who pays the 15% VAT, and whether cancellation, invoice and refund fees are VAT-able, is TBC.</span></td><td>TukTaker bears 15% VAT on the commission (effective 19.55%), shown on their statement; VAT also on the platform's other fee income. <b>Needs a VAT consultant to confirm.</b></td><td><span class="dt-pill st-expert">Needs expert sign-off</span></td><td class="fd"></td></tr>
+<tr id="D30" data-s="proposed" data-k="Gap"><td class="id">D30</td><td><a href="#sec-8">§8</a></td><td><b>TukTaker 2-hour cancellation window and penalty</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">The 2-hour window has no anchor; the penalty amount is TBC.</span></td><td>Free within 2 h of accepting, if the job starts at least 6 h later. Otherwise a penalty of 10% (100–300 BDT).</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D31" data-s="proposed" data-k="Contradiction"><td class="id">D31</td><td><a href="#sec-8">§8</a></td><td><b>Seeker cancellation fees vs payment timing</b><br><span class="dt-kind">Contradiction</span><span class="issue">“10% after bidding closes” needs money in escrow, but the Seeker may not have paid yet. How the 10% and call-out fee combine is TBC.</span></td><td>Before accepting a bid: free. After accepting and paying, before arrival: 10%, split 50/50 platform/TukTaker. After arrival: 250 BDT call-out fee instead. Fees never stack.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D32" data-s="proposed" data-k="Gap"><td class="id">D32</td><td><a href="#sec-8">§8</a></td><td><b>Unpaid penalties</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">A penalty comes out of the next payment — what if there is none?</span></td><td>Carry forward; the wallet never goes negative. Unpaid for 30+ days blocks new bids until paid or waived by admin.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D33" data-s="proposed" data-k="Gap"><td class="id">D33</td><td><a href="#sec-9">§9</a></td><td><b>Who pays the 5% refund admin fee</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">TBC.</span></td><td>Whoever was at fault. If the TukTaker was at fault, the Seeker pays nothing.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D34" data-s="partly" data-k="Gap"><td class="id">D34</td><td><a href="#sec-9">§9</a>, <a href="#sec-12">§12</a></td><td><b>Refund approvals, disputes, credit limits</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Refund approval steps, how a dispute is raised, credit expiry and the max credit limit are TBC.</span></td><td><b>Proposed:</b> disputes raised in-app during the 48 h acceptance window; refunds/credits above a limit need a second approver (Finance). <b>Open:</b> credit expiry and the max credit amount.</td><td><span class="dt-pill st-partly">Partly decided</span></td><td class="fd"></td></tr>
+<tr id="D35" data-s="proposed" data-k="Contradiction"><td class="id">D35</td><td><a href="#sec-10">§10</a></td><td><b>“Mandatory” ratings can't be forced</b><br><span class="dt-kind">Contradiction</span><span class="issue">Rating is mandatory for both sides, but nothing enforces it; blocking adds friction.</span></td><td>Don't block; send reminders. 7-day window, blind until both rate or 7 days pass. Average below 3.5 after 10 tasks → admin review.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D36" data-s="open" data-k="Gap"><td class="id">D36</td><td><a href="#sec-11">§11</a></td><td><b>Invoice period and TukTaker invoice content</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Monthly or quarterly is TBC; the TukTaker invoice text is copied from the Seeker version.</span></td><td>Not decided yet. TukTaker invoice should show earnings, commission, VAT and net payout.</td><td><span class="dt-pill st-open">Open — not discussed</span></td><td class="fd"></td></tr>
+<tr id="D37" data-s="proposed" data-k="Contradiction"><td class="id">D37</td><td><a href="#sec-12">§12</a></td><td><b>Admin spec and roles</b><br><span class="dt-kind">Contradiction</span><span class="issue">The admin tab is empty, yet KYC, refunds, credits, disputes and payouts all need admin screens. Super/General roles don't map to these jobs.</span></td><td>Roles: Super Admin, Operations/Support, Finance. Screens: dashboard, KYC queue, users, tasks, disputes, refunds & credits, payout approval, settings, the 4 reports, audit log.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D38" data-s="proposed" data-k="Gap"><td class="id">D38</td><td><a href="#sec-13">§13</a></td><td><b>Retention: profiles forever, NID images</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">“Profiles forever” is risky; NID image retention and encryption are undefined.</span></td><td>Profiles kept while active, then 5 years after closure (financial records per NBR). NID images encrypted, every view logged, deleted 1 year after closure.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D39" data-s="proposed" data-k="Gap"><td class="id">D39</td><td><a href="#sec-13">§13</a>, <a href="#sec-16">§16</a></td><td><b>Backups can't stay TBC</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Backup is TBC for MVP.</span></td><td>Daily automatic DB backups kept 30 days, weekly copy in a second location, monthly restore test. External drive only as an extra copy.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D40" data-s="proposed" data-k="Gap"><td class="id">D40</td><td><a href="#sec-2">§2</a>, <a href="#sec-13">§13</a></td><td><b>NID hash can be reversed</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">NIDs are 10/13/17 digits, so a plain hash can be brute-forced.</span></td><td>HMAC with a server secret for duplicate checks, plus an AES-encrypted copy for staff review.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D41" data-s="open" data-k="Gap"><td class="id">D41</td><td><a href="#sec-14">§14</a></td><td><b>Blank disclaimer rows</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">14 disclaimer rows in the sheet are empty.</span></td><td>Not discussed yet — content needed (ideally reviewed by the lawyer in D24).</td><td><span class="dt-pill st-open">Open — not discussed</span></td><td class="fd"></td></tr>
+<tr id="D42" data-s="open" data-k="Gap"><td class="id">D42</td><td><a href="#sec-15">§15</a></td><td><b>Hotline, hours, slogan, emergency engagement</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">All TBC.</span></td><td>Not discussed yet. Support hours proposed in D44 (9am–9pm).</td><td><span class="dt-pill st-open">Open — not discussed</span></td><td class="fd"></td></tr>
+<tr id="D43" data-s="proposed" data-k="Gap"><td class="id">D43</td><td><a href="#sec-16">§16</a></td><td><b>MVP scope cut</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">The schema has 134 tables, including much future scope.</span></td><td>Keep the design, but postpone marketing, certifications, report schedules, reconciliation automation, legal holds and backup KYC providers to later migrations. Nursing, Maid and Driver still need a compliance review.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D44" data-s="proposed" data-k="Gap"><td class="id">D44</td><td><a href="#sec-G">General</a></td><td><b>Non-functional requirements missing</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Platforms, languages, notifications, uptime and support hours aren't specified.</span></td><td>Android app + web for Seekers, web admin panel; iOS in phase 2. Bangla and English. Push by default, SMS only for OTP, verification and payments. 99.5% uptime. Support 9am–9pm.</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+<tr id="D45" data-s="proposed" data-k="Gap"><td class="id">D45</td><td><a href="#sec-G">General</a>, <a href="#sec-15">§15</a></td><td><b>Safety features</b><br><span class="dt-kind gap">Gap / TBC</span><span class="issue">Only the 999 button is specified.</span></td><td>Add “share live task with a contact” and a “Report user” button (<code>trust.user_reports</code> exists).</td><td><span class="dt-pill st-proposed">Proposed — awaiting decision</span></td><td class="fd"></td></tr>
+                  </tbody>
+            </table></div>
+      </div>
+      <script>
+(function(){var b=document.querySelectorAll('.dt-filters button');b.forEach(function(x){x.addEventListener('click',function(){
+b.forEach(function(y){y.classList.remove('on')});x.classList.add('on');var f=x.getAttribute('data-f');
+document.querySelectorAll('.dt-table tbody tr').forEach(function(r){r.style.display=(f==='all'||r.getAttribute('data-s')===f||(f==='conflict'&&r.getAttribute('data-k')==='Contradiction'))?'':'none'})})})})();
+</script>
+<!-- DT-END:tracker -->
 </body>
 
 </html>
