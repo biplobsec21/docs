@@ -252,6 +252,43 @@
 
     .section > p:last-child { margin-bottom: 0; }
 
+
+    /* --- additions 2026-11-04 --- */
+    .badge { display:inline-block; margin-left:6px; padding:1px 7px; border-radius:4px; font-size:10.5px;
+      font-weight:700; letter-spacing:.4px; vertical-align:2px; }
+    .badge.new { background:#78bf24; color:#fff; }
+    .badge.upd { background:#1456a0; color:#fff; }
+    .decs { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
+    .decs::before { content:"Decisions:"; font-size:12px; color:var(--muted); font-weight:700; margin-right:2px; }
+    a.dec { font-size:11.5px; font-weight:700; padding:1px 8px; border-radius:999px; text-decoration:none; border:1px solid; }
+    .dec-decided { background:#edf7e6; color:#2f6b0c; border-color:#b9de96 !important; }
+    .dec-partly, .dec-proposed { background:#fff6e5; color:#8a5300; border-color:#f3cf8c !important; }
+    .dec-expert, .dec-open { background:#fff0ee; color:#a3271a; border-color:#f2b5ab !important; }
+    .update-banner { margin-top:22px; padding:14px 18px; border:1px solid #c9dcf3; border-left:4px solid #1456a0;
+      border-radius:8px; background:#f2f7fd; font-size:14px; }
+    .update-banner p { margin:0 0 6px; } .update-banner p:last-child { margin:0; }
+    .update-banner .legend-dec { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .branch-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .branch .table-name { white-space: normal; overflow-wrap: anywhere; }
+    .branch.timeout { background:var(--orange); }
+    .branch.trust { background:#f3f6f9; }
+    .branch.money { background:var(--green); }
+    .sm-row { display:grid; grid-template-columns:120px minmax(0,1fr); gap:14px; padding:14px 0; border-bottom:1px solid var(--line); }
+    .sm-row:last-child { border-bottom:0; }
+    .sm-name { font-weight:700; padding-top:3px; }
+    .sm-happy { display:flex; flex-wrap:wrap; align-items:center; gap:4px; }
+    .st { display:inline-block; padding:3px 9px; border-radius:5px; font:12.5px Consolas, "Courier New", monospace; }
+    .st.ok { background:#edf7e6; border:1px solid #b9de96; color:#24520a; }
+    .st.ex { background:#fff0ee; border:1px solid #f2b5ab; color:#8f2418; }
+    .arr { color:var(--muted); font-weight:700; }
+    .sm-exits { margin-top:7px; display:flex; flex-wrap:wrap; gap:5px; align-items:center; }
+    .sm-lbl { font-size:12px; color:var(--muted); font-weight:700; }
+    .sm-note { margin:7px 0 0; font-size:13.5px; color:var(--muted); }
+    tr.new-row td:first-child { box-shadow: inset 3px 0 0 #78bf24; }
+    .changelog li { margin-bottom:5px; }
+    @media (max-width: 600px) { .sm-row { grid-template-columns:1fr; gap:6px; } }
+    @media print { .sm-row { break-inside: avoid; } }
+
     @media (max-width: 600px) {
       .page { width: min(100% - 20px, 1120px); margin-top: 10px; }
       .site-header { gap: 10px; padding: 13px; }
@@ -282,10 +319,17 @@
       <a class="home-link" href="index.html">Documentation home</a>
     </header>
 
+    <div class="update-banner">
+      <p><b>Updated 2026-11-04:</b> aligned with the <a href="database_dictionary.html">database dictionary</a> and the decisions made so far:
+      one mobile number and one role per account (D02), <code>bidding_closes_at</code> (D12), the 15-minute payment timeout (D15) and the new
+      status lists (D16). Missing flows were added. See the <a href="#changelog">change log</a>.</p>
+      <p class="legend-dec"><b>Decision tags</b> link to the tracker on the requirements page: <a class="dec dec-decided" href="requirements_analysis.html#decision-tracker">Decided</a> <a class="dec dec-proposed" href="requirements_analysis.html#decision-tracker">Proposed / partly decided</a> <a class="dec dec-open" href="requirements_analysis.html#decision-tracker">Open / needs expert sign-off</a></p>
+    </div>
+
     <section class="intro">
       <h2>Purpose and reading guide</h2>
       <p class="muted">This is a table-level view of the TukTakKaj service marketplace: a Seeker posts work, TukTakers bid, payment is held in escrow, the task is completed, and the money is settled and paid out. Each stage names the tables that store its durable records.</p>
-      <p class="muted">Solid flow below describes the normal task lifecycle. Side paths describe disputes, refunds, notifications, and operational support. Table names use <code>schema.table</code> notation.</p>
+      <p class="muted">Solid flow below describes the normal task lifecycle. Side paths describe the payment timeout, disputes, cancellations, safety and operational support. The status lifecycles section shows every allowed status. Table names use <code>schema.table</code> notation.</p>
       <div class="legend" aria-label="Schema areas">
         <span>ref / catalog — reference and task definitions</span>
         <span>iam — users and profiles</span>
@@ -298,75 +342,133 @@
     <section class="section">
       <h2>Primary data flow</h2>
       <div class="flow">
-        <article class="step">
+        <article class="step" id="step-1">
           <div class="step-marker"><span class="step-number">1</span><span class="step-line"></span></div>
           <div class="step-card">
-            <h3>Accounts and eligibility</h3>
-            <p>Each person has one identity; role-specific profile records store their Seeker, Business, or TukTaker details. KYC and uploaded documents support verification.</p>
-            <div class="tables"><span class="table-name">iam.users</span><span class="table-name">iam.seeker_profiles</span><span class="table-name">iam.business_profiles</span><span class="table-name">iam.tuktaker_profiles</span><span class="table-name">iam.kyc_submissions</span><span class="table-name">ops.files</span></div>
+            <h3>Accounts, sign-up and eligibility <span class="badge upd">UPDATED</span></h3>
+            <p><b>One mobile number = one account = one role.</b> <code>iam.users.mobile</code> is unique and <code>iam.users.account_role</code> is
+             either <b>seeker</b> or <b>tuktaker</b>, set at sign-up (staff use <code>is_staff</code>). Sign-up and login are verified by OTP.
+             A Seeker may add business details (<code>iam.business_profiles</code>) to become a business Seeker; it is not a separate role.</p>
+             <p>A TukTaker submits KYC: each attempt is a <code>kyc_submissions</code> row, its NID and selfie images are <code>kyc_documents</code>
+             stored as <code>ops.files</code> metadata, and the check runs through a configured <code>kyc_providers</code> entry.</p>
+            <div class="tables"><span class="table-name">iam.users</span><span class="table-name">iam.otp_requests</span><span class="table-name">iam.auth_sessions</span><span class="table-name">iam.seeker_profiles</span><span class="table-name">iam.business_profiles</span><span class="table-name">iam.tuktaker_profiles</span><span class="table-name">iam.kyc_submissions</span><span class="table-name">iam.kyc_documents</span><span class="table-name">iam.kyc_providers</span><span class="table-name">ops.files</span></div>
+            <span class="decs"><a class="dec dec-decided" href="requirements_analysis.html#D02" title="Decided: One mobile number for both roles?">D02</a><a class="dec dec-proposed" href="requirements_analysis.html#D04" title="Proposed: OTP expiry and retry limits">D04</a><a class="dec dec-proposed" href="requirements_analysis.html#D05" title="Proposed: Business account fields">D05</a><a class="dec dec-proposed" href="requirements_analysis.html#D07" title="Proposed: Rejected TukTaker flow">D07</a></span>
           </div>
         </article>
-
-        <article class="step">
+        <article class="step" id="step-2">
           <div class="step-marker"><span class="step-number">2</span><span class="step-line"></span></div>
           <div class="step-card">
-            <h3>Task definition and draft</h3>
-            <p>The Seeker chooses a service category, enters its configured form answers, sets the budget and service area, and can attach files. Delivery categories can add pickup, drop-off, and stop locations.</p>
+            <h3>Task definition and draft </h3>
+            <p>The Seeker chooses a service category, enters its configured form answers, sets the budget and service area, and can attach
+             files. Delivery categories can add pickup, drop-off, and stop locations. The task is saved with status <code>draft</code>.</p>
             <div class="tables"><span class="table-name">catalog.categories</span><span class="table-name">catalog.category_fields</span><span class="table-name">task.tasks</span><span class="table-name">task.task_locations</span><span class="table-name">task.task_attachments</span><span class="table-name">ref.districts</span><span class="table-name">ref.upazilas</span><span class="table-name">ref.areas</span></div>
+            <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D11" title="Proposed: Payment method chosen at posting">D11</a><a class="dec dec-proposed" href="requirements_analysis.html#D13" title="Proposed: Budget, counter-offers, editing bids and tasks">D13</a></span>
           </div>
         </article>
-
-        <article class="step">
+        <article class="step" id="step-3">
           <div class="step-marker"><span class="step-number">3</span><span class="step-line"></span></div>
           <div class="step-card">
-            <h3>Publish and discover</h3>
-            <p>Publishing validates the category, required form fields, and any required locations. The task changes to <code>open</code>; eligible TukTakers can find it by category, area, or proximity.</p>
-            <div class="tables"><span class="table-name">task.tasks</span><span class="table-name">task.task_status_history</span><span class="table-name">catalog.tuktaker_categories</span><span class="table-name">ref.service_areas</span><span class="table-name">ref.service_area_upazilas</span></div>
+            <h3>Publish, discover and bidding window <span class="badge upd">UPDATED</span></h3>
+            <p>Publishing validates the category, required form fields and any required locations. The task changes
+             <code>draft</code> → <code>open</code> and <code>task.tasks.bidding_closes_at</code> is set. Eligible TukTakers find it by category, area or
+             proximity; the Seeker can also invite TukTakers directly (<code>task_invitations</code>).</p>
+             <p>At <code>bidding_closes_at</code> the task moves to <code>bidding_closed</code>: no new bids, but the Seeker can still accept a pending bid.
+             If no bid is accepted in time the task becomes <code>expired</code> and its open bids expire. Every change is written to
+             <code>task_status_history</code>.</p>
+            <div class="tables"><span class="table-name">task.tasks</span><span class="table-name">task.task_status_history</span><span class="table-name">task.task_invitations</span><span class="table-name">task.saved_tasks</span><span class="table-name">catalog.tuktaker_categories</span><span class="table-name">iam.tuktaker_service_upazilas</span><span class="table-name">ref.service_areas</span><span class="table-name">ref.service_area_upazilas</span></div>
+            <span class="decs"><a class="dec dec-partly" href="requirements_analysis.html#D12" title="Partly decided: When does bidding close?">D12</a><a class="dec dec-decided" href="requirements_analysis.html#D16" title="Decided: Task, bid, assignment, escrow and payout statuses">D16</a></span>
           </div>
         </article>
-
-        <article class="step">
+        <article class="step" id="step-4">
           <div class="step-marker"><span class="step-number">4</span><span class="step-line"></span></div>
           <div class="step-card">
-            <h3>Bids, negotiation, and selection</h3>
-            <p>TukTakers submit bids. Each counter-offer round is retained separately; the Seeker accepts one bid, while other bids can be rejected, withdrawn, or expire.</p>
-            <div class="tables"><span class="table-name">task.bids</span><span class="table-name">task.bid_offers</span><span class="table-name">task.tasks</span></div>
+            <h3>Bids, negotiation, and selection <span class="badge upd">UPDATED</span></h3>
+            <p>A TukTaker submits a bid (<code>pending</code>). Each counter-offer round is kept in <code>task.bid_offers</code> and the bid shows
+             <code>countered</code> while negotiation is in progress. A TukTaker can <code>withdraw</code> their bid.</p>
+             <p>The Seeker accepts one bid → <code>accepted</code> (with <code>accepted_at</code>) and the task becomes <code>assigned</code>. Other bids stay
+             valid while payment is awaited, so the task can reopen if payment times out. Once payment is confirmed they become <code>rejected</code>;
+             bids still open when the task closes become <code>expired</code>.</p>
+            <div class="tables"><span class="table-name">task.bids</span><span class="table-name">task.bid_offers</span><span class="table-name">task.tasks</span><span class="table-name">task.task_status_history</span></div>
+            <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D13" title="Proposed: Budget, counter-offers, editing bids and tasks">D13</a><a class="dec dec-decided" href="requirements_analysis.html#D16" title="Decided: Task, bid, assignment, escrow and payout statuses">D16</a></span>
           </div>
         </article>
-
-        <article class="step">
+        <article class="step" id="step-5">
           <div class="step-marker"><span class="step-number">5</span><span class="step-line"></span></div>
           <div class="step-card">
-            <h3>Assignment and Seeker payment</h3>
-            <p>Acceptance creates an assignment attempt with the agreed amount. A payment is initiated through a configured provider; provider callbacks are recorded and processed idempotently. A successful payment links to a finance ledger transaction.</p>
-            <div class="tables"><span class="table-name">task.assignments</span><span class="table-name">task.tasks</span><span class="table-name">payment.providers</span><span class="table-name">payment.user_payment_methods</span><span class="table-name">payment.payments</span><span class="table-name">payment.gateway_events</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span></div>
+            <h3>Assignment and Seeker payment (15-minute window) <span class="badge upd">UPDATED</span></h3>
+            <p>Acceptance creates an assignment with the agreed amount, status <code>pending_payment</code> and
+             <code>payment_due_at</code> = acceptance + 15 minutes (configurable in <code>ops.system_settings</code>).</p>
+             <p>The payment is initiated through SSLCommerz (<code>payment.payments</code>: initiated → paid / failed). Provider callbacks are stored in
+             <code>gateway_events</code> and processed once, using <code>ops.idempotency_keys</code>. On success a ledger transaction is posted, an escrow hold
+             is created (<code>held</code>) and the assignment becomes <code>active</code>. If the deadline passes first, see
+             <a href="#timeout">Payment timeout</a>.</p>
+            <div class="tables"><span class="table-name">task.assignments</span><span class="table-name">task.tasks</span><span class="table-name">payment.providers</span><span class="table-name">payment.user_payment_methods</span><span class="table-name">payment.payments</span><span class="table-name">payment.gateway_events</span><span class="table-name">ops.idempotency_keys</span><span class="table-name">ops.system_settings</span><span class="table-name">payment.escrow_holds</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span></div>
+            <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D11" title="Proposed: Payment method chosen at posting">D11</a><a class="dec dec-decided" href="requirements_analysis.html#D15" title="Decided: Payment timeout after a bid is accepted">D15</a><a class="dec dec-proposed" href="requirements_analysis.html#D26" title="Proposed: Failed or double payments">D26</a></span>
           </div>
         </article>
-
-        <article class="step">
+        <article class="step" id="step-6">
           <div class="step-marker"><span class="step-number">6</span><span class="step-line"></span></div>
           <div class="step-card">
-            <h3>Escrow hold and task execution</h3>
-            <p>Payment is held against the assignment. Arrival, start, completion request, and acceptance are captured as assignment events and state changes. Status history keeps the task's status transitions.</p>
-            <div class="tables"><span class="table-name">payment.escrow_holds</span><span class="table-name">payment.escrow_events</span><span class="table-name">task.assignment_events</span><span class="table-name">task.assignments</span><span class="table-name">task.task_status_history</span></div>
+            <h3>Task execution <span class="badge upd">UPDATED</span></h3>
+            <p>The assignment moves <code>active</code> → <code>arrived</code> → <code>in_progress</code> → <code>completion_requested</code> →
+             <code>completed</code>. Each step is an <code>assignment_events</code> row with the actor, GPS point and optional photo evidence. The task follows:
+             <code>assigned</code> → <code>in_progress</code> → <code>completion_requested</code> → <code>completed</code>.</p>
+             <p>The Seeker confirms completion. If the Seeker does not respond, the escrow is released automatically after
+             <code>escrow_rules.auto_release_hours</code>. A complaint within <code>dispute_window_hours</code> opens a <a href="#dispute">dispute</a> instead.</p>
+            <div class="tables"><span class="table-name">task.assignments</span><span class="table-name">task.assignment_events</span><span class="table-name">task.tasks</span><span class="table-name">task.task_status_history</span><span class="table-name">payment.escrow_rules</span><span class="table-name">ops.files</span></div>
+            <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D14" title="Proposed: Escrow auto-release">D14</a><a class="dec dec-proposed" href="requirements_analysis.html#D17" title="Proposed: “I have arrived” can be abused">D17</a><a class="dec dec-proposed" href="requirements_analysis.html#D18" title="Proposed: “Confirm payment received” step">D18</a><a class="dec dec-proposed" href="requirements_analysis.html#D19" title="Proposed: No-show handling">D19</a></span>
           </div>
         </article>
-
-        <article class="step">
+        <article class="step" id="step-7">
           <div class="step-marker"><span class="step-number">7</span><span class="step-line"></span></div>
           <div class="step-card">
-            <h3>Settlement and accounting</h3>
-            <p>After acceptance (or the configured release path), the settlement records the gross amount and snapshots the commission, VAT, and pricing-rule IDs used. A balanced ledger transaction records the money split, and statement rows make the results readable to each user.</p>
-            <div class="tables"><span class="table-name">finance.task_settlements</span><span class="table-name">finance.pricing_plans</span><span class="table-name">finance.commission_rules</span><span class="table-name">finance.vat_rules</span><span class="table-name">finance.vat_entries</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span><span class="table-name">finance.ledger_accounts</span><span class="table-name">billing.statement_entries</span></div>
+            <h3>Escrow release, settlement and accounting <span class="badge upd">UPDATED</span></h3>
+            <p>The escrow is released (<code>released</code>, with a <code>release_reason</code>; logged in <code>escrow_events</code>). The settlement
+             records the gross amount and snapshots the commission, VAT and pricing-rule IDs used. Commission comes from the TukTaker's current
+             tier (<code>tuktaker_tiers</code> → <code>commission_tier_rates</code>); VAT from <code>vat_rules</code>. Outstanding TukTaker penalties are deducted
+             (<code>penalty_applications</code>) and any credits are applied (<code>credit_applications</code>).</p>
+             <p>One balanced ledger transaction moves the money from escrow to the TukTaker's wallet account, platform commission and VAT
+             payable. The wallet is a ledger account; its balance is derived from ledger entries. Statement rows make the result readable to
+             each user.</p>
+            <div class="tables"><span class="table-name">payment.escrow_holds</span><span class="table-name">payment.escrow_events</span><span class="table-name">finance.task_settlements</span><span class="table-name">finance.pricing_plans</span><span class="table-name">finance.commission_rules</span><span class="table-name">finance.commission_tier_rates</span><span class="table-name">finance.tuktaker_tiers</span><span class="table-name">finance.tuktaker_tier_history</span><span class="table-name">finance.vat_rules</span><span class="table-name">finance.vat_entries</span><span class="table-name">finance.penalty_applications</span><span class="table-name">finance.credit_applications</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span><span class="table-name">finance.ledger_accounts</span><span class="table-name">billing.statement_entries</span></div>
+            <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D27" title="Proposed: Stored balances duplicate the ledger">D27</a><a class="dec dec-proposed" href="requirements_analysis.html#D28" title="Proposed: Commission: 20/18/16 vs 17/15/13">D28</a><a class="dec dec-expert" href="requirements_analysis.html#D29" title="Needs expert sign-off: Who bears VAT, and on what">D29</a><a class="dec dec-proposed" href="requirements_analysis.html#D32" title="Proposed: Unpaid penalties">D32</a></span>
           </div>
         </article>
-
-        <article class="step">
+        <article class="step" id="step-8">
           <div class="step-marker"><span class="step-number">8</span><span class="step-line"></span></div>
           <div class="step-card">
-            <h3>TukTaker payout and close-out</h3>
-            <p>The TukTaker requests redemption from their wallet to a verified payout destination. The payout request is tied to ledger transactions; completed services can then receive ratings and feedback.</p>
-            <div class="tables"><span class="table-name">payment.payout_requests</span><span class="table-name">payment.payout_batches</span><span class="table-name">payment.user_payment_methods</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span><span class="table-name">billing.statement_entries</span><span class="table-name">trust.ratings</span></div>
+            <h3>Ratings and tips <span class="badge new">NEW</span></h3>
+            <p>After completion, both sides can rate each other (<code>trust.ratings</code>, one row per rater per assignment);
+             <code>rating_summaries</code> keeps the averages used for tiers and search. Ratings do not wait for the payout.</p>
+             <p>A Seeker may add a tip: it is its own <code>payment.tips</code> row with its own payment and ledger transaction, and any tip fee comes from
+             <code>fee_schedules</code>.</p>
+            <div class="tables"><span class="table-name">trust.ratings</span><span class="table-name">trust.rating_summaries</span><span class="table-name">payment.tips</span><span class="table-name">payment.payments</span><span class="table-name">finance.fee_schedules</span><span class="table-name">finance.ledger_transactions</span></div>
+            <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D25" title="Proposed: Gateway fees and “tip fees”">D25</a><a class="dec dec-proposed" href="requirements_analysis.html#D35" title="Proposed: “Mandatory” ratings can't be forced">D35</a></span>
+          </div>
+        </article>
+        <article class="step" id="step-9">
+          <div class="step-marker"><span class="step-number">9</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>TukTaker payout (redemption) <span class="badge upd">UPDATED</span></h3>
+            <p>The TukTaker requests a payout from their wallet to a verified bKash or Nagad destination. Limits, fees and eligibility
+             (minimum amount, daily / weekly / monthly cap, verified KYC, minimum tier) come from <code>payout_rules</code>.</p>
+             <p>Status: <code>pending</code> → <code>approved</code> (Finance) → <code>processing</code> (sent in a <code>payout_batches</code> run; every gateway try is a
+             <code>payout_attempts</code> row) → <code>paid</code>. <code>failed</code> = refused by the provider; <code>rejected</code> = refused by Finance. Each money
+             movement is a ledger transaction.</p>
+            <div class="tables"><span class="table-name">payment.payout_requests</span><span class="table-name">payment.payout_rules</span><span class="table-name">payment.payout_batches</span><span class="table-name">payment.payout_attempts</span><span class="table-name">payment.user_payment_methods</span><span class="table-name">finance.ledger_transactions</span><span class="table-name">finance.ledger_entries</span><span class="table-name">billing.statement_entries</span></div>
+            <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D22" title="Proposed: Redemption cap period">D22</a><a class="dec dec-proposed" href="requirements_analysis.html#D23" title="Proposed: Payout destinations">D23</a></span>
+          </div>
+        </article>
+        <article class="step" id="step-10">
+          <div class="step-marker"><span class="step-number">10</span><span class="step-line"></span></div>
+          <div class="step-card">
+            <h3>Invoicing and reconciliation <span class="badge new">NEW</span></h3>
+            <p>Periodic invoices are issued to Seekers and TukTakers (<code>billing.invoices</code>); each line points to a task settlement
+             (<code>invoice_lines.settlement_id</code>). An invoice fee, if any, comes from <code>fee_schedules</code>.</p>
+             <p>Finance runs reconciliation against SSLCommerz, bKash and Nagad statements: <code>reconciliation_runs</code> per period,
+             <code>reconciliation_items</code> per payment or payout, catching failed, missing or double payments.</p>
+            <div class="tables"><span class="table-name">billing.invoices</span><span class="table-name">billing.invoice_lines</span><span class="table-name">finance.fee_schedules</span><span class="table-name">payment.reconciliation_runs</span><span class="table-name">payment.reconciliation_items</span></div>
+            <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D26" title="Proposed: Failed or double payments">D26</a><a class="dec dec-open" href="requirements_analysis.html#D36" title="Open: Invoice period and TukTaker invoice content">D36</a></span>
           </div>
         </article>
       </div>
@@ -375,54 +477,127 @@
     <section class="section">
       <h2>Related and exception flows</h2>
       <div class="branch-grid">
+        <article class="branch timeout">
+          <h3><span id="timeout"></span>Payment timeout <span class="badge new">NEW</span></h3>
+          <p>If <code>payment_due_at</code> passes without a confirmed payment, the assignment becomes <code>cancelled</code> (a
+               <code>task.cancellations</code> row with reason <code>payment_timeout</code>), the accepted bid becomes <code>expired</code>, and the task goes back to
+               <code>open</code>, or to <code>bidding_closed</code> if <code>bidding_closes_at</code> has passed. Other bids stay valid.</p>
+               <p class="muted">Recommended: a payment confirmed after the deadline is refunded automatically (<code>payment.refunds</code>).</p>
+          <div class="tables"><span class="table-name">task.assignments</span><span class="table-name">task.cancellations</span><span class="table-name">task.cancellation_reasons</span><span class="table-name">task.bids</span><span class="table-name">task.tasks</span><span class="table-name">task.task_status_history</span><span class="table-name">ops.system_settings</span><span class="table-name">payment.refunds</span></div>
+          <span class="decs"><a class="dec dec-decided" href="requirements_analysis.html#D15" title="Decided: Payment timeout after a bid is accepted">D15</a></span>
+        </article>
         <article class="branch dispute">
-          <h3>Dispute, freeze, and resolution</h3>
-          <p>An open dispute may freeze escrow. Staff review messages and evidence, then resolve through a release/refund/adjustment path.</p>
-          <p><span class="table-name">trust.disputes</span><span class="table-name">trust.dispute_messages</span><span class="table-name">trust.dispute_evidence</span><span class="table-name">payment.escrow_holds</span><span class="table-name">payment.refunds</span><span class="table-name">finance.manual_adjustments</span></p>
+          <h3><span id="dispute"></span>Dispute, freeze, and resolution <span class="badge upd">UPDATED</span></h3>
+          <p>A dispute (<code>trust.disputes</code>: open → in review → resolved) freezes the escrow (<code>held</code> → <code>frozen</code>) and the
+               assignment and task become <code>disputed</code>. Staff review messages and evidence, then resolve: full release → <code>released</code>, full
+               refund → <code>refunded</code>, split → <code>partially_released</code> plus a refund. Corrections use manual adjustments or credits.</p>
+          <div class="tables"><span class="table-name">trust.disputes</span><span class="table-name">trust.dispute_messages</span><span class="table-name">trust.dispute_evidence</span><span class="table-name">payment.escrow_holds</span><span class="table-name">payment.escrow_events</span><span class="table-name">payment.refunds</span><span class="table-name">finance.manual_adjustments</span><span class="table-name">finance.credits</span></div>
+          <span class="decs"><a class="dec dec-partly" href="requirements_analysis.html#D34" title="Partly decided: Refund approvals, disputes, credit limits">D34</a></span>
         </article>
         <article class="branch payout">
-          <h3>Refunds and cancellations</h3>
-          <p>Refunds, cancellation fees, penalties, and credits are distinct records; money changes are posted to the ledger rather than editing prior entries.</p>
-          <p><span class="table-name">payment.refunds</span><span class="table-name">task.cancellations</span><span class="table-name">finance.penalties</span><span class="table-name">finance.credits</span><span class="table-name">finance.ledger_transactions</span></p>
+          <h3>Cancellations, penalties, refunds and credits <span class="badge upd">UPDATED</span></h3>
+          <p>A cancellation is a <code>task.cancellations</code> row with stage, reason and the fee / penalty calculated from
+               <code>finance.cancellation_rules</code> (including the free window). A TukTaker penalty is a <code>finance.penalties</code> row whose
+               <code>remaining_amount</code> is recovered from later settlements. Seeker refunds are <code>payment.refunds</code> with the admin fee and who bears
+               it. Credits are granted in <code>finance.credits</code> and used through <code>credit_applications</code>. All money changes post to the
+               ledger; earlier entries are never edited.</p>
+          <div class="tables"><span class="table-name">task.cancellations</span><span class="table-name">task.cancellation_reasons</span><span class="table-name">finance.cancellation_rules</span><span class="table-name">finance.penalties</span><span class="table-name">finance.penalty_applications</span><span class="table-name">payment.refunds</span><span class="table-name">finance.credits</span><span class="table-name">finance.credit_applications</span><span class="table-name">finance.ledger_transactions</span></div>
+          <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D30" title="Proposed: TukTaker 2-hour cancellation window and penalty">D30</a><a class="dec dec-proposed" href="requirements_analysis.html#D31" title="Proposed: Seeker cancellation fees vs payment timing">D31</a><a class="dec dec-proposed" href="requirements_analysis.html#D32" title="Proposed: Unpaid penalties">D32</a><a class="dec dec-proposed" href="requirements_analysis.html#D33" title="Proposed: Who pays the 5% refund admin fee">D33</a></span>
+        </article>
+        <article class="branch trust">
+          <h3>Trust, safety and support <span class="badge new">NEW</span></h3>
+          <p>Users can report misconduct (<code>trust.user_reports</code>) and block each other (<code>iam.user_blocks</code>). Fraud and abuse
+               signals, such as attempts to move a deal off the platform, are logged in <code>trust.risk_events</code> for review. Support issues are
+               tickets with their own message thread.</p>
+          <div class="tables"><span class="table-name">trust.user_reports</span><span class="table-name">iam.user_blocks</span><span class="table-name">trust.risk_events</span><span class="table-name">comms.support_tickets</span><span class="table-name">comms.support_ticket_messages</span></div>
+          <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D20" title="Proposed: Chat and off-platform deals">D20</a><a class="dec dec-proposed" href="requirements_analysis.html#D45" title="Proposed: Safety features">D45</a></span>
         </article>
         <article class="branch comms">
-          <h3>Messages and notifications</h3>
-          <p>Task conversations and user notifications are linked to their task/user context. Delivery status and notification preferences are stored separately from task state.</p>
-          <p><span class="table-name">comms.conversations</span><span class="table-name">comms.messages</span><span class="table-name">comms.user_notifications</span><span class="table-name">comms.notification_preferences</span></p>
+          <h3>Messages and notifications </h3>
+          <p>Task conversations and user notifications are linked to their task/user context. Delivery status and notification
+               preferences are stored separately from task state; message content comes from versioned templates.</p>
+          <div class="tables"><span class="table-name">comms.conversations</span><span class="table-name">comms.messages</span><span class="table-name">comms.user_notifications</span><span class="table-name">comms.notification_preferences</span><span class="table-name">comms.notification_templates</span></div>
+          
         </article>
         <article class="branch ops">
-          <h3>Integration and governance</h3>
-          <p>Outbox events support reliable integration delivery; idempotency keys protect retryable requests. Audit, privacy retention, and legal holds govern sensitive data lifecycle.</p>
-          <p><span class="table-name">ops.outbox_events</span><span class="table-name">ops.idempotency_keys</span><span class="table-name">audit.audit_logs</span><span class="table-name">ops.data_retention_policies</span><span class="table-name">ops.legal_holds</span><span class="table-name">ops.retention_execution_log</span></p>
+          <h3>Integration and governance </h3>
+          <p>Outbox events support reliable integration delivery; idempotency keys protect retryable requests. Audit, privacy retention,
+               and legal holds govern sensitive data lifecycle.</p>
+          <div class="tables"><span class="table-name">ops.outbox_events</span><span class="table-name">ops.idempotency_keys</span><span class="table-name">audit.audit_logs</span><span class="table-name">ops.data_retention_policies</span><span class="table-name">ops.legal_holds</span><span class="table-name">ops.retention_execution_log</span></div>
+          <span class="decs"><a class="dec dec-proposed" href="requirements_analysis.html#D38" title="Proposed: Retention: profiles forever, NID images">D38</a><a class="dec dec-proposed" href="requirements_analysis.html#D39" title="Proposed: Backups can't stay TBC">D39</a></span>
         </article>
       </div>
     </section>
 
+    <section class="section" id="statuses">
+      <h2>Status lifecycles <span class="badge new">NEW</span></h2>
+      <p class="muted">Allowed statuses from the database dictionary (decision D16). Green is the normal path, left to right; red are side exits.</p>
+      
+          <div class="sm-row">
+            <div class="sm-name">Task</div>
+            <div class="sm-body"><div class="sm-happy"><span class="st ok">draft</span><span class="arr">→</span><span class="st ok">open</span><span class="arr">→</span><span class="st ok">bidding_closed</span><span class="arr">→</span><span class="st ok">assigned</span><span class="arr">→</span><span class="st ok">in_progress</span><span class="arr">→</span><span class="st ok">completion_requested</span><span class="arr">→</span><span class="st ok">completed</span></div>
+              <div class="sm-exits"><span class="sm-lbl">Side exits:</span> <span class="st ex">cancelled</span> <span class="st ex">expired</span> <span class="st ex">disputed</span></div>
+              <p class="sm-note">bidding_closed is skipped if a bid is accepted while open. On a payment timeout an assigned task returns to open (or bidding_closed).</p></div>
+          </div>
+          <div class="sm-row">
+            <div class="sm-name">Bid</div>
+            <div class="sm-body"><div class="sm-happy"><span class="st ok">pending</span><span class="arr">→</span><span class="st ok">countered</span><span class="arr">→</span><span class="st ok">accepted</span></div>
+              <div class="sm-exits"><span class="sm-lbl">Side exits:</span> <span class="st ex">rejected</span> <span class="st ex">withdrawn</span> <span class="st ex">expired</span></div>
+              <p class="sm-note">countered repeats for each negotiation round. An accepted bid becomes expired if the Seeker misses the payment window.</p></div>
+          </div>
+          <div class="sm-row">
+            <div class="sm-name">Assignment</div>
+            <div class="sm-body"><div class="sm-happy"><span class="st ok">pending_payment</span><span class="arr">→</span><span class="st ok">active</span><span class="arr">→</span><span class="st ok">arrived</span><span class="arr">→</span><span class="st ok">in_progress</span><span class="arr">→</span><span class="st ok">completion_requested</span><span class="arr">→</span><span class="st ok">completed</span></div>
+              <div class="sm-exits"><span class="sm-lbl">Side exits:</span> <span class="st ex">cancelled</span> <span class="st ex">disputed</span></div>
+              <p class="sm-note">pending_payment lasts at most 15 minutes (payment_due_at); cancelled includes reason payment_timeout.</p></div>
+          </div>
+          <div class="sm-row">
+            <div class="sm-name">Escrow</div>
+            <div class="sm-body"><div class="sm-happy"><span class="st ok">held</span><span class="arr">→</span><span class="st ok">released</span></div>
+              <div class="sm-exits"><span class="sm-lbl">Side exits:</span> <span class="st ex">frozen</span> <span class="st ex">partially_released</span> <span class="st ex">refunded</span></div>
+              <p class="sm-note">frozen while a dispute is open; it then ends as released, partially_released (split) or refunded.</p></div>
+          </div>
+          <div class="sm-row">
+            <div class="sm-name">Payout</div>
+            <div class="sm-body"><div class="sm-happy"><span class="st ok">pending</span><span class="arr">→</span><span class="st ok">approved</span><span class="arr">→</span><span class="st ok">processing</span><span class="arr">→</span><span class="st ok">paid</span></div>
+              <div class="sm-exits"><span class="sm-lbl">Side exits:</span> <span class="st ex">rejected</span> <span class="st ex">failed</span></div>
+              <p class="sm-note">rejected = refused by Finance; failed = refused by bKash / Nagad (can be retried as a new attempt).</p></div>
+          </div>
+    </section>
+
     <section class="section">
-      <h2>Core table relationships</h2>
-      <p class="muted">The keys below are based on declared foreign keys in the schema. “One-to-many” means a parent row can be associated with multiple child rows.</p>
+      <h2>Core table relationships <span class="badge upd">UPDATED</span></h2>
+      <p class="muted">Keys below follow the key fields listed in the <a href="database_dictionary.html">database dictionary</a>. A parent row can have many child rows unless stated otherwise.</p>
       <div class="table-wrap">
         <table>
           <thead>
             <tr><th>Parent table</th><th>Child table</th><th>Relationship key</th><th>Why it exists</th></tr>
           </thead>
           <tbody>
-            <tr><td><span class="table-name">iam.users</span></td><td><span class="table-name">iam.seeker_profiles</span>, <span class="table-name">iam.business_profiles</span>, <span class="table-name">iam.tuktaker_profiles</span></td><td>Profile <code>user_id</code> → user <code>id</code></td><td>One identity can carry the appropriate marketplace profile(s).</td></tr>
+            <tr><td><span class="table-name">iam.users</span></td><td><span class="table-name">iam.seeker_profiles</span>, <span class="table-name">iam.tuktaker_profiles</span></td><td><code>user_id</code> → <code>users.id</code></td><td>Each account has exactly one role (<code>account_role</code>), so it has either a Seeker or a TukTaker profile. <span class="badge upd">UPDATED</span></td></tr>
+            <tr class="new-row"><td><span class="table-name">iam.users</span> <span class="badge new">NEW</span></td><td><span class="table-name">iam.business_profiles</span></td><td><code>business_profiles.seeker_user_id</code> → <code>users.id</code></td><td>Optional business details for a Seeker account.</td></tr>
+            <tr class="new-row"><td><span class="table-name">iam.kyc_submissions</span> <span class="badge new">NEW</span></td><td><span class="table-name">iam.kyc_documents</span></td><td><code>kyc_documents.submission_id</code> → <code>kyc_submissions.id</code></td><td>The NID and selfie files of each verification attempt.</td></tr>
             <tr><td><span class="table-name">catalog.categories</span></td><td><span class="table-name">catalog.category_fields</span></td><td><code>category_fields.category_id</code> → <code>categories.id</code></td><td>Defines task form fields per category.</td></tr>
             <tr><td><span class="table-name">catalog.categories</span></td><td><span class="table-name">task.tasks</span></td><td><code>tasks.category_id</code> → <code>categories.id</code></td><td>Each task belongs to one service category.</td></tr>
-            <tr><td><span class="table-name">task.tasks</span></td><td><span class="table-name">task.task_locations</span>, <span class="table-name">task.task_attachments</span>, <span class="table-name">task.bids</span></td><td>Child <code>task_id</code> → <code>tasks.id</code></td><td>Stores task details, uploaded evidence, and competing offers.</td></tr>
+            <tr><td><span class="table-name">task.tasks</span></td><td><span class="table-name">task.task_locations</span>, <span class="table-name">task.task_attachments</span>, <span class="table-name">task.bids</span>, <span class="table-name">task.task_status_history</span></td><td>Child <code>task_id</code> → <code>tasks.id</code></td><td>Task details, evidence, competing offers and status history.</td></tr>
             <tr><td><span class="table-name">task.bids</span></td><td><span class="table-name">task.bid_offers</span>, <span class="table-name">task.assignments</span></td><td>Offers use <code>bid_id</code>; assignment uses <code>bid_id</code></td><td>Preserves negotiation rounds and the selected bid.</td></tr>
             <tr><td><span class="table-name">task.assignments</span></td><td><span class="table-name">payment.payments</span>, <span class="table-name">payment.escrow_holds</span>, <span class="table-name">finance.task_settlements</span></td><td>Payment/escrow/settlement use <code>assignment_id</code></td><td>Connects the accepted work attempt to payment, held funds, and final settlement.</td></tr>
-            <tr><td><span class="table-name">payment.payments</span></td><td><span class="table-name">payment.escrow_holds</span></td><td><code>escrow_holds.payment_id</code> → <code>payments.id</code></td><td>Identifies the payment funding a particular escrow hold.</td></tr>
+            <tr class="new-row"><td><span class="table-name">task.assignments</span> <span class="badge new">NEW</span></td><td><span class="table-name">task.assignment_events</span>, <span class="table-name">trust.ratings</span>, <span class="table-name">trust.disputes</span>, <span class="table-name">payment.tips</span>, <span class="table-name">task.cancellations</span></td><td>Child <code>assignment_id</code> → <code>assignments.id</code></td><td>Timeline evidence, ratings, disputes, tips and cancellations of one attempt.</td></tr>
+            <tr><td><span class="table-name">payment.payments</span></td><td><span class="table-name">payment.escrow_holds</span>, <span class="table-name">payment.refunds</span></td><td>Child <code>payment_id</code> → <code>payments.id</code></td><td>The payment that funds a hold, and refunds against it.</td></tr>
+            <tr class="new-row"><td><span class="table-name">payment.escrow_holds</span> <span class="badge new">NEW</span></td><td><span class="table-name">payment.escrow_events</span></td><td><code>escrow_events.escrow_hold_id</code> → <code>escrow_holds.id</code></td><td>Freeze, release and refund actions on a hold.</td></tr>
+            <tr class="new-row"><td><span class="table-name">task.cancellations</span> <span class="badge new">NEW</span></td><td><span class="table-name">finance.penalties</span></td><td><code>penalties.cancellation_id</code> → <code>cancellations.id</code></td><td>The penalty caused by a cancellation.</td></tr>
+            <tr class="new-row"><td><span class="table-name">finance.penalties</span>, <span class="table-name">finance.task_settlements</span> <span class="badge new">NEW</span></td><td><span class="table-name">finance.penalty_applications</span></td><td><code>penalty_id</code>, <code>settlement_id</code></td><td>Recovers an outstanding penalty from a later settlement.</td></tr>
+            <tr class="new-row"><td><span class="table-name">payment.payout_requests</span> <span class="badge new">NEW</span></td><td><span class="table-name">payment.payout_attempts</span></td><td><code>payout_attempts.payout_id</code> → <code>payout_requests.id</code></td><td>Each gateway try for one payout.</td></tr>
             <tr><td><span class="table-name">finance.ledger_transactions</span></td><td><span class="table-name">finance.ledger_entries</span></td><td><code>ledger_entries.transaction_id</code> → <code>ledger_transactions.id</code></td><td>Stores debit and credit lines; a posted transaction must balance.</td></tr>
             <tr><td><span class="table-name">finance.ledger_accounts</span></td><td><span class="table-name">finance.ledger_entries</span></td><td><code>ledger_entries.account_id</code> → <code>ledger_accounts.id</code></td><td>Each ledger line changes an account balance.</td></tr>
+            <tr class="new-row"><td><span class="table-name">billing.invoices</span> <span class="badge new">NEW</span></td><td><span class="table-name">billing.invoice_lines</span></td><td><code>invoice_lines.invoice_id</code> → <code>invoices.id</code></td><td>Lines of one periodic invoice.</td></tr>
             <tr><td><span class="table-name">finance.task_settlements</span></td><td><span class="table-name">billing.invoice_lines</span></td><td><code>invoice_lines.settlement_id</code> → <code>task_settlements.id</code></td><td>Lets invoices include the final task settlement.</td></tr>
             <tr><td><span class="table-name">finance.ledger_transactions</span></td><td><span class="table-name">billing.statement_entries</span></td><td><code>statement_entries.ledger_transaction_id</code> → <code>ledger_transactions.id</code></td><td>Links user-facing statement rows to their posted money movement.</td></tr>
           </tbody>
         </table>
       </div>
       <div class="callout">
-        <strong>Important ledger design:</strong> ledger entries are append-only and are never edited or deleted. Correct a posted movement with a reversal transaction. The ledger transaction’s task/assignment references are intentionally loose references (not foreign keys); payment, escrow, and settlement rows provide the explicit business links.
+        <strong>Important ledger design:</strong> ledger entries are append-only and are never edited or deleted. Correct a posted movement with a reversal transaction. Wallet balances are derived from the ledger, not stored separately. The ledger transaction’s task/assignment references are intentionally loose references (not foreign keys); payment, escrow, and settlement rows provide the explicit business links.
       </div>
     </section>
 
@@ -431,10 +606,21 @@
       <div class="support-grid">
         <p><strong>Snapshot rules:</strong> settlements retain rule IDs and computed values so later rule changes do not rewrite history.</p>
         <p><strong>Money:</strong> store BDT amounts as fixed-precision numeric values; every ledger movement must balance.</p>
-        <p><strong>Lifecycle:</strong> task and assignment status records keep workflow state and event history.</p>
+        <p><strong>Lifecycle:</strong> task and assignment status records keep workflow state and event history; deadlines (<code>bidding_closes_at</code>, <code>payment_due_at</code>) drive automatic transitions.</p>
         <p><strong>Privacy:</strong> sensitive identity documents are file metadata in <code>ops.files</code>; retention jobs must respect legal holds.</p>
       </div>
-      <p class="muted">Reference source: TukTakKaj PostgreSQL schema v2 and its database design notes. This diagram summarizes the intended table-level flow; it is not a replacement for foreign-key definitions or application workflow validation.</p>
+      <p class="muted">Reference source: the TukTakKaj <a href="database_dictionary.html">database dictionary</a> (updated 2026-11-04) and the <a href="requirements_analysis.html#decision-tracker">Decisions &amp; Contradictions Tracker</a>. This diagram summarizes the intended table-level flow; it is not a replacement for foreign-key definitions or application workflow validation.</p>
+    </section>
+
+    <section class="note" id="changelog">
+      <h2>Change log</h2>
+      <ul class="changelog">
+        <li><b>2026-11-04</b> — Step 1: one mobile number, one account, one role (<code>account_role</code>); business details belong to a Seeker; OTP and KYC document tables added.</li>
+        <li><b>2026-11-04</b> — Steps 3–6: <code>bidding_closes_at</code>, <code>bidding_closed</code> / <code>expired</code>, the new bid and assignment statuses, <code>pending_payment</code> with the 15-minute <code>payment_due_at</code>, and auto-release through <code>escrow_rules</code>.</li>
+        <li><b>2026-11-04</b> — Ratings moved out of the payout step into a new step 8 with tips. Payout statuses, <code>payout_rules</code> and <code>payout_attempts</code> added. New step 10: invoicing and reconciliation.</li>
+        <li><b>2026-11-04</b> — New side flows: payment timeout, trust / safety / support. Dispute and cancellation flows use the new escrow statuses, cancellation rules, penalty and credit applications.</li>
+        <li><b>2026-11-04</b> — New Status lifecycles section. Relationships table: fixed the business profile key (<code>seeker_user_id</code>) added 8 relationships and extended 2 rows. Decision tags link each step to the tracker.</li>
+      </ul>
     </section>
   </main>
 </body>
