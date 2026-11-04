@@ -258,6 +258,30 @@
             line-height: 1.5;
         }
 
+        .badge-new {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 0 7px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            line-height: 18px;
+            vertical-align: middle;
+            text-transform: uppercase;
+        }
+
+        .enum-values code {
+            display: inline-block;
+            margin: 2px 3px 2px 0;
+            padding: 0 6px;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            background: var(--soft);
+            font-size: 13px;
+        }
+
         .field-type {
             display: inline-block;
             margin-left: 4px;
@@ -324,7 +348,7 @@
 
             <div class="stats">
                 <div class="stat"><strong>134</strong> Tables</div>
-                <div class="stat"><strong>1617</strong> Fields</div>
+                <div class="stat"><strong>1620</strong> Fields</div>
                 <div class="stat"><strong>14</strong> Schemas</div>
                 <div class="stat"><strong>PostgreSQL</strong> 15+</div>
             </div>
@@ -343,6 +367,64 @@
                 <li><strong>version</strong> = optimistic locking counter</li>
                 <li><strong>*_enc</strong> and <strong>*_hash</strong> = encrypted and hashed sensitive fields</li>
                 <li><strong>Money</strong> is stored in BDT with 2 decimal places</li>
+            </ul>
+        </section>
+
+        <section class="summary">
+            <h2>Change log</h2>
+            <ul class="table-list">
+                <li><strong>2026-11-04</strong> — One mobile number per account: <strong>iam.users.mobile</strong> is unique and each account holds one role (Seeker or TukTaker), recorded in the new <strong>iam.users.account_role</strong> field.</li>
+                <li><strong>2026-11-04</strong> — Expanded the status lists for <strong>task.task_status</strong>, <strong>task.bid_status</strong>, <strong>task.assignment_status</strong>, <strong>payment.escrow_status</strong> and <strong>payment.payout_status</strong> (see Status reference).</li>
+                <li><strong>2026-11-04</strong> — Added <strong>task.tasks.bidding_closes_at</strong> and <strong>task.assignments.payment_due_at</strong> (15-minute payment timeout).</li>
+            </ul>
+        </section>
+
+        <section class="summary">
+            <h2>Status reference</h2>
+            <p>Allowed values for the main lifecycle enums. Every task status change is also written to <strong>task.task_status_history</strong>.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Enum</th>
+                            <th>Values</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>task.task_status</td>
+                            <td class="enum-values"><code>draft</code><code>open</code><code>bidding_closed</code><code>assigned</code><code>in_progress</code><code>completion_requested</code><code>completed</code><code>cancelled</code><code>expired</code><code>disputed</code></td>
+                            <td><code>open</code> moves to <code>bidding_closed</code> at <strong>bidding_closes_at</strong>, or to <code>assigned</code> when the Seeker accepts a bid. <code>expired</code> = no bid accepted in time.</td>
+                        </tr>
+                        <tr>
+                            <td>task.bid_status</td>
+                            <td class="enum-values"><code>pending</code><code>countered</code><code>accepted</code><code>rejected</code><code>withdrawn</code><code>expired</code></td>
+                            <td><code>countered</code> = negotiation in progress (rounds kept in <strong>task.bid_offers</strong>). Open bids become <code>expired</code> when the task closes without them being accepted.</td>
+                        </tr>
+                        <tr>
+                            <td>task.assignment_status</td>
+                            <td class="enum-values"><code>pending_payment</code><code>active</code><code>arrived</code><code>in_progress</code><code>completion_requested</code><code>completed</code><code>cancelled</code><code>disputed</code></td>
+                            <td>Created as <code>pending_payment</code> when a bid is accepted; becomes <code>active</code> once the payment is confirmed and the escrow is <code>held</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>payment.escrow_status</td>
+                            <td class="enum-values"><code>held</code><code>frozen</code><code>released</code><code>partially_released</code><code>refunded</code></td>
+                            <td><code>frozen</code> = a dispute is open, so release is blocked. <code>partially_released</code> = a dispute was settled with a split.</td>
+                        </tr>
+                        <tr>
+                            <td>payment.payout_status</td>
+                            <td class="enum-values"><code>pending</code><code>approved</code><code>processing</code><code>paid</code><code>failed</code><code>rejected</code></td>
+                            <td><code>failed</code> = rejected by the provider (bKash/Nagad); <code>rejected</code> = refused by Finance.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>Payment timeout (15 minutes)</h3>
+            <ul class="table-list">
+                <li>When a Seeker accepts a bid, the assignment is created as <code>pending_payment</code>, with <strong>payment_due_at</strong> = acceptance time + 15 minutes.</li>
+                <li>If the payment is not confirmed by <strong>payment_due_at</strong>: the assignment becomes <code>cancelled</code> (cancellation reason <code>payment_timeout</code>), the accepted bid is released (<code>expired</code>), and the task goes back to <code>open</code>, or to <code>bidding_closed</code> if <strong>bidding_closes_at</strong> has already passed. The other bids stay valid.</li>
+                <li>The timeout length is a configurable setting in <strong>ops.system_settings</strong> (default 15 minutes).</li>
             </ul>
         </section>
 
@@ -610,11 +692,12 @@
             <div class="schema-content">
                 <div class="table-card">
                     <h3>iam.users</h3>
-                    <p>Master identity for all Seekers, TukTakers, and staff.</p>
+                    <p>Master identity for all Seekers, TukTakers, and staff. A mobile number can register only one account, so the same number cannot be both a Seeker and a TukTaker.</p>
                     <ul>
                         <li><strong>id</strong> <span class="field-type">bigint</span> — internal user ID</li>
                         <li><strong>public_id</strong> <span class="field-type">uuid</span> — public UUID</li>
-                        <li><strong>mobile</strong> <span class="field-type">ops.bd_mobile</span> — phone number</li>
+                        <li><strong>mobile</strong> <span class="field-type">ops.bd_mobile</span> — phone number, <strong>unique</strong>: one mobile number = one account <span class="badge-new">updated</span></li>
+                        <li><strong>account_role</strong> <span class="field-type">iam.account_role</span> — seeker or tuktaker; set at signup, one role per account (staff use <strong>is_staff</strong>) <span class="badge-new">new</span></li>
                         <li><strong>email</strong> <span class="field-type">citext</span> — email address</li>
                         <li><strong>password_hash</strong> <span class="field-type">text</span> — authentication hash</li>
                         <li><strong>status</strong> <span class="field-type">iam.user_status</span> — active, blocked, disabled, etc.</li>
@@ -919,9 +1002,10 @@
                         <li><strong>title</strong> <span class="field-type">text</span> — task title</li>
                         <li><strong>description</strong> <span class="field-type">text</span> — task description</li>
                         <li><strong>attributes</strong> <span class="field-type">jsonb</span> — JSON answers to the category’s dynamic form fields</li>
-                        <li><strong>status</strong> <span class="field-type">task.task_status</span> — open, assigned, completed, cancelled</li>
+                        <li><strong>status</strong> <span class="field-type">task.task_status</span> — draft, open, bidding_closed, assigned, in_progress, completion_requested, completed, cancelled, expired, disputed <span class="badge-new">updated</span></li>
                         <li><strong>budget_amount</strong> <span class="field-type">ops.money</span> — expected spend</li>
                         <li><strong>scheduled_start_at</strong> <span class="field-type">timestamptz</span> — planned start</li>
+                        <li><strong>bidding_closes_at</strong> <span class="field-type">timestamptz</span> — when bidding ends; no new bids after this time <span class="badge-new">new</span></li>
                         <li><strong>current_assignment_id</strong> <span class="field-type">bigint</span> — active job link</li>
                     </ul>
                 </div>
@@ -935,7 +1019,7 @@
                         <li><strong>tuktaker_id</strong> <span class="field-type">bigint</span> — bidder</li>
                         <li><strong>initial_amount</strong> <span class="field-type">ops.money</span> — initial quote</li>
                         <li><strong>current_amount</strong> <span class="field-type">ops.money</span> — current quote</li>
-                        <li><strong>status</strong> <span class="field-type">task.bid_status</span> — pending/accepted/rejected</li>
+                        <li><strong>status</strong> <span class="field-type">task.bid_status</span> — pending, countered, accepted, rejected, withdrawn, expired <span class="badge-new">updated</span></li>
                         <li><strong>message</strong> <span class="field-type">text</span> — bidder note</li>
                         <li><strong>accepted_at</strong> <span class="field-type">timestamptz</span> — acceptance timestamp</li>
                     </ul>
@@ -951,7 +1035,8 @@
                         <li><strong>seeker_id</strong> <span class="field-type">bigint</span> — customer</li>
                         <li><strong>tuktaker_id</strong> <span class="field-type">bigint</span> — assigned worker</li>
                         <li><strong>agreed_amount</strong> <span class="field-type">ops.money</span> — final price</li>
-                        <li><strong>status</strong> <span class="field-type">task.assignment_status</span> — pending, active, completed, cancelled</li>
+                        <li><strong>status</strong> <span class="field-type">task.assignment_status</span> — pending_payment, active, arrived, in_progress, completion_requested, completed, cancelled, disputed <span class="badge-new">updated</span></li>
+                        <li><strong>payment_due_at</strong> <span class="field-type">timestamptz</span> — payment deadline (acceptance + 15 min); if missed, the assignment is cancelled and the task reopens <span class="badge-new">new</span></li>
                         <li><strong>started_at</strong> <span class="field-type">timestamptz</span> — work start</li>
                         <li><strong>completed_at</strong> <span class="field-type">timestamptz</span> — completion time</li>
                     </ul>
@@ -1033,7 +1118,7 @@
                         <li><strong>assignment_id</strong> <span class="field-type">bigint</span> — assignment linked</li>
                         <li><strong>payment_id</strong> <span class="field-type">bigint</span> — payment source</li>
                         <li><strong>amount_held</strong> <span class="field-type">ops.money</span> — escrow total</li>
-                        <li><strong>status</strong> <span class="field-type">payment.escrow_status</span> — held, released, disputed</li>
+                        <li><strong>status</strong> <span class="field-type">payment.escrow_status</span> — held, frozen, released, partially_released, refunded <span class="badge-new">updated</span></li>
                         <li><strong>held_at</strong> <span class="field-type">timestamptz</span> — hold start</li>
                         <li><strong>released_at</strong> <span class="field-type">timestamptz</span> — release time</li>
                         <li><strong>release_reason</strong> <span class="field-type">payment.release_reason</span> — settlement reason</li>
@@ -1050,7 +1135,7 @@
                         <li><strong>fee_amount</strong> <span class="field-type">ops.money</span> — provider or admin fee</li>
                         <li><strong>net_amount</strong> <span class="field-type">ops.money</span> — amount after fees</li>
                         <li><strong>payment_method_id</strong> <span class="field-type">bigint</span> — destination account</li>
-                        <li><strong>status</strong> <span class="field-type">payment.payout_status</span> — pending/approved/processed</li>
+                        <li><strong>status</strong> <span class="field-type">payment.payout_status</span> — pending, approved, processing, paid, failed, rejected <span class="badge-new">updated</span></li>
                         <li><strong>gateway_ref</strong> <span class="field-type">text</span> — provider reference</li>
                     </ul>
                 </div>
