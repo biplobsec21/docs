@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Find tasks · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>.br-grid{display:grid;grid-template-columns:280px 1fr;gap:32px;align-items:start}
+.filters{position:sticky;top:96px}
+.tcard{transition:box-shadow .15s}.tcard:hover{box-shadow:var(--shadow-lg)}
+.tcard.sel{box-shadow:inset 0 0 0 2px var(--green),var(--shadow)}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tmeta{gap:6px 18px;margin-top:12px;color:var(--ink-2)}.tmeta span{display:inline-flex;gap:6px;align-items:center}.tmeta .ic{color:var(--muted)}
+.tfoot{margin-top:16px;padding-top:16px;border-top:1px solid var(--line-2);gap:16px}
+.tfoot>div:nth-child(2){flex:1}
+.earn{background:var(--soft);border-radius:var(--r-sm);padding:12px 14px;margin-top:10px;display:grid;gap:4px;color:var(--muted)}
+@media (max-width:960px){.br-grid{grid-template-columns:1fr}.filters{position:static}}</style></head>
+<body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="index.html" aria-label="TukTakKaj home"><img src="../tuktak-logo.png" alt="TukTak Technology"></a>
+<nav class="nav"><a href="tasks-browse.html" class="on">Find tasks</a><a href="tracking.html" class="">My jobs</a><a href="earnings.html" class="">Earnings</a></nav>
+<div class="head-right"><div class="lang"><span class="on">EN</span><span class="bn">বাংলা</span></div><span class="role-tag">TukTaker</span><a class="bell" href="#" aria-label="Notifications"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><i></i></a><div class="avatar av-a">JA</div></div></div></header>
+<main><section class="page-head" style="padding-bottom:16px"><div class="wrap"><div class="row between wrap-row" style="gap:16px">
+<div><h1 class="t-h1">Find tasks</h1><p class="muted" style="margin-top:4px">Showing tasks within 6 km of your work areas.</p></div>
+<div class="row" style="gap:10px"><span class="badge green"><span class="dot"></span>Verified</span><span class="tier gold">Gold</span></div></div></div></section>
+<section><div class="wrap br-grid">
+<aside class="filters card pad">
+ <h3 class="t-h3" style="margin-bottom:16px">Filters</h3>
+ <div class="field"><label class="lbl">Search</label><div class="input-group"><span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span><input placeholder="e.g. IPS, fan"></div></div>
+ <div class="field"><label class="lbl">Categories</label>
+  <label class="check"><input type="checkbox" checked> Electrical</label><label class="check" style="margin-top:8px"><input type="checkbox"> Gas</label><label class="check" style="margin-top:8px"><input type="checkbox" checked> Internet</label><label class="check" style="margin-top:8px"><input type="checkbox"> Small construction</label></div>
+ <div class="field"><label class="lbl">Work areas</label><div class="chips"><span class="chip on" style="height:32px">Khulshi</span><span class="chip on" style="height:32px">Panchlaish</span><span class="chip" style="height:32px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg> Add</span></div></div>
+ <div class="field"><label class="lbl">Distance · <span class="num">6 km</span></label><input type="range" min="1" max="15" value="6" style="width:100%;accent-color:var(--green)"></div>
+ <div class="field" style="margin:0"><label class="lbl">Date</label><div class="chips" data-group><button class="chip on" style="height:32px">Any</button><button class="chip" style="height:32px">Today</button><button class="chip" style="height:32px">This week</button></div></div>
+</aside>
+<div>
+ <div class="row between" style="margin-bottom:16px"><span class="t-sm muted">5 tasks</span><select class="input" style="width:auto;height:40px"><option>Newest first</option><option>Closest</option><option>Highest budget</option><option>Closing soon</option></select></div>
+ <div class="stack-lg"><article class="tcard card pad sel">
+<div class="row between"><span class="t-xs muted">Utilities · Electrical</span></div>
+<h3 class="t-h3" style="margin:4px 0 8px">Replace 3 switch boards and fix ceiling fan wiring</h3><p class="t-sm muted clamp">Two switch boards spark when switched on; ceiling fan hums and runs slow. Parts already bought.</p>
+<div class="row wrap-row t-sm tmeta"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Khulshi · 2.1 km<span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Sat 8 Nov, 10:00 AM</span></div>
+<div class="row between tfoot"><div><span class="t-xs muted">Budget</span><div class="t-h3 num">৳1,500</div></div>
+<div class="t-xs muted" style="text-align:right">3 bids · closes in 18h</div>
+<button class="btn btn-primary btn-sm" data-open="m-bid">Place bid</button></div></article><article class="tcard card pad">
+<div class="row between"><span class="t-xs muted">Utilities · Electrical</span></div>
+<h3 class="t-h3" style="margin:4px 0 8px">IPS installation for 2-bed flat</h3><p class="t-sm muted clamp">New 1000VA IPS and battery bought. Need wiring for 3 lights and 3 fans on IPS line.</p>
+<div class="row wrap-row t-sm tmeta"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Panchlaish · 0.8 km<span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Fri 7 Nov, 4:00 PM</span></div>
+<div class="row between tfoot"><div><span class="t-xs muted">Budget</span><div class="t-h3 num">৳1,200</div></div>
+<div class="t-xs muted" style="text-align:right">1 bid · closes in 5h</div>
+<button class="btn btn-primary btn-sm" data-open="m-bid">Place bid</button></div></article><article class="tcard card pad">
+<div class="row between"><span class="t-xs muted">Utilities · Electrical</span><span class="badge amber">Closes soon</span></div>
+<h3 class="t-h3" style="margin:4px 0 8px">Kitchen DB board keeps tripping</h3><p class="t-sm muted clamp">Breaker trips when the microwave and kettle run together.</p>
+<div class="row wrap-row t-sm tmeta"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Nasirabad · 1.6 km<span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Today, 6:00 PM</span></div>
+<div class="row between tfoot"><div><span class="t-xs muted">Budget</span><div class="t-h3 num">৳800</div></div>
+<div class="t-xs muted" style="text-align:right">5 bids · closes in 1h 20m</div>
+<button class="btn btn-primary btn-sm" data-open="m-bid">Place bid</button></div></article><article class="tcard card pad">
+<div class="row between"><span class="t-xs muted">Utilities · Electrical</span></div>
+<h3 class="t-h3" style="margin:4px 0 8px">Install 4 LED panel lights in office</h3><p class="t-sm muted clamp">Small office, false ceiling already cut. Panels supplied.</p>
+<div class="row wrap-row t-sm tmeta"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Agrabad · 5.4 km<span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Sun 9 Nov, 11:00 AM</span></div>
+<div class="row between tfoot"><div><span class="t-xs muted">Budget</span><div class="t-h3 num">৳2,000</div></div>
+<div class="t-xs muted" style="text-align:right">2 bids · closes in 1d 2h</div>
+<button class="btn btn-primary btn-sm" data-open="m-bid">Place bid</button></div></article><article class="tcard card pad">
+<div class="row between"><span class="t-xs muted">Utilities · Electrical</span></div>
+<h3 class="t-h3" style="margin:4px 0 8px">Doorbell and 2 sockets in new flat</h3><p class="t-sm muted clamp">Wiring exists, need the fittings installed and tested.</p>
+<div class="row wrap-row t-sm tmeta"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Bayazid · 4.9 km<span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Mon 10 Nov, 9:00 AM</span></div>
+<div class="row between tfoot"><div><span class="t-xs muted">Budget</span><div class="t-h3 num">৳600</div></div>
+<div class="t-xs muted" style="text-align:right">0 bids · closes in 2d</div>
+<button class="btn btn-primary btn-sm" data-open="m-bid">Place bid</button></div></article></div>
+</div></div></section>
+<div class="modal-bg" id="m-bid" role="dialog" aria-modal="true" aria-labelledby="m-bid-t"><div class="modal">
+<div class="modal-head"><h3 class="t-h2" id="m-bid-t">Place a bid</h3><button class="x" data-close aria-label="Close"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+<div class="modal-body"><div class="t-sm muted">Replace 3 switch boards and fix ceiling fan wiring</div>
+<div class="row t-sm muted" style="gap:14px;margin:4px 0 18px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Khulshi · 2.1 km <span>Budget <b style="color:var(--ink)">৳1,500</b></span></div>
+<div class="field"><label class="lbl">Your price</label><div class="input-group"><span>৳</span><input value="1,400"></div>
+<div class="earn t-sm"><div class="row between"><span>Commission (17%)</span><span class="num">−৳238</span></div><div class="row between"><span>VAT on commission (15%)</span><span class="num">−৳36</span></div><div class="row between" style="font-weight:700;color:var(--ink)"><span>You'll earn</span><span class="num">৳1,126</span></div></div></div>
+<div class="field"><label class="lbl">When can you come?</label><select class="input"><option>As requested · Sat 10:00 AM</option><option>Sat 11:00 AM</option></select></div>
+<div class="field"><label class="lbl">Message to the Seeker</label><textarea class="input" style="min-height:90px">I have done this exact job many times. 1.5 hours max.</textarea><p class="hint">Don't share phone numbers. Chat opens once your bid is accepted.</p></div>
+<button class="btn btn-primary btn-block btn-lg" data-close>Submit bid</button>
+<p class="t-xs muted" style="text-align:center;margin-top:10px">You can edit or withdraw until the Seeker accepts.</p></div></div></div></main>
+<footer class="site-foot"><div class="wrap">
+<div class="foot-grid">
+ <div><img src="../tuktak-logo.png" alt="TukTak Technology" style="height:56px;margin:-6px 0 10px -8px">
+  <p>TukTakKaj connects people in Chattogram with verified local TukTakers for everyday jobs — paid safely through escrow.</p>
+  <a class="sos" href="tel:999"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Emergency? Call <b>999</b></a></div>
+ <div><h4>Services</h4><a href="services.html">Utilities</a><a href="services.html">Cleaning</a><a href="services.html">Small construction</a><a href="services.html">Moving</a><a href="services.html">All services</a></div>
+ <div><h4>TukTakKaj</h4><a href="index.html#how">How it works</a><a href="signup.html?role=tasker">Become a TukTaker</a><a href="#">Trust &amp; safety</a><a href="#">Terms for Seekers</a><a href="#">Terms for TukTakers</a></div>
+ <div><h4>Contact</h4><p style="line-height:1.7">D-3, CPDL Chandralok,<br>645/C Zakir Hossain Road,<br>Khulshi, Chattogram</p><a href="mailto:info@tuktakkaj.com">info@tuktakkaj.com</a><a href="#">Hotline 09XXX-XXXXXX</a></div>
+</div>
+<div class="foot-bottom"><span>© 2026 TukTak Technology · Trade licence no. TRAD/CHTG/XXXXX</span><span>Payments by SSLCommerz · Payouts to bKash &amp; Nagad</span></div>
+</div></footer>
+<div class="proto">UI prototype · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>

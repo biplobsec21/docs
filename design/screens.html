@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>All screens · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>.sc{display:flex;flex-direction:column;gap:8px;padding:24px;color:var(--ink);text-decoration:none!important;transition:box-shadow .15s,transform .15s}
+.sc:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.sc-n{font-size:13px;font-weight:700;color:var(--green)}
+.sc p{flex:1}.sc-go{font-weight:600;color:var(--green);display:inline-flex;gap:6px;align-items:center}
+.sw{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sw div{display:flex;flex-direction:column;font-size:13px}.sw i{height:44px;border-radius:8px;margin-bottom:6px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.sw span{color:var(--muted);font-size:12px}</style></head>
+<body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="index.html" aria-label="TukTakKaj home"><img src="../tuktak-logo.png" alt="TukTak Technology"></a>
+<nav class="nav"><a href="services.html" class="">Services</a><a href="index.html#how" class="">How it works</a><a href="signup.html?role=tasker" class="">Become a TukTaker</a></nav>
+<div class="head-right"><div class="lang"><span class="on">EN</span><span class="bn">বাংলা</span></div><a class="head-link hide-sm" href="signup.html">Log in</a><a class="btn btn-lime btn-sm" href="signup.html">Sign up</a></div></div></header>
+<main><section class="page-head"><div class="wrap">
+<div class="crumbs"><a href="../index.html">Documentation</a> / UI prototype</div>
+<h1 class="t-h1">TukTakKaj — UI prototype</h1>
+<p class="muted" style="margin-top:8px;max-width:760px">Clickable HTML screens built from the requirements, database dictionary and data flow. All names, numbers and transactions are mock data. Style direction: TaskRabbit's clean layout and green actions, in TukTak's own navy and lime.</p>
+<h2 class="t-h2" style="margin:40px 0 16px">Public</h2><div class="grid-3"><a class="sc card" href="index.html"><span class="sc-n num">01</span><h3 class="t-h3">Home</h3><p class="t-sm muted">Search, categories, how escrow works, trust, Chattogram pilot, join as TukTaker</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a><a class="sc card" href="services.html"><span class="sc-n num">02</span><h3 class="t-h3">All services</h3><p class="t-sm muted">The 10 categories and sub-categories from the requirements, plus “coming later”</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a><a class="sc card" href="signup.html"><span class="sc-n num">03</span><h3 class="t-h3">Sign up</h3><p class="t-sm muted">Pick a role → mobile + OTP → details → success. TukTaker KYC steps preview</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a></div><h2 class="t-h2" style="margin:40px 0 16px">Service Seeker</h2><div class="grid-3"><a class="sc card" href="post-task.html"><span class="sc-n num">04</span><h3 class="t-h3">Post a task</h3><p class="t-sm muted">5-step wizard: category, details + photos + pets, time and place + bidding window, budget, review</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a><a class="sc card" href="task.html"><span class="sc-n num">05</span><h3 class="t-h3">Bids on my task</h3><p class="t-sm muted">Compare bids, counter-offer (3 rounds), accept → 15-minute payment window with bKash / Nagad / Bangla QR</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a><a class="sc card" href="tracking.html"><span class="sc-n num">06</span><h3 class="t-h3">Job in progress</h3><p class="t-sm muted">Escrow held, arrival check, chat, approve & release with rating + tip. Switch to the TukTaker view</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a><a class="sc card" href="seeker-dashboard.html"><span class="sc-n num">07</span><h3 class="t-h3">My tasks & billing</h3><p class="t-sm muted">Task list by status, approval reminder, month-wise billing, invoice generation</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a></div><h2 class="t-h2" style="margin:40px 0 16px">TukTaker</h2><div class="grid-3"><a class="sc card" href="tasks-browse.html"><span class="sc-n num">08</span><h3 class="t-h3">Find tasks</h3><p class="t-sm muted">Filters by category, area and distance; place a bid with the earnings breakdown</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a><a class="sc card" href="tuktaker.html"><span class="sc-n num">09</span><h3 class="t-h3">Public profile</h3><p class="t-sm muted">NID tick, tier, stats, skills, rating breakdown and reviews</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a><a class="sc card" href="earnings.html"><span class="sc-n num">10</span><h3 class="t-h3">Earnings & payouts</h3><p class="t-sm muted">Wallet balance, cash out (min ৳500 / max ৳10,000, ৳5 fee), activity, tier progress</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a><a class="sc card" href="tracking.html?as=tasker"><span class="sc-n num">11</span><h3 class="t-h3">Job in progress</h3><p class="t-sm muted">Arrival confirmed, mark job done, masked call and chat</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a></div><h2 class="t-h2" style="margin:40px 0 16px">Admin</h2><div class="grid-3"><a class="sc card" href="admin.html"><span class="sc-n num">12</span><h3 class="t-h3">Admin dashboard</h3><p class="t-sm muted">User, revenue, task and VAT reports; KYC queue with review; payouts; disputes</p><span class="sc-go t-sm">Open <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a></div>
+<div class="grid-2" style="margin-top:48px">
+ <div class="panel pad"><h3 class="t-h3" style="margin-bottom:10px">Design tokens</h3>
+  <div class="sw"><div><i style="background:#000F1D"></i><b>Navy</b><span>#000F1D</span></div><div><i style="background:#6EBD33"></i><b>Lime</b><span>#6EBD33</span></div><div><i style="background:#2B7A1C"></i><b>Green</b><span>#2B7A1C</span></div><div><i style="background:#EEF6E8"></i><b>Mint</b><span>#EEF6E8</span></div><div><i style="background:#1A1E1D"></i><b>Ink</b><span>#1A1E1D</span></div><div><i style="background:#DCDFDD"></i><b>Line</b><span>#DCDFDD</span></div></div>
+  <p class="t-sm muted" style="margin-top:12px">Type: Inter (UI) + Hind Siliguri (Bangla). Pill buttons, 12 px cards, soft shadows.</p></div>
+ <div class="panel pad"><h3 class="t-h3" style="margin-bottom:10px">Assumptions shown in the mock</h3>
+  <ul class="t-sm muted" style="margin:0;padding-left:18px;line-height:1.8">
+   <li>Commission 17% + 15% VAT on commission (D28, D29 not final)</li>
+   <li>Payment method chosen at the payment step, not when posting (D11)</li>
+   <li>Pets: No / Cat / Dog / Other (D09) · bidding window 2/6/24/48 h (D12)</li>
+   <li>48 h to approve, then auto-release (D14) · arrival by GPS + 4-digit code (D17)</li>
+   <li>Hotline number and slogan are placeholders (D42)</li>
+  </ul></div>
+</div>
+<p class="t-xs faint" style="margin-top:24px">Photos: Unsplash (free licence). Logo: TukTak Technology. Built 2026-11-05.</p>
+</div></section></main>
+<footer class="site-foot"><div class="wrap">
+<div class="foot-grid">
+ <div><img src="../tuktak-logo.png" alt="TukTak Technology" style="height:56px;margin:-6px 0 10px -8px">
+  <p>TukTakKaj connects people in Chattogram with verified local TukTakers for everyday jobs — paid safely through escrow.</p>
+  <a class="sos" href="tel:999"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Emergency? Call <b>999</b></a></div>
+ <div><h4>Services</h4><a href="services.html">Utilities</a><a href="services.html">Cleaning</a><a href="services.html">Small construction</a><a href="services.html">Moving</a><a href="services.html">All services</a></div>
+ <div><h4>TukTakKaj</h4><a href="index.html#how">How it works</a><a href="signup.html?role=tasker">Become a TukTaker</a><a href="#">Trust &amp; safety</a><a href="#">Terms for Seekers</a><a href="#">Terms for TukTakers</a></div>
+ <div><h4>Contact</h4><p style="line-height:1.7">D-3, CPDL Chandralok,<br>645/C Zakir Hossain Road,<br>Khulshi, Chattogram</p><a href="mailto:info@tuktakkaj.com">info@tuktakkaj.com</a><a href="#">Hotline 09XXX-XXXXXX</a></div>
+</div>
+<div class="foot-bottom"><span>© 2026 TukTak Technology · Trade licence no. TRAD/CHTG/XXXXX</span><span>Payments by SSLCommerz · Payouts to bKash &amp; Nagad</span></div>
+</div></footer>
+<div class="proto">UI prototype · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>

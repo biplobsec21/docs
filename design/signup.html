@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign up · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>.su{background:var(--soft);padding:48px 0}
+.su-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:0;align-items:stretch;max-width:1040px}
+.su-side{background:var(--navy);border-radius:20px 0 0 20px;padding:48px 40px}
+.su-points{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:14px;color:#DCE5EC;font-size:15px}
+.su-points li{display:flex;gap:10px;align-items:flex-start}.su-points .ic{color:var(--lime);margin-top:3px}
+.su-main{border-radius:0 20px 20px 0;overflow:hidden}
+.su-prog{height:4px;background:var(--line-2)}.su-prog div{height:100%;background:var(--green);transition:width .3s}
+.role{padding:20px}.role .ic{margin-bottom:6px}
+.su-done{text-align:center}.su-done .tk-preview{text-align:left}
+.done-ic{width:64px;height:64px;border-radius:50%;background:var(--mint);color:var(--green);display:grid;place-items:center;margin:0 auto 18px}
+@media (max-width:860px){.su-grid{grid-template-columns:1fr}.su-side{border-radius:20px 20px 0 0;padding:32px 24px}.su-main{border-radius:0 0 20px 20px}.su-main .pad-lg{padding:24px}}</style></head>
+<body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="index.html" aria-label="TukTakKaj home"><img src="../tuktak-logo.png" alt="TukTak Technology"></a>
+<nav class="nav"><a href="services.html" class="">Services</a><a href="index.html#how" class="">How it works</a><a href="signup.html?role=tasker" class="">Become a TukTaker</a></nav>
+<div class="head-right"><div class="lang"><span class="on">EN</span><span class="bn">বাংলা</span></div><a class="head-link hide-sm" href="signup.html">Log in</a><a class="btn btn-lime btn-sm" href="signup.html">Sign up</a></div></div></header>
+<main><section class="su"><div class="su-grid wrap">
+<div class="su-side">
+ <h1 class="t-h1" style="color:#fff">Join TukTakKaj</h1>
+ <p style="color:#B9C6D2;margin-top:10px">One mobile number, one account. Choose how you'll use TukTakKaj — you can't switch roles on the same number.</p>
+ <ul class="su-points">
+  <li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Sign in with your mobile number and OTP</li>
+  <li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Seekers can post a task straight after sign-up</li>
+  <li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> TukTakers are verified by our team within 24–48 hours</li>
+ </ul>
+</div>
+<div class="su-main card" data-wizard>
+ <div class="su-prog"><div data-progress></div></div>
+
+ <div data-step class="pad-lg">
+  <div class="t-sm muted">Step 1 of 4</div><h2 class="t-h2" style="margin:4px 0 20px">How will you use TukTakKaj?</h2>
+  <div class="grid-2">
+   <label class="choice role on"><input type="radio" name="role" checked><svg class="ic ic-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><b>I need tasks done</b><small>Post tasks, compare bids and pay safely. Personal or Business account.</small></label>
+   <label class="choice role"><input type="radio" name="role"><svg class="ic ic-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0a2.12 2.12 0 0 1 0-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/></svg><b>I want to work</b><small>Become a TukTaker, bid on tasks and earn. 18+ with NID.</small></label>
+  </div>
+  <div class="field" style="margin-top:24px"><label class="lbl" for="m">Mobile number</label>
+   <div class="input-group"><span>+880</span><input id="m" inputmode="numeric" placeholder="1XXX-XXXXXX" value="1712 345 678"></div>
+   <p class="hint">This becomes your account ID. We'll send a 6-digit code.</p></div>
+  <label class="check"><input type="checkbox" checked> I confirm this number is registered in my name.</label>
+  <button class="btn btn-primary btn-block btn-lg" style="margin-top:24px" data-next>Send code</button>
+  <p class="t-sm muted" style="text-align:center;margin-top:16px">Already have an account? <a href="#">Log in</a></p>
+ </div>
+
+ <div data-step class="pad-lg" hidden>
+  <button class="link-btn t-sm" data-prev><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> Back</button>
+  <h2 class="t-h2" style="margin:12px 0 6px">Enter the 6-digit code</h2>
+  <p class="muted">Sent to +880 1712-345678. It expires in <b class="num" data-countdown="180"></b>.</p>
+  <div class="otp" style="margin:24px 0"><input aria-label="Digit 1" value="4"><input aria-label="Digit 2" value="8"><input aria-label="Digit 3" value="2"><input aria-label="Digit 4"><input aria-label="Digit 5"><input aria-label="Digit 6"></div>
+  <p class="t-sm muted">Didn't get it? <span class="faint">Resend in 0:42</span> · 3 attempts left</p>
+  <button class="btn btn-primary btn-block btn-lg" style="margin-top:24px" data-next>Verify</button>
+ </div>
+
+ <div data-step class="pad-lg" hidden>
+  <button class="link-btn t-sm" data-prev><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> Back</button>
+  <h2 class="t-h2" style="margin:12px 0 20px">Your details</h2>
+  <div class="field"><label class="lbl">Account type</label><div class="chips" data-group><button class="chip on">Personal</button><button class="chip">Business</button></div></div>
+  <div class="form-grid">
+   <div class="field"><label class="lbl">First name</label><input class="input" value="Tahmid"></div>
+   <div class="field"><label class="lbl">Last name</label><input class="input" value="Rahman"></div>
+   <div class="field"><label class="lbl">District</label><select class="input"><option>Chattogram</option></select></div>
+   <div class="field"><label class="lbl">Thana</label><select class="input"><option>Khulshi</option><option>Panchlaish</option></select></div>
+   <div class="field"><label class="lbl">Ward / Village</label><input class="input" value="Ward 14"></div>
+   <div class="field"><label class="lbl">Post code</label><input class="input" value="4225"></div>
+  </div>
+  <div class="field"><label class="lbl">Road name / Bari</label><input class="input" value="Road 2, House 14, Nur Villa"></div>
+  <div class="field"><label class="lbl">Password</label><input class="input" type="password" value="Tahmid@2026"><p class="hint">8+ characters with upper case, lower case, a number and a symbol. <span style="color:var(--green)">● Strong</span></p></div>
+  <div class="field"><label class="lbl">Special instructions <span class="faint" style="font-weight:400">(optional)</span></label><input class="input" placeholder="e.g. Ring the bell twice, gate on the left"></div>
+  <button class="btn btn-primary btn-block btn-lg" data-next>Create account</button>
+ </div>
+
+ <div data-step class="pad-lg su-done" hidden>
+  <div class="done-ic"><svg class="ic ic-lg" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h2 class="t-h2">Congratulations! Your account has been created successfully.</h2>
+  <p class="muted" style="margin:10px 0 28px">You are all set to post a task.</p>
+  <a class="btn btn-primary btn-lg" href="post-task.html">Post your first task</a>
+  <div class="divider"></div>
+  <div class="tk-preview">
+   <div class="t-sm" style="font-weight:600;margin-bottom:12px">If you chose “I want to work”, the next steps are:</div>
+   <ol class="steps">
+    <li class="done"><span class="mark"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span><b>Age check</b><small>“Are you 18 or older?” — No stops sign-up</small></li>
+    <li class="now"><span class="mark"></span><b>NID front, NID back and a guided selfie</b><small>Name and date of birth are read from the NID</small></li>
+    <li><span class="mark"></span><b>Address as per NID, current address, work areas</b><small>Pick one or more upazilas and a travel radius</small></li>
+    <li><span class="mark"></span><b>Pending verification</b><small>Our team checks within 24–48 h. You get an SMS when you're verified</small></li>
+   </ol>
+  </div>
+ </div>
+</div></div></section></main>
+
+<div class="proto">UI prototype · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>

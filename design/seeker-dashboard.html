@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My tasks · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style></style></head>
+<body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="index.html" aria-label="TukTakKaj home"><img src="../tuktak-logo.png" alt="TukTak Technology"></a>
+<nav class="nav"><a href="post-task.html" class="">Post a task</a><a href="seeker-dashboard.html" class="on">My tasks</a><a href="services.html" class="">Services</a></nav>
+<div class="head-right"><div class="lang"><span class="on">EN</span><span class="bn">বাংলা</span></div><span class="role-tag">Seeker</span><a class="bell" href="#" aria-label="Notifications"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><i></i></a><div class="avatar ">TR</div></div></div></header>
+<main><section class="page-head"><div class="wrap"><div class="row between wrap-row" style="gap:16px">
+<div><h1 class="t-h1">Hi Tahmid</h1><p class="muted" style="margin-top:4px">You have 1 task waiting for your approval.</p></div>
+<a class="btn btn-primary btn-lg" href="post-task.html"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg> Post a task</a></div></div></section>
+<section><div class="wrap">
+ <div class="note warn" style="margin-bottom:24px"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div class="grow"><b>Kamal Uddin finished “Deep clean 3-bed flat”.</b> Approve or raise a problem within <b>31h 20m</b>, or the ৳3,200 is released automatically.</div><a class="btn btn-dark btn-sm" href="tracking.html">Review</a></div>
+ <div class="grid-4" style="margin-bottom:32px">
+  <div class="card stat"><div class="k">Active tasks</div><div class="v">3</div><div class="d muted">1 open · 2 assigned</div></div>
+  <div class="card stat"><div class="k">Held in escrow</div><div class="v">৳4,600</div><div class="d muted">2 tasks</div></div>
+  <div class="card stat"><div class="k">Spent this year</div><div class="v">৳41,850</div><div class="d muted">17 tasks</div></div>
+  <div class="card stat"><div class="k">Goodwill credit</div><div class="v">৳150</div><div class="d muted">Used on your next task</div></div>
+ </div>
+ <div class="tabs" data-group><button class="on" data-show="tasks">My tasks</button><button data-show="billing">Billing</button></div>
+ <div data-pane="tasks" style="padding-top:20px">
+  <div class="chips" data-group style="margin-bottom:16px"><button class="chip on">All <span class="count">6</span></button><button class="chip">Open <span class="count">1</span></button><button class="chip">In progress <span class="count">2</span></button><button class="chip">Completed <span class="count">2</span></button><button class="chip">Cancelled <span class="count">1</span></button></div>
+  <div class="card table-wrap"><table class="table"><thead><tr><th>Task</th><th>Date</th><th>Status</th><th>TukTaker</th><th class="r">Amount</th><th></th></tr></thead><tbody><tr><td><a href="tracking.html" style="color:var(--ink);font-weight:600">Replace 3 switch boards and fix ceiling fan wiring</a><div class="t-xs muted">TK-24117 · Utilities</div></td>
+<td class="t-sm">Sat 8 Nov</td><td><span class="badge blue">In progress</span></td><td class="t-sm">Md. Jahangir Alam</td><td class="r num">৳1,400</td>
+<td class="r"><a href="tracking.html" class="t-sm" style="font-weight:600">View</a></td></tr><tr><td><a href="task.html" style="color:var(--ink);font-weight:600">Water pump not lifting to roof tank</a><div class="t-xs muted">TK-24131 · Utilities · Water</div></td>
+<td class="t-sm">Mon 10 Nov</td><td><span class="badge green">Open · 4 bids</span></td><td class="t-sm">—</td><td class="r num">৳900</td>
+<td class="r"><a href="task.html" class="t-sm" style="font-weight:600">Review bids</a></td></tr><tr><td><a href="tracking.html" style="color:var(--ink);font-weight:600">Deep clean 3-bed flat before Eid guests</a><div class="t-xs muted">TK-24102 · Cleaning</div></td>
+<td class="t-sm">Tue 4 Nov</td><td><span class="badge amber">Awaiting your approval</span></td><td class="t-sm">Kamal Uddin</td><td class="r num">৳3,200</td>
+<td class="r"><a href="tracking.html" class="t-sm" style="font-weight:600">Approve</a></td></tr><tr><td><a href="#" style="color:var(--ink);font-weight:600">Shift 2-bed flat Khulshi → Nasirabad</a><div class="t-xs muted">TK-23988 · Moving · House</div></td>
+<td class="t-sm">18 Oct</td><td><span class="badge ">Completed</span></td><td class="t-sm">Nurul Absar</td><td class="r num">৳6,500</td>
+<td class="r"><a href="#" class="t-sm" style="font-weight:600">View</a></td></tr><tr><td><a href="#" style="color:var(--ink);font-weight:600">Paint kitchen and verandah</a><div class="t-xs muted">TK-23940 · Small Construction</div></td>
+<td class="t-sm">11 Oct</td><td><span class="badge ">Completed</span></td><td class="t-sm">Sumon Das</td><td class="r num">৳5,800</td>
+<td class="r"><a href="#" class="t-sm" style="font-weight:600">View</a></td></tr><tr><td><a href="#" style="color:var(--ink);font-weight:600">AC servicing — 2 units</a><div class="t-xs muted">TK-23911 · Utilities · Electrical</div></td>
+<td class="t-sm">2 Oct</td><td><span class="badge red">Cancelled · refunded</span></td><td class="t-sm">—</td><td class="r num">—</td>
+<td class="r"><a href="#" class="t-sm" style="font-weight:600">View</a></td></tr></tbody></table></div>
+ </div>
+ <div data-pane="billing" hidden style="padding-top:20px">
+  <div class="row between wrap-row" style="margin-bottom:16px;gap:12px"><div class="chips" data-group><button class="chip on">Month-wise</button><button class="chip">Year-wise</button></div><button class="btn btn-ghost" data-open="m-inv"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Generate invoice</button></div>
+  <div class="card table-wrap"><table class="table"><thead><tr><th>Month</th><th class="r">Tasks</th><th class="r">Task value</th><th class="r">Fees &amp; call-outs</th><th class="r">Refunds &amp; credits</th><th class="r">Net paid</th></tr></thead><tbody><tr><td>Nov 2026</td><td class="r num">3</td><td class="r num">৳5,500</td><td class="r num">—</td><td class="r num">—</td><td class="r num"><b>৳5,500</b></td></tr><tr><td>Oct 2026</td><td class="r num">3</td><td class="r num">৳12,300</td><td class="r num">৳300</td><td class="r num">৳150</td><td class="r num"><b>৳12,150</b></td></tr><tr><td>Sep 2026</td><td class="r num">2</td><td class="r num">৳4,100</td><td class="r num">—</td><td class="r num">—</td><td class="r num"><b>৳4,100</b></td></tr></tbody></table></div>
+  <p class="t-xs muted" style="margin-top:10px">Oct 2026 includes a ৳300 cancellation fee (TK-23911) and a ৳150 goodwill credit.</p>
+ </div>
+</div></section>
+<div class="modal-bg" id="m-inv" role="dialog" aria-modal="true" aria-labelledby="m-inv-t"><div class="modal">
+<div class="modal-head"><h3 class="t-h2" id="m-inv-t">Generate invoice</h3><button class="x" data-close aria-label="Close"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+<div class="modal-body"><div class="form-grid"><div class="field"><label class="lbl">From</label><select class="input"><option>Oct 2026</option></select></div><div class="field"><label class="lbl">To</label><select class="input"><option>Oct 2026</option></select></div></div>
+<div class="note info t-sm"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>3 services · ৳12,300 total. An invoice costs <b>৳20</b>, charged to your next payment.</span></div>
+<button class="btn btn-primary btn-block btn-lg" style="margin-top:20px" data-close><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Generate invoice</button></div></div></div></main>
+<footer class="site-foot"><div class="wrap">
+<div class="foot-grid">
+ <div><img src="../tuktak-logo.png" alt="TukTak Technology" style="height:56px;margin:-6px 0 10px -8px">
+  <p>TukTakKaj connects people in Chattogram with verified local TukTakers for everyday jobs — paid safely through escrow.</p>
+  <a class="sos" href="tel:999"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Emergency? Call <b>999</b></a></div>
+ <div><h4>Services</h4><a href="services.html">Utilities</a><a href="services.html">Cleaning</a><a href="services.html">Small construction</a><a href="services.html">Moving</a><a href="services.html">All services</a></div>
+ <div><h4>TukTakKaj</h4><a href="index.html#how">How it works</a><a href="signup.html?role=tasker">Become a TukTaker</a><a href="#">Trust &amp; safety</a><a href="#">Terms for Seekers</a><a href="#">Terms for TukTakers</a></div>
+ <div><h4>Contact</h4><p style="line-height:1.7">D-3, CPDL Chandralok,<br>645/C Zakir Hossain Road,<br>Khulshi, Chattogram</p><a href="mailto:info@tuktakkaj.com">info@tuktakkaj.com</a><a href="#">Hotline 09XXX-XXXXXX</a></div>
+</div>
+<div class="foot-bottom"><span>© 2026 TukTak Technology · Trade licence no. TRAD/CHTG/XXXXX</span><span>Payments by SSLCommerz · Payouts to bKash &amp; Nagad</span></div>
+</div></footer>
+<div class="proto">UI prototype · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>
