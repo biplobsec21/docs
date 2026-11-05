@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Browse tasks · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype B — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>body{background:var(--blue-50)}
+.fbar{background:#fff;border-bottom:1px solid var(--line);padding:10px 0;position:sticky;top:68px;z-index:30;overflow-x:auto}
+.fbar .wrap{max-width:none}
+.fsearch{display:flex;align-items:center;gap:8px;background:#F0F1F5;border-radius:999px;padding:8px 14px;min-width:220px;color:var(--slate)}
+.fsearch input{border:0;background:none;outline:none;font:inherit;font-size:14px;width:100%}
+.fbtn{font:inherit;font-size:14px;font-weight:700;color:var(--navy);background:none;border:0;padding:8px 10px;white-space:nowrap;display:inline-flex;gap:6px;align-items:center;cursor:pointer;border-radius:8px}.fbtn:hover{background:#F0F1F5}
+.br{display:grid;grid-template-columns:420px 1fr;gap:16px;padding:16px 24px;height:calc(100vh - 68px - 59px)}
+.br-list{overflow:auto;padding-right:6px}
+.tc{display:block;width:100%;text-align:left;font:inherit;color:var(--navy);background:#fff;border:2px solid transparent;border-radius:14px;padding:16px 18px;margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow)}
+.tc:hover{border-color:var(--blue-200)}.tc.on{border-color:var(--blue)}
+.tc-t{font-size:17px;font-weight:700;line-height:1.3}.tc-p{font-size:19px;font-weight:800;white-space:nowrap}
+.tc-m{display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--slate);margin-top:6px}
+.br-right{position:relative;border-radius:var(--r);overflow:hidden;background:#fff}
+.br-map{position:absolute;inset:0;transition:right .2s}.map{width:100%;height:100%;display:block}
+@media (min-width:901px){.br-right.has-d .br-map{right:492px}}
+.map .area{font:800 12px Manrope,sans-serif;fill:#9BA0BC;letter-spacing:.12em}
+.map .sea,.map .river{font:800 13px Manrope,sans-serif;fill:#7FA7F0;letter-spacing:.3em}
+.pin{cursor:pointer}.pin rect{fill:#fff;stroke:var(--blue);stroke-width:2}.pin path{fill:#fff;stroke:var(--blue);stroke-width:2}
+.pin text{font:800 13px Manrope,sans-serif;fill:var(--blue)}
+.pin.on rect,.pin.on path,.pin:hover rect,.pin:hover path{fill:var(--blue)}.pin.on text,.pin:hover text{fill:#fff}
+.br-detail{position:absolute;right:16px;top:16px;bottom:16px;width:min(460px,55%);padding:24px;overflow:auto;box-shadow:var(--shadow-lg)}
+.d-budget{background:var(--blue-50);border-radius:14px;padding:14px 18px}
+@media (max-width:900px){.br{grid-template-columns:1fr;height:auto;padding:12px}.br-right{order:-1;height:560px}.br-map{position:absolute}.br-list{overflow:visible}.br-detail{left:12px;right:12px;top:auto;width:auto;max-height:86%;padding:18px}.d-budget{flex-wrap:wrap;gap:10px}}</style></head>
+<body>
+<header class="top"><div class="wrap">
+<a href="index.html" aria-label="TukTakKaj home" style="text-decoration:none"><span class="mark">TukTak<i>Kaj</i></span></a>
+<nav class="nav"><a href="tasks.html" class="on">Browse tasks</a><a href="job-tasker.html" class="">My jobs</a><a href="earnings.html" class="">Earnings</a></nav><div class="top-r"><div class="lang"><span class="on">EN</span><span class="bn">বাং</span></div><span class="role hide-m">TukTaker</span><a class="bell" href="#" aria-label="Notifications"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><b>3</b></a><div class="av sm c1">JA</div></div></div></header>
+<main>
+<div class="fbar"><div class="wrap row" style="gap:10px">
+ <label class="fsearch"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input placeholder="Search for a task"></label>
+ <button class="fbtn">All categories ▾</button><button class="fbtn"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> 5 km of Khulshi ▾</button><button class="fbtn hide-m">Any price ▾</button><button class="fbtn hide-m">Open tasks only ▾</button><button class="fbtn">Sort: Newest ▾</button>
+</div></div>
+<section class="br">
+ <div class="br-list"><p class="sm mute" style="padding:4px 4px 10px">8 open tasks near you · fits your skills: Electrical</p><button class="tc on" data-task="0" type="button">
+<div class="row between" style="align-items:flex-start;gap:12px"><b class="tc-t">Replace 3 switch boards and fix ceiling fan wiring</b><b class="tc-p">৳1,500</b></div>
+<div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Khulshi</div><div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Sat 8 Nov · Morning</div>
+<div class="row between" style="margin-top:10px"><span class="sm"><b style="color:var(--blue)">Open</b> <span class="dot"></span> <span class="mute">3 offers</span></span><span class="av sm c1">TR</span></div></button><button class="tc" data-task="1" type="button">
+<div class="row between" style="align-items:flex-start;gap:12px"><b class="tc-t">Deep clean kitchen and 2 bathrooms</b><b class="tc-p">৳1,800</b></div>
+<div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Panchlaish</div><div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Mon 10 Nov · Before 12</div>
+<div class="row between" style="margin-top:10px"><span class="sm"><b style="color:var(--blue)">Open</b> <span class="dot"></span> <span class="mute">5 offers</span></span><span class="av sm c2">NS</span></div></button><button class="tc" data-task="2" type="button">
+<div class="row between" style="align-items:flex-start;gap:12px"><b class="tc-t">Shift 1-room office to GEC, 2nd floor</b><b class="tc-p">৳5,500</b></div>
+<div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Nasirabad</div><div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Flexible</div>
+<div class="row between" style="margin-top:10px"><span class="sm"><b style="color:var(--blue)">Open</b> <span class="dot"></span> <span class="mute">2 offers</span></span><span class="av sm c3">MK</span></div></button><button class="tc" data-task="3" type="button">
+<div class="row between" style="align-items:flex-start;gap:12px"><b class="tc-t">Paint 2 bedrooms (putty done)</b><b class="tc-p">৳9,000</b></div>
+<div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Chandgaon</div><div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Before Sat 15 Nov</div>
+<div class="row between" style="margin-top:10px"><span class="sm"><b style="color:var(--blue)">Open</b> <span class="dot"></span> <span class="mute">1 offer</span></span><span class="av sm c4">RA</span></div></button><button class="tc" data-task="4" type="button">
+<div class="row between" style="align-items:flex-start;gap:12px"><b class="tc-t">AC servicing — 2 split units</b><b class="tc-p">৳1,600</b></div>
+<div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Halishahar</div><div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Sun 9 Nov · Afternoon</div>
+<div class="row between" style="margin-top:10px"><span class="sm"><b style="color:var(--blue)">Open</b> <span class="dot"></span> <span class="mute">4 offers</span></span><span class="av sm c5">FH</span></div></button><button class="tc" data-task="5" type="button">
+<div class="row between" style="align-items:flex-start;gap:12px"><b class="tc-t">Pick up passport docs from Agrabad</b><b class="tc-p">৳250</b></div>
+<div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Agrabad</div><div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Today · ASAP</div>
+<div class="row between" style="margin-top:10px"><span class="sm"><b style="color:var(--blue)">Open</b> <span class="dot"></span> <span class="mute">6 offers</span></span><span class="av sm c6">SB</span></div></button><button class="tc" data-task="6" type="button">
+<div class="row between" style="align-items:flex-start;gap:12px"><b class="tc-t">HSC physics tutor, 3 days a week</b><b class="tc-p">৳6,000</b></div>
+<div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Bayazid</div><div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Starts 15 Nov</div>
+<div class="row between" style="margin-top:10px"><span class="sm"><b style="color:var(--blue)">Open</b> <span class="dot"></span> <span class="mute">2 offers</span></span><span class="av sm c1">AR</span></div></button><button class="tc" data-task="7" type="button">
+<div class="row between" style="align-items:flex-start;gap:12px"><b class="tc-t">Water pump not starting</b><b class="tc-p">৳800</b></div>
+<div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Double Mooring</div><div class="tc-m"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Today · Evening</div>
+<div class="row between" style="margin-top:10px"><span class="sm"><b style="color:var(--blue)">Open</b> <span class="dot"></span> <span class="mute">0 offers</span></span><span class="av sm c2">KH</span></div></button></div>
+ <div class="br-right has-d">
+  <div class="br-map"><svg class="map" viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Map of Chattogram with task prices">
+<rect width="800" height="900" fill="#F4F6FA"/>
+<path d="M0 0 H120 C110 200 90 380 70 520 C55 640 80 760 60 900 H0Z" fill="#DCE8FF"/>
+<text x="20" y="440" class="sea" transform="rotate(-90 30 440)">BAY OF BENGAL</text>
+<path d="M800 520 C700 560 640 610 560 660 C470 720 380 760 300 790 C230 815 160 830 80 860" fill="none" stroke="#C9DCFF" stroke-width="34" stroke-linecap="round"/>
+<text x="470" y="735" class="river" transform="rotate(-24 470 735)">KARNAPHULI RIVER</text>
+<g fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"><path d="M120 820 C220 700 300 600 380 500 C450 410 520 300 560 80"/><path d="M200 300 C320 330 450 360 720 330"/><path d="M380 500 C470 470 580 430 760 420"/><path d="M300 200 C330 300 350 420 340 640"/><path d="M560 80 C620 160 660 230 700 300"/></g>
+<g fill="none" stroke="#E3E7F0" stroke-width="3"><path d="M150 650 L380 620 L520 600"/><path d="M420 120 L470 300 L500 470"/><path d="M250 420 L420 410 L640 380"/><path d="M600 470 L620 560"/><path d="M200 560 L260 470 L300 360"/></g>
+<rect x="420" y="180" width="70" height="40" rx="8" fill="#E3F2DF"/><rect x="300" y="380" width="60" height="50" rx="8" fill="#E3F2DF"/>
+<text x="560" y="110" class="area">BAYAZID</text><text x="400" y="215" class="area">NASIRABAD</text><text x="505" y="335" class="area">PANCHLAISH</text><text x="345" y="345" class="area">KHULSHI</text><text x="640" y="225" class="area">CHANDGAON</text><text x="380" y="560" class="area">AGRABAD</text><text x="190" y="520" class="area">HALISHAHAR</text><text x="300" y="650" class="area">DOUBLE MOORING</text><text x="170" y="800" class="area">PATENGA</text><text x="500" y="470" class="area">KOTWALI</text><g class="pin on" data-task="0" transform="translate(395,380)"><rect x="-36.0" y="-34" width="72" height="28" rx="14"/><path d="M-6 -7 L0 2 L6 -7Z"/><text y="-15" text-anchor="middle">৳1,500</text></g><g class="pin" data-task="1" transform="translate(470,300)"><rect x="-36.0" y="-34" width="72" height="28" rx="14"/><path d="M-6 -7 L0 2 L6 -7Z"/><text y="-15" text-anchor="middle">৳1,800</text></g><g class="pin" data-task="2" transform="translate(430,250)"><rect x="-36.0" y="-34" width="72" height="28" rx="14"/><path d="M-6 -7 L0 2 L6 -7Z"/><text y="-15" text-anchor="middle">৳5,500</text></g><g class="pin" data-task="3" transform="translate(610,270)"><rect x="-36.0" y="-34" width="72" height="28" rx="14"/><path d="M-6 -7 L0 2 L6 -7Z"/><text y="-15" text-anchor="middle">৳9,000</text></g><g class="pin" data-task="4" transform="translate(230,560)"><rect x="-36.0" y="-34" width="72" height="28" rx="14"/><path d="M-6 -7 L0 2 L6 -7Z"/><text y="-15" text-anchor="middle">৳1,600</text></g><g class="pin" data-task="5" transform="translate(330,520)"><rect x="-27.0" y="-34" width="54" height="28" rx="14"/><path d="M-6 -7 L0 2 L6 -7Z"/><text y="-15" text-anchor="middle">৳250</text></g><g class="pin" data-task="6" transform="translate(540,150)"><rect x="-36.0" y="-34" width="72" height="28" rx="14"/><path d="M-6 -7 L0 2 L6 -7Z"/><text y="-15" text-anchor="middle">৳6,000</text></g><g class="pin" data-task="7" transform="translate(300,600)"><rect x="-27.0" y="-34" width="54" height="28" rx="14"/><path d="M-6 -7 L0 2 L6 -7Z"/><text y="-15" text-anchor="middle">৳800</text></g>
+<g transform="translate(395,380)"><circle r="46" fill="#0A65FC" opacity=".08"/></g>
+</svg></div>
+  <div class="br-detail card" id="detail">
+   <div class="row between"><div class="flow" style="width:260px"><span class="now">Open</span><span>Assigned</span><span>Done</span></div><button class="x" id="detail-x" aria-label="Close"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+   <h2 class="d-m" style="margin:16px 0 10px" id="d-title">Replace 3 switch boards and fix ceiling fan wiring</h2>
+   <div class="row wrapx" style="gap:22px;margin-bottom:16px"><span class="row sm" style="gap:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span id="d-area">Khulshi</span></span><span class="row sm" style="gap:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span id="d-when">Sat 8 Nov · Morning</span></span><span class="row sm" style="gap:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Tahmid R. · 4.9 ★ as Seeker</span></div>
+   <div class="row between d-budget"><div><span class="xs b mute">TASK BUDGET</span><div class="d-l" id="d-budget">৳1,500</div></div><button class="btn btn-blue btn-lg" data-open="m-offer">Make an offer</button></div>
+   <h3 class="h4" style="margin:18px 0 6px">Details</h3><p class="sm">Two switch boards in the bedroom spark when switched on, one in the kitchen is loose. The ceiling fan in the drawing room hums and runs slow — probably wiring or capacitor. Switch boards and capacitor are already bought.</p>
+   <p class="xs faint" style="margin-top:12px">Exact address is shared after you're hired. Offer amounts are private.</p>
+  </div>
+ </div>
+</section>
+<div class="modal-bg" id="m-offer" role="dialog" aria-modal="true" aria-labelledby="m-offer-t"><div class="modal">
+<div class="modal-head"><h3 class="d-s" id="m-offer-t">Make an offer</h3><button class="x" data-close aria-label="Close"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+<div class="modal-body"><div class="note"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span class="sm">Seeker's budget: <b>৳1,500</b> · Offers close in <b class="num" data-countdown="67320"></b></span></div>
+<div class="field" style="margin-top:18px"><label class="lbl">Your offer</label><div class="money"><span>৳</span><input value="1,400" inputmode="numeric"></div></div>
+<div class="sum card pad-s" style="margin-top:12px"><div class="row mute"><span>Service fee (17%)</span><span>−৳238</span></div><div class="row mute"><span>VAT on fee (15%)</span><span>−৳36</span></div><div class="row tot"><span>You'll receive</span><span style="color:var(--green)">৳1,126</span></div></div>
+<div class="field"><label class="lbl">When can you come?</label><select class="sel"><option>Sat 8 Nov, 10:00 AM (as requested)</option><option>Sat 8 Nov, afternoon</option></select></div>
+<div class="field"><label class="lbl">Why you? (the Seeker reads this first)</label><textarea class="ta" style="min-height:90px">I have done this exact job many times. 1.5 hours max. If the capacitor is fine I will check the regulator too, no extra charge.</textarea><p class="hint">Phone numbers and links are removed. You can chat once you're hired.</p></div>
+<button class="btn btn-blue btn-lg btn-block" style="margin-top:18px" data-close>Send offer</button>
+<p class="xs faint" style="margin-top:10px;text-align:center">You can withdraw your offer until the Seeker accepts it.</p></div></div></div></main>
+
+<div class="proto">Design B · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script>const T=[['Replace 3 switch boards and fix ceiling fan wiring', 'Khulshi', 'Sat 8 Nov · Morning', '৳1,500'], ['Deep clean kitchen and 2 bathrooms', 'Panchlaish', 'Mon 10 Nov · Before 12', '৳1,800'], ['Shift 1-room office to GEC, 2nd floor', 'Nasirabad', 'Flexible', '৳5,500'], ['Paint 2 bedrooms (putty done)', 'Chandgaon', 'Before Sat 15 Nov', '৳9,000'], ['AC servicing — 2 split units', 'Halishahar', 'Sun 9 Nov · Afternoon', '৳1,600'], ['Pick up passport docs from Agrabad', 'Agrabad', 'Today · ASAP', '৳250'], ['HSC physics tutor, 3 days a week', 'Bayazid', 'Starts 15 Nov', '৳6,000'], ['Water pump not starting', 'Double Mooring', 'Today · Evening', '৳800']];
+function pick(i){document.querySelectorAll('.tc,.pin').forEach(e=>e.classList.toggle('on',e.dataset.task==i));
+const t=T[i];['title','area','when','budget'].forEach((k,j)=>document.getElementById('d-'+k).textContent=t[j]);document.getElementById('detail').hidden=false;document.querySelector('.br-right').classList.add('has-d');}
+document.querySelectorAll('[data-task]').forEach(e=>e.addEventListener('click',()=>pick(e.dataset.task)));
+if(innerWidth<900)document.getElementById('detail').hidden=true;
+document.querySelectorAll('.tc').forEach(e=>e.addEventListener('click',()=>{if(innerWidth<900)scrollTo({top:0,behavior:'smooth'})}));
+document.getElementById('detail-x').onclick=()=>{document.getElementById('detail').hidden=true;document.querySelector('.br-right').classList.remove('has-d');};</script>
+</body></html>

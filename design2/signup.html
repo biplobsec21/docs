@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign up · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype B — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>.su{display:grid;grid-template-columns:420px 1fr;gap:12px;padding:12px;min-height:calc(100vh - 68px)}
+.su-side{padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.su-main{max-width:560px;width:100%;margin:0 auto;padding:48px 24px}
+.su-dots{display:flex;gap:6px;margin-bottom:32px}.su-dots i{height:6px;flex:1;border-radius:3px;background:var(--line)}
+.su-dots i.done,.su-dots i.now{background:var(--blue)}
+@media (max-width:900px){.su{grid-template-columns:1fr;padding:0}.su-side{border-radius:0;padding:32px 20px}.su-main{padding:32px 16px}}</style></head>
+<body>
+<header class="top"><div class="wrap">
+<a href="index.html" aria-label="TukTakKaj home" style="text-decoration:none"><span class="mark">TukTak<i>Kaj</i></span></a><a class="btn btn-blue btn-sm" href="post-task.html">Post a task</a>
+<nav class="nav"><a href="index.html#categories" class="">Categories</a><a href="tasks.html" class="">Browse tasks</a><a href="index.html#how" class="">How it works</a></nav><div class="top-r"><div class="lang"><span class="on">EN</span><span class="bn">বাং</span></div><a class="lnk" href="signup.html">Sign up</a><a class="lnk" href="signup.html">Log in</a><a class="btn btn-soft btn-sm hide-m" href="signup.html?role=tasker">Become a TukTaker</a></div></div></header>
+<main>
+<section class="su"><div class="su-side panel-navy">
+ <div><h1 class="d-l">Join<br><span style="color:var(--lime)">TukTakKaj</span></h1>
+ <p style="color:#C9CDE4;margin-top:16px;max-width:340px">One mobile number, one account. Sign in later with a code — no password to remember.</p></div>
+ <ul class="check-list sm" style="color:#fff"><li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Verified with a 6-digit SMS code</li><li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Your number is never shown to others</li><li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>TukTakers are NID-checked before they can bid</li></ul>
+</div>
+<div class="su-main" data-wizard>
+ <div class="su-dots"><i data-dot></i><i data-dot></i><i data-dot></i><i data-dot></i></div>
+ <div data-step>
+  <h2 class="d-m">What's your mobile number?</h2><p class="mute" style="margin:8px 0 24px">We'll text you a code to confirm it's yours.</p>
+  <div class="field"><label class="lbl">Mobile number</label><div class="money" style="font-size:16px"><span style="font-size:16px">+880</span><input style="font-size:20px" value="17XX XXX678" inputmode="tel"></div><p class="hint">Each number can hold one account — either Seeker or TukTaker.</p></div>
+  <button class="btn btn-blue btn-lg btn-block" style="margin-top:24px" data-next>Send code</button>
+  <p class="xs faint" style="margin-top:14px;text-align:center">By continuing you agree to the <a href="#">Terms</a> and <a href="#">Privacy policy</a>.</p>
+ </div>
+ <div data-step>
+  <h2 class="d-m">Enter the 6-digit code</h2><p class="mute" style="margin:8px 0 24px">Sent to +880 17XX XXX678 · <a href="#" data-prev>Change</a></p>
+  <div class="otp"><input inputmode="numeric" maxlength="1" aria-label="Digit"><input inputmode="numeric" maxlength="1" aria-label="Digit"><input inputmode="numeric" maxlength="1" aria-label="Digit"><input inputmode="numeric" maxlength="1" aria-label="Digit"><input inputmode="numeric" maxlength="1" aria-label="Digit"><input inputmode="numeric" maxlength="1" aria-label="Digit"></div>
+  <p class="sm mute" style="margin-top:16px">Resend code in <b class="num" data-countdown="59"></b></p>
+  <button class="btn btn-blue btn-lg btn-block" style="margin-top:24px" data-next>Verify</button>
+ </div>
+ <div data-step>
+  <h2 class="d-m">How will you use TukTakKaj?</h2><p class="mute" style="margin:8px 0 24px">You can't switch later on this number, so pick the one that fits.</p>
+  <div data-group>
+<button class="opt on" data-show="seeker"><span class="ico"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="grow"><b class="h4">I need things done</b><span class="sm mute" style="display:block">Post tasks and hire TukTakers · Service Seeker</span></span></button>
+<button class="opt" data-show="tasker" style="margin-top:12px"><span class="ico"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="grow"><b class="h4">I want to earn money</b><span class="sm mute" style="display:block">Make offers on tasks · TukTaker</span></span></button></div>
+  <div class="row" style="margin-top:24px;gap:10px"><button class="btn btn-line" data-prev>Back</button><button class="btn btn-blue grow" data-next>Continue</button></div>
+ </div>
+ <div data-step>
+  <h2 class="d-m">A few details</h2><p class="mute" style="margin:8px 0 22px">Shown on your profile as first name and last initial.</p>
+  <div class="g2" style="gap:14px"><div><label class="lbl">Full name</label><input class="inp" value="Tahmid Rahman"></div><div><label class="lbl">Area</label><select class="sel"><option>Khulshi</option><option>Panchlaish</option><option>Agrabad</option><option>Halishahar</option></select></div></div>
+  <div data-pane="seeker" class="field"><label class="lbl">Email (optional, for invoices)</label><input class="inp" placeholder="you@example.com"></div>
+  <div data-pane="tasker" hidden>
+   <div class="field"><label class="lbl">Skills</label><div class="chips" data-multi><button class="chip on" type="button">Utilities</button><button class="chip" type="button">Cleaning</button><button class="chip" type="button">Small Construction</button><button class="chip" type="button">Moving</button><button class="chip" type="button">Delivery</button><button class="chip" type="button">Tutor</button><button class="chip" type="button">Catering</button><button class="chip" type="button">Patient Care Assistance</button><button class="chip" type="button">Personal Assistant</button></div></div>
+   <div class="field g2" style="gap:14px"><div class="drop sm"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M14 10h4"/><path d="M14 14h4"/></svg><br><b>NID front</b><br>JPG or PNG</div><div class="drop sm"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M14 10h4"/><path d="M14 14h4"/></svg><br><b>NID back</b><br>JPG or PNG</div></div>
+   <div class="field"><label class="lbl">Selfie holding your NID</label><div class="drop sm"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg><br>Take a photo</div></div>
+   <div class="field"><label class="lbl">Cash-out wallet</label><div class="row" style="gap:10px"><select class="sel" style="max-width:130px"><option>bKash</option><option>Nagad</option></select><input class="inp" value="017XX-XXX678"></div></div>
+   <div class="note amber" style="margin-top:16px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>Our team checks your NID within 24 hours. You can browse tasks now and make offers once approved.</span></div>
+  </div>
+  <div class="row" style="margin-top:24px;gap:10px"><button class="btn btn-line" data-prev>Back</button><a class="btn btn-blue grow" href="my-tasks.html">Create account</a></div>
+ </div>
+</div></section></main>
+
+<div class="proto">Design B · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script>if(location.search.includes('role=tasker')){document.querySelectorAll('[data-show]')[1].click();}
+document.querySelectorAll('[data-multi]').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)b.classList.toggle('on')}));</script>
+</body></html>

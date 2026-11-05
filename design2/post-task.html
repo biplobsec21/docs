@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Post a task · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype B — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>.pt{display:grid;grid-template-columns:260px 1fr;gap:56px;padding-top:48px;padding-bottom:80px}
+.pt-rail{position:sticky;top:100px;align-self:start}
+.pt-rail ol{list-style:none;padding:0;margin:18px 0 0}
+.pt-rail li{display:flex;gap:12px;align-items:center;padding:10px 0;font-weight:700;color:var(--mute);cursor:pointer}
+.pt-rail li i{font-style:normal;width:30px;height:30px;border-radius:50%;border:2px solid var(--line-2);display:grid;place-items:center;font-size:13px}
+.pt-rail li.now{color:var(--navy)}.pt-rail li.now i{border-color:var(--blue);background:var(--blue);color:#fff}
+.pt-rail li.done{color:var(--navy-2)}.pt-rail li.done i{border-color:var(--blue);color:var(--blue);background:var(--blue-100)}
+.pt-main{max-width:680px}
+.pt-nav{margin-top:36px;padding-top:22px;border-top:1px solid var(--line)}
+.ctiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.ctile{font:inherit;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;border:1.5px solid var(--line-2);border-radius:14px;background:#fff;color:var(--navy);cursor:pointer;text-align:center}
+.ctile span{font-size:13px;font-weight:700;line-height:1.2}.ctile small{font-size:12px;color:var(--slate)}
+.ctile .ic{color:var(--blue);width:26px;height:26px}
+.ctile.on{border-color:var(--blue);background:var(--blue-50);box-shadow:0 0 0 3px var(--blue-100)}
+.mapmini{margin-top:20px;display:flex;gap:10px;align-items:center;padding:16px;border-radius:14px;background:var(--blue-50) repeating-linear-gradient(45deg,transparent 0 18px,rgba(10,101,252,.05) 18px 19px)}
+.mapmini .ic{color:var(--blue)}
+.ph-row{display:flex;gap:10px}.ph{width:96px;height:96px;border-radius:12px;background-size:cover;background-position:center}
+.ph-add{width:96px;height:96px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+@media (max-width:900px){.pt{grid-template-columns:1fr;gap:20px;padding-top:24px}.pt-rail{position:static}.pt-rail ol{display:flex;gap:6px;overflow-x:auto}.pt-rail li{font-size:0;padding:0}.pt-rail li i{font-size:13px}.pt-rail .note{display:none}.ctiles{grid-template-columns:repeat(2,minmax(0,1fr))}}</style></head>
+<body>
+<header class="top"><div class="wrap">
+<a href="index.html" aria-label="TukTakKaj home" style="text-decoration:none"><span class="mark">TukTak<i>Kaj</i></span></a><a class="btn btn-blue btn-sm" href="post-task.html">Post a task</a>
+<nav class="nav"><a href="my-tasks.html" class="">My tasks</a><a href="my-tasks.html#pay" class="">Payments</a><a href="index.html#how" class="">How it works</a></nav><div class="top-r"><div class="lang"><span class="on">EN</span><span class="bn">বাং</span></div><span class="role hide-m">Seeker</span><a class="bell" href="#" aria-label="Notifications"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><b>3</b></a><div class="av sm c5">TR</div></div></div></header>
+<main>
+<section class="pt wrap" data-wizard>
+ <aside class="pt-rail"><p class="eyebrow">Post a task</p><ol><li data-dot data-goto="0"><i>1</i>Category & date</li><li data-dot data-goto="1"><i>2</i>Location</li><li data-dot data-goto="2"><i>3</i>Details</li><li data-dot data-goto="3"><i>4</i>Budget</li><li data-dot data-goto="4"><i>5</i>Review</li></ol>
+  <div class="note" style="margin-top:28px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span class="sm">Posting is free. You only pay once you accept an offer.</span></div></aside>
+ <div class="pt-main">
+  <div data-step>
+   <h1 class="d-l">Let's start with the basics</h1>
+   <div class="field" style="margin-top:28px"><label class="lbl">Pick a category</label><div class="ctiles" data-group><button class="ctile on" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>Utilities</span><small class="bn">ইউটিলিটি</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="m13 11 8-8"/><path d="M9.5 9.5 14.5 14.5"/><path d="M4 21c4 0 8-2 10.5-6.5L9.5 9.5C5 12 3 16 3 20z"/><path d="m6.5 18.5 2-2"/></svg><span>Cleaning</span><small class="bn">পরিষ্কার</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0a2.12 2.12 0 0 1 0-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/></svg><span>Small Construction</span><small class="bn">ছোট নির্মাণ</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg><span>Moving</span><small class="bn">বাসা বদল</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.3 7 12 12 20.7 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg><span>Delivery</span><small class="bn">ডেলিভারি</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>Tutor</span><small class="bn">টিউটর</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><span>Catering</span><small class="bn">ক্যাটারিং</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg><span>Patient Care Assistance</span><small class="bn">রোগী সহায়তা</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span>Personal Assistant</span><small class="bn">ব্যক্তিগত সহকারী</small></button><button class="ctile" type="button"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg><span>Other</span><small class="bn">অন্যান্য</small></button></div></div>
+   <div class="field"><label class="lbl">Type of job</label><div class="chips" data-group><button class="chip on" type="button">Electrical</button><button class="chip" type="button">Gas</button><button class="chip" type="button">Water</button><button class="chip" type="button">Internet</button><button class="chip" type="button">Cable TV</button></div></div>
+   <div class="field"><label class="lbl" for="t">In a few words, what do you need done?</label><input id="t" class="inp" value="Replace 3 switch boards and fix ceiling fan wiring" maxlength="80"><p class="hint">e.g. “Fix leaking kitchen tap” · 10–80 characters</p></div>
+   <div class="field"><label class="lbl">When do you need this done?</label>
+    <div class="chips" data-group><button class="chip on" type="button">On date</button><button class="chip" type="button">Before date</button><button class="chip" type="button">I'm flexible</button></div>
+    <div class="g2" style="gap:12px;margin-top:12px"><input class="inp" type="date" value="2026-11-08"><select class="sel"><option>Morning (8–12)</option><option>Midday (12–3)</option><option>Afternoon (3–6)</option><option>Evening (6–9)</option></select></div></div>
+   <div class="row pt-nav"><span class="grow"></span><button class="btn btn-blue btn-lg" data-next>Continue</button></div>
+  </div>
+  <div data-step>
+   <h1 class="d-l">Where is the job?</h1><p class="lead" style="margin-top:10px">The full address is only shared with the TukTaker you hire. Others see the area.</p>
+   <div class="g2" style="gap:14px;margin-top:26px">
+    <div><label class="lbl">House / holding no.</label><input class="inp" value="14"></div><div><label class="lbl">Road / lane</label><input class="inp" value="Road 2"></div>
+    <div><label class="lbl">Bari / building name</label><input class="inp" value="Nur Villa"></div><div><label class="lbl">Floor / flat</label><input class="inp" value="3rd floor, 3B"></div>
+    <div><label class="lbl">Area</label><select class="sel"><option>Khulshi</option><option>Panchlaish</option><option>Agrabad</option></select></div><div><label class="lbl">Ward</label><select class="sel"><option>Ward 14 — Lalkhan Bazar</option></select></div>
+    <div><label class="lbl">Thana</label><select class="sel"><option>Khulshi</option></select></div><div><label class="lbl">Post code</label><input class="inp" value="4225"></div>
+   </div>
+   <div class="field"><label class="lbl">Landmark (optional)</label><input class="inp" value="Behind Khulshi Town Centre"></div>
+   <div class="mapmini"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span class="sm"><b>Pin dropped</b> · Khulshi, Chattogram · <a href="#">Move pin</a></span></div>
+   <div class="row pt-nav"><button class="btn btn-line" data-prev>Back</button><span class="grow"></span><button class="btn btn-blue btn-lg" data-next>Continue</button></div>
+  </div>
+  <div data-step>
+   <h1 class="d-l">Tell TukTakers more</h1>
+   <div class="field" style="margin-top:26px"><label class="lbl">What should they know?</label><textarea class="ta">Two switch boards in the bedroom spark when switched on, one in the kitchen is loose. The ceiling fan in the drawing room hums and runs slow — probably wiring or capacitor. Switch boards and capacitor are already bought.</textarea><p class="hint">Don't add phone numbers or links — they're removed automatically.</p></div>
+   <div class="field"><label class="lbl">Photos (up to 5)</label><div class="ph-row"><div class="ph" style="background-image:url(../design/img/cat-utilities.jpg)"></div><div class="drop ph-add"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg><span class="xs">Add photo</span></div></div></div>
+   <div class="field"><label class="lbl">Pets at the address?</label><div class="chips" data-group><button class="chip on" type="button">No pets</button><button class="chip" type="button">Cat</button><button class="chip" type="button">Dog</button><button class="chip" type="button">Other</button></div></div>
+   <div class="field"><label class="lbl">Materials</label><div class="chips" data-group><button class="chip on" type="button">I have the materials</button><button class="chip" type="button">TukTaker brings them</button></div></div>
+   <div class="row pt-nav"><button class="btn btn-line" data-prev>Back</button><span class="grow"></span><button class="btn btn-blue btn-lg" data-next>Continue</button></div>
+  </div>
+  <div data-step>
+   <h1 class="d-l">Suggest your budget</h1><p class="lead" style="margin-top:10px">TukTakers can offer a different price. You can always counter.</p>
+   <div class="field" style="margin-top:26px"><label class="lbl">What's your budget?</label><div class="money" style="max-width:320px"><span>৳</span><input value="1,500" inputmode="numeric"></div>
+    <p class="hint">Similar electrical jobs in Khulshi went for <b>৳1,200–1,800</b> last month.</p></div>
+   <div class="field"><label class="lbl">Keep offers open for</label><div class="chips" data-group><button class="chip" type="button">2 hours</button><button class="chip" type="button">6 hours</button><button class="chip on" type="button">24 hours</button><button class="chip" type="button">48 hours</button></div>
+    <p class="hint">Bidding closes Fri 7 Nov, 9:15 PM. You can accept an offer earlier.</p></div>
+   <div class="note" style="margin-top:22px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span class="sm">You choose bKash, Nagad, Rocket or card when you accept an offer. The money is held in Secure Pay until you approve the job.</span></div>
+   <div class="row pt-nav"><button class="btn btn-line" data-prev>Back</button><span class="grow"></span><button class="btn btn-blue btn-lg" data-next>Continue</button></div>
+  </div>
+  <div data-step>
+   <h1 class="d-l">Ready to post?</h1>
+   <div class="card pad" style="margin-top:24px">
+    <div class="row between" style="align-items:flex-start"><div><span class="pill">Utilities · Electrical</span><h2 class="h3" style="margin-top:10px;font-size:20px">Replace 3 switch boards and fix ceiling fan wiring</h2></div><b class="d-m">৳1,500</b></div>
+    <div class="hr"></div>
+    <dl class="kv"><dt>When</dt><dd>Sat, 8 Nov 2026 · Morning</dd><dt>Where</dt><dd>Khulshi, Chattogram 4225</dd><dt>Pets</dt><dd>No pets</dd><dt>Materials</dt><dd>Seeker has them</dd><dt>Offers open</dt><dd>24 hours</dd><dt>Photos</dt><dd>1</dd></dl>
+    <div class="row" style="gap:16px;margin-top:16px"><a href="#" data-goto="0" class="sm b">Edit details</a><a href="#" data-goto="3" class="sm b">Edit budget</a></div>
+   </div>
+   <div class="row pt-nav"><button class="btn btn-line" data-prev>Back</button><span class="grow"></span><a class="btn btn-blue btn-lg" href="task.html">Post task</a></div>
+  </div>
+ </div>
+</section></main>
+
+<div class="proto">Design B · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Get your tasks done in Chattogram · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype B — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.hero-wrap{padding:12px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:64px 56px;overflow:hidden;position:relative}
+.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;border:60px solid rgba(10,101,252,.18);pointer-events:none}
+.hero-txt{position:relative;z-index:1}
+.hero .d-xl{margin:14px 0 18px}
+.hero-bn{font-size:22px;font-weight:600;color:#fff;margin-bottom:10px}
+.hero-stats{gap:22px;margin-top:28px;color:#C9CDE4;font-weight:700}.hero-stats span{display:inline-flex;gap:6px;align-items:center}
+.hero-art{position:relative;padding:30px 20px 40px;z-index:1}
+.hero-photo{border-radius:28px;overflow:hidden;aspect-ratio:4/4.4;background:var(--blue);transform:rotate(2deg);box-shadow:-18px 18px 0 var(--blue)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hf1{left:-34px;top:40px;width:250px}.hf2{right:-6px;top:46%}.hf3{left:0;bottom:6px}
+.lime-band{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;padding:44px 48px;background-image:repeating-radial-gradient(circle at 110% 50%,transparent 0 22px,rgba(6,18,87,.05) 22px 23px)}
+.escrow-card{background:var(--navy);color:#fff;border-radius:20px;padding:26px;box-shadow:var(--shadow-lg);transform:rotate(-2deg)}
+.escrow-card .ic{color:var(--lime)}
+.escrow-card .flow span{background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)}.escrow-card .flow .done{background:rgba(221,248,143,.25);color:var(--lime)}.escrow-card .flow .now{background:var(--lime);color:var(--navy)}
+.steps-n{list-style:none;padding:0;margin:0 0 28px}.steps-n li{display:flex;gap:12px;align-items:center;padding:7px 0;font-weight:600}
+.steps-n i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--blue-100);color:var(--blue);display:grid;place-items:center;font-size:13px;font-weight:800}
+.cat-panel{padding:22px;max-height:560px;overflow:auto}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ct{display:flex;gap:12px;align-items:center;background:#fff;border-radius:14px;padding:10px;color:var(--navy);box-shadow:var(--shadow);text-decoration:none!important;transition:transform .15s}
+.ct:hover{transform:translateY(-2px)}
+.ct img,.ct-ic{width:58px;height:58px;border-radius:10px;object-fit:cover;flex:none}
+.ct-ic{display:grid;place-items:center;background:var(--blue-100);color:var(--blue)}
+.ct b{display:block;font-size:15px}.ct small{display:block;color:var(--slate);font-size:12.5px;line-height:1.35}
+.how-n{font-family:var(--display);font-size:56px;color:var(--blue);line-height:1;display:block;margin-bottom:14px}
+.how .h3{margin-bottom:8px}
+.trust-art{position:relative;padding:30px}
+.trust-photo{border-radius:28px;overflow:hidden;aspect-ratio:1/1.05;box-shadow:16px 16px 0 var(--blue-100)}
+.trust-photo img{width:100%;height:100%;object-fit:cover}
+.tf1{left:-6px;top:0}.tf2{right:-4px;top:52%}.tf3{left:20px;bottom:8px}
+.feat{display:flex;gap:16px;margin-top:22px}.feat>span{color:var(--blue);margin-top:2px}.feat b{font-size:17px}.feat p{font-size:15px;color:var(--navy-2);margin-top:4px}
+.boss{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:64px 56px}
+.boss .check-list .ic{color:var(--lime)}
+.boss-art{position:relative;padding:30px 40px}
+.boss-photo{border-radius:24px;overflow:hidden;aspect-ratio:4/4.4;max-width:380px;margin-left:auto}
+.boss-photo img{width:100%;height:100%;object-fit:cover}
+.bf1{right:-6px;top:0;min-width:230px}.bf2{right:20px;top:120px}.bf3{left:0;bottom:10px}
+.spot{display:grid;grid-template-columns:260px 1fr;gap:36px;padding:28px;margin-top:32px}
+.spot-av{border-radius:18px;background:var(--blue-100);display:grid;place-items:center;min-height:280px;position:relative;overflow:hidden}
+.spot-av span{font-family:var(--display);font-size:120px;color:var(--blue);opacity:.9}
+.spot-av::after{content:"";position:absolute;inset:auto -40px -60px auto;width:200px;height:200px;border-radius:50%;background:var(--lime);opacity:.7;z-index:0}
+.spot-av span{position:relative;z-index:1}
+.rt{display:block;padding:20px;color:var(--navy);text-decoration:none!important;transition:box-shadow .15s}.rt:hover{box-shadow:var(--shadow-lg)}
+@media (max-width:980px){.hero,.boss{grid-template-columns:1fr;padding:44px 28px}.lime-band{grid-template-columns:1fr;padding:32px 26px}.spot{grid-template-columns:1fr}.spot-av{min-height:160px}}
+@media (max-width:520px){.hero-wrap{padding:0}.hero{border-radius:0;padding:36px 18px}.hf1{left:-6px;width:220px}.cat-grid{grid-template-columns:1fr}.boss{border-radius:0;margin:0 -16px;padding:40px 20px}.boss-art{padding:30px 0}.trust-art{padding:20px 0}.tf1{left:0}.tf2{right:0}.bf1{right:0}}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+<a href="index.html" aria-label="TukTakKaj home" style="text-decoration:none"><span class="mark">TukTak<i>Kaj</i></span></a><a class="btn btn-blue btn-sm" href="post-task.html">Post a task</a>
+<nav class="nav"><a href="index.html#categories" class="">Categories</a><a href="tasks.html" class="">Browse tasks</a><a href="index.html#how" class="">How it works</a></nav><div class="top-r"><div class="lang"><span class="on">EN</span><span class="bn">বাং</span></div><a class="lnk" href="signup.html">Sign up</a><a class="lnk" href="signup.html">Log in</a><a class="btn btn-soft btn-sm hide-m" href="signup.html?role=tasker">Become a TukTaker</a></div></div></header>
+<main>
+<section class="hero-wrap"><div class="hero panel-navy">
+ <div class="hero-txt">
+  <p class="eyebrow" style="color:var(--lime)">Chattogram's task marketplace</p>
+  <h1 class="d-xl">Post it.<br>Get offers.<br><span style="color:var(--lime)">Get it done.</span></h1>
+  <p class="bn hero-bn">ছোটখাটো যেকোনো কাজ — ন্যায্য দামে, বিশ্বস্ত হাতে।</p>
+  <p class="lead" style="color:#C9CDE4;max-width:470px">Describe the job, set a budget, and NID-verified TukTakers nearby send you their price. Your money is held safely until you say the work is done.</p>
+  <div class="row wrapx" style="margin-top:26px;gap:12px"><a class="btn btn-blue btn-lg" href="post-task.html">Post your task for free <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="btn btn-white btn-lg" href="signup.html?role=tasker">Earn money as a TukTaker</a></div>
+  <div class="row wrapx hero-stats sm"><span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 3,200+ TukTakers</span><span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> 18,500 tasks done</span><span><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.8 average rating</span></div>
+ </div>
+ <div class="hero-art">
+  <div class="hero-photo"><img src="../design/img/hero-electrician.jpg" alt="Electrician checking a switch board"></div>
+  <div class="float hf1"><div class="xs mute">New offer · 2 min ago</div><div class="row" style="margin-top:6px"><div class="av sm c1">JA</div><div class="grow"><b class="sm">Jahangir A.</b><div class="xs"><span class="stars"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.9</span></div></div><b class="d-s" style="font-size:22px">৳1,400</b></div></div>
+  <div class="float lime hf2 row" style="gap:8px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><b class="sm">৳1,400 held in Secure Pay</b></div>
+  <div class="float hf3 row" style="gap:10px"><span class="tick"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sm"><b>Job approved</b><br><span class="mute xs">Payment released to TukTaker</span></span></div>
+ </div>
+</div></section>
+
+<section class="wrap" style="margin-top:16px"><div class="panel-lime lime-band">
+ <div><p class="b" style="font-size:15px">TukTakKaj <span style="color:var(--blue)">Secure Pay</span></p>
+  <h2 class="d-l" style="margin:8px 0 14px">Your money waits<br>until the job is done.</h2>
+  <p style="max-width:470px">Pay through bKash, Nagad, Rocket or card. We hold it until you approve the work — if the TukTaker doesn't show, you get it back.</p>
+  <a class="btn btn-blue" style="margin-top:20px" href="index.html#how">See how it works <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+ <div class="escrow-card"><div class="row between"><span class="xs" style="letter-spacing:.12em;opacity:.7">SECURE PAY · TK-24117</span><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+  <div class="d-l" style="color:var(--lime);margin:22px 0 4px">৳1,400</div><div class="sm" style="opacity:.8">Held for: switch board &amp; fan wiring</div>
+  <div class="flow" style="margin-top:22px"><span class="done">Paid</span><span class="now">Held</span><span>Released</span></div></div>
+</div></section>
+
+<section class="sec" id="categories"><div class="wrap g2" style="align-items:center;gap:56px">
+ <div><h2 class="d-l">Post your first task<br>in 2 minutes</h2>
+  <p class="lead" style="margin:16px 0 22px">Save yourself the phone calls and the haggling at the shop counter.</p>
+  <ol class="steps-n"><li><i>1</i>Describe what you need done</li><li><i>2</i>Set your budget</li><li><i>3</i>Get offers and pick the best TukTaker</li></ol>
+  <a class="btn btn-blue btn-lg" href="post-task.html">Post your task</a></div>
+ <div class="cat-panel panel-sky"><div class="cat-grid"><a class="ct" href="post-task.html"><img src="../design/img/cat-utilities.jpg" alt="" loading="lazy"><span class="grow"><b>Utilities</b><small>Electrical, Gas, Water</small></span></a><a class="ct" href="post-task.html"><img src="../design/img/cat-cleaning.jpg" alt="" loading="lazy"><span class="grow"><b>Cleaning</b><small>Domestic, Commercial, Industrial</small></span></a><a class="ct" href="post-task.html"><img src="../design/img/cat-construction.jpg" alt="" loading="lazy"><span class="grow"><b>Small Construction</b><small>Painting, Tiling, Window / Grill</small></span></a><a class="ct" href="post-task.html"><img src="../design/img/cat-moving.jpg" alt="" loading="lazy"><span class="grow"><b>Moving</b><small>House, Shop, Factory</small></span></a><a class="ct" href="post-task.html"><img src="../design/img/cat-delivery.jpg" alt="" loading="lazy"><span class="grow"><b>Delivery</b><small>Goods, Documents</small></span></a><a class="ct" href="post-task.html"><span class="ct-ic"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span><span class="grow"><b>Tutor</b><small>Primary, SSC / HSC, Language</small></span></a><a class="ct" href="post-task.html"><span class="ct-ic"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></span><span class="grow"><b>Catering</b><small>Home event, Office lunch, Milad / Mezban</small></span></a><a class="ct" href="post-task.html"><span class="ct-ic"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><span class="grow"><b>Patient Care Assistance</b><small>Hospital attendant, At-home support</small></span></a><a class="ct" href="post-task.html"><span class="ct-ic"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="grow"><b>Personal Assistant</b><small>Errands, Queue & bill payment, Paperwork</small></span></a><a class="ct" href="post-task.html"><span class="ct-ic"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></span><span class="grow"><b>Other</b><small>Anything else — describe it</small></span></a></div></div>
+</div></section>
+
+<section class="sec tint" id="how"><div class="wrap">
+ <div class="row between wrapx" style="align-items:flex-end;margin-bottom:36px"><h2 class="d-l">How TukTakKaj works</h2><a class="btn btn-line" href="post-task.html">Post a task</a></div>
+ <div class="g4 how">
+  <div class="card pad"><span class="how-n">01</span><h3 class="h3">Post the task</h3><p class="sm mute">Category, photos, address and a budget. Choose how long offers stay open — 2 hours to 2 days.</p></div>
+  <div class="card pad"><span class="how-n">02</span><h3 class="h3">Compare offers</h3><p class="sm mute">See price, rating and completed jobs. Ask questions or counter an offer up to 3 times.</p></div>
+  <div class="card pad"><span class="how-n">03</span><h3 class="h3">Pay into Secure Pay</h3><p class="sm mute">Accept an offer and pay within 15 minutes. The money is held — the TukTaker sees it's there.</p></div>
+  <div class="card pad"><span class="how-n">04</span><h3 class="h3">Approve &amp; rate</h3><p class="sm mute">Happy? Approve and the TukTaker is paid. No answer in 48 hours releases it automatically.</p></div>
+ </div></div></section>
+
+<section class="sec"><div class="wrap g2" style="align-items:center;gap:64px">
+ <div class="trust-art"><div class="trust-photo"><img src="../design/img/tuktaker-carpenter.jpg" alt="Carpenter smiling in his workshop" loading="lazy"></div>
+  <div class="float tf1 row"><div class="av md c3">SI</div><div><div class="d-s" style="font-size:26px">4.9 <span style="color:#FF9F1C">★</span></div><div class="xs mute">Overall rating · 356 reviews</div></div></div>
+  <div class="float tf2 row sm" style="gap:8px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M14 10h4"/><path d="M14 14h4"/></svg><b>NID verified</b><span class="xs faint">Oct 2026</span></div>
+  <div class="float tf3 row sm" style="gap:8px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><b>Payment released</b><span class="xs faint">2m ago</span></div></div>
+ <div><h2 class="d-l">Trust and safety,<br>built into every task</h2>
+  <div class="feat"><span><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><b>Secure payments</b><p>Money is released only when you approve the job — or refunded if it doesn't happen.</p></div></div>
+  <div class="feat"><span><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M14 10h4"/><path d="M14 14h4"/></svg></span><div><b>NID-verified TukTakers</b><p>Every TukTaker's national ID and selfie are checked by our team before they can make an offer.</p></div></div>
+  <div class="feat"><span><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><div><b>Your number stays private</b><p>Chat and call inside the app. Phone numbers and links are hidden in public questions.</p></div></div>
+  <div class="feat"><span><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><div><b>Ratings both ways</b><p>Seekers rate TukTakers and TukTakers rate Seekers, after every completed job.</p></div></div>
+  <a class="btn btn-blue" style="margin-top:22px" href="post-task.html">Post your task for free</a></div>
+</div></section>
+
+<section class="wrap"><div class="panel-blue boss">
+ <div class="boss-txt"><h2 class="d-l">Be your own boss</h2>
+  <p style="margin:16px 0 18px;max-width:440px;opacity:.92">Electrician, mover, tutor or just good with a toolbox — pick the jobs you want, in the areas you want, and cash out to bKash or Nagad.</p>
+  <ul class="check-list"><li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Free to join — no monthly fee</li><li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Make offers on tasks near you</li><li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Cash out from ৳500, usually same day</li><li><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Climb tiers and get seen first</li></ul>
+  <a class="btn btn-white btn-lg" style="margin-top:24px" href="signup.html?role=tasker">Earn money as a TukTaker</a></div>
+ <div class="boss-art"><div class="boss-photo"><img src="../design/img/cat-plumbing.jpg" alt="Plumber fixing a bathroom fitting" loading="lazy"></div>
+  <div class="float bf1"><div class="xs mute">Payment received!</div><div class="row between" style="margin-top:6px;gap:18px"><span class="sm"><b>Kitchen tap leak</b><br><span class="xs faint">Double Mooring · 1h ago</span></span><b class="d-s">৳724</b></div></div>
+  <div class="float lime bf2 row sm" style="gap:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><b>New task 1.2 km away</b></div>
+  <div class="float bf3"><div class="xs mute">Earned this month</div><div class="d-s" style="margin:4px 0">৳38,450</div>
+   <svg viewBox="0 0 120 34" width="120" height="34" aria-hidden="true"><polyline points="0,30 18,26 34,28 52,18 70,20 88,10 104,12 120,3" fill="none" stroke="#1E8E4E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   <div class="xs" style="color:var(--green);font-weight:800">↑ 22% vs October</div></div>
+ </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+ <h2 class="d-l" style="max-width:720px">3,200 TukTakers already earn on TukTakKaj</h2>
+ <div class="spot card"><div class="spot-av"><span>SI</span></div>
+  <div><h3 class="d-m" style="text-transform:uppercase">Shafiqul Islam</h3>
+   <div class="row wrapx" style="gap:28px;margin:12px 0 16px"><div class="row" style="gap:8px"><b class="d-s">4.9</b><span class="xs mute">Overall rating<br>356 reviews</span></div><div class="row" style="gap:8px"><b class="d-s">98%</b><span class="xs mute">Completion rate<br>401 tasks</span></div><div class="row" style="gap:8px"><b class="d-s">~5m</b><span class="xs mute">Usually replies<br>within</span></div></div>
+   <div class="hr" style="margin:12px 0"></div>
+   <p class="sm b">Specialities: pipe leaks, water pump, tank cleaning, bathroom fittings</p>
+   <p style="margin:8px 0 14px">Shafiqul has fixed water lines around Double Mooring and Agrabad for 12 years. He joined TukTakKaj so customers find him without a middleman taking a cut.</p>
+   <div class="row wrapx" style="gap:8px"><span class="pill"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M14 10h4"/><path d="M14 14h4"/></svg> NID verified</span><span class="pill"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Mobile verified</span><span class="pill navy">Platinum TukTaker</span></div>
+   <div class="hr" style="margin:16px 0 12px"></div>
+   <p class="sm b">What the reviews say</p><p class="sm" style="margin-top:6px">“Water pump stopped at 7 AM, he was here by 8:15 with the right part. Clean work and showed me the old seal.” — Farhan K., Agrabad</p>
+  </div></div>
+</div></section>
+
+<section class="sec tint"><div class="wrap">
+ <div class="row between wrapx" style="align-items:flex-end;margin-bottom:28px"><div><h2 class="d-l">Recently posted near you</h2><p class="mute" style="margin-top:8px">What people in Chattogram are getting done this week.</p></div><a class="btn btn-blue" href="tasks.html">Browse all tasks</a></div>
+ <div class="g3"><a class="rt card" href="task.html"><div class="row between" style="align-items:flex-start"><b class="h4">Deep clean 2-bed flat before Eid guests</b><span class="d-s" style="font-size:22px">৳2,200</span></div>
+<div class="sm mute row" style="gap:8px;margin-top:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Agrabad<span class="dot"></span>Cleaning</div>
+<div class="row sm" style="gap:8px;margin-top:12px"><span class="st open">Open</span><span class="dot"></span><span class="mute">4 offers</span></div></a><a class="rt card" href="task.html"><div class="row between" style="align-items:flex-start"><b class="h4">AC not cooling — Gree 1.5 ton split</b><span class="d-s" style="font-size:22px">৳1,200</span></div>
+<div class="sm mute row" style="gap:8px;margin-top:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Halishahar<span class="dot"></span>Utilities</div>
+<div class="row sm" style="gap:8px;margin-top:12px"><span class="st assigned">Assigned</span><span class="dot"></span><span class="mute">6 offers</span></div></a><a class="rt card" href="task.html"><div class="row between" style="align-items:flex-start"><b class="h4">Shift 1-room office to GEC (2nd floor, no lift)</b><span class="d-s" style="font-size:22px">৳5,500</span></div>
+<div class="sm mute row" style="gap:8px;margin-top:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Nasirabad<span class="dot"></span>Moving</div>
+<div class="row sm" style="gap:8px;margin-top:12px"><span class="st open">Open</span><span class="dot"></span><span class="mute">3 offers</span></div></a><a class="rt card" href="task.html"><div class="row between" style="align-items:flex-start"><b class="h4">Paint 2 bedrooms, putty already done</b><span class="d-s" style="font-size:22px">৳9,000</span></div>
+<div class="sm mute row" style="gap:8px;margin-top:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Chandgaon<span class="dot"></span>Small Construction</div>
+<div class="row sm" style="gap:8px;margin-top:12px"><span class="st open">Open</span><span class="dot"></span><span class="mute">2 offers</span></div></a><a class="rt card" href="task.html"><div class="row between" style="align-items:flex-start"><b class="h4">Hospital attendant for 3 nights at Chevron</b><span class="d-s" style="font-size:22px">৳3,600</span></div>
+<div class="sm mute row" style="gap:8px;margin-top:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Panchlaish<span class="dot"></span>Patient Care</div>
+<div class="row sm" style="gap:8px;margin-top:12px"><span class="st assigned">Assigned</span><span class="dot"></span><span class="mute">5 offers</span></div></a><a class="rt card" href="task.html"><div class="row between" style="align-items:flex-start"><b class="h4">Pick up documents from Agrabad, drop at Khulshi</b><span class="d-s" style="font-size:22px">৳250</span></div>
+<div class="sm mute row" style="gap:8px;margin-top:6px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Agrabad<span class="dot"></span>Delivery</div>
+<div class="row sm" style="gap:8px;margin-top:12px"><span class="st done">Completed</span><span class="dot"></span><span class="mute">7 offers</span></div></a></div>
+</div></section>
+</main>
+<footer class="foot"><div class="wrap">
+<div class="foot-g">
+ <div><span class="mark inv">TukTak<i>Kaj</i></span><p class="sm" style="margin:14px 0 18px;max-width:300px">Post any small job in Chattogram, compare offers from NID-verified TukTakers, and pay only when it's done.</p>
+  <a href="tel:999" style="display:inline-flex;gap:8px;align-items:center;color:var(--lime);font-weight:800"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Emergency? Call 999</a></div>
+ <div><h4>Discover</h4><a href="index.html#how">How it works</a><a href="tasks.html">Browse tasks</a><a href="signup.html?role=tasker">Earn as a TukTaker</a><a href="#">Trust &amp; safety</a></div>
+ <div><h4>Popular categories</h4><a href="tasks.html">Utilities</a><a href="tasks.html">Cleaning</a><a href="tasks.html">Small Construction</a><a href="tasks.html">Moving</a><a href="tasks.html">Delivery</a><a href="tasks.html">Tutor</a></div>
+ <div><h4>Areas</h4><a href="tasks.html">Khulshi</a><a href="tasks.html">Panchlaish</a><a href="tasks.html">Agrabad</a><a href="tasks.html">Halishahar</a><a href="tasks.html">Chandgaon</a><a href="tasks.html">Bayazid</a></div>
+ <div><h4>TukTak Technology</h4><p class="sm" style="line-height:1.7">D-3, CPDL Chandralok, 645/C Zakir Hossain Road, Khulshi, Chattogram</p><a href="mailto:info@tuktakkaj.com">info@tuktakkaj.com</a><a href="#">Hotline 09XXX-XXXXXX</a></div>
+</div>
+<div class="foot-b"><span>© 2026 TukTak Technology · Trade licence TRAD/CHTG/XXXXX</span><span>Payments by SSLCommerz · Cash out to bKash &amp; Nagad</span><span><a href="#" style="display:inline">Terms</a> · <a href="#" style="display:inline">Privacy</a></span></div>
+</div></footer>
+<div class="proto">Design B · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>

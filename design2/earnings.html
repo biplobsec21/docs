@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Earnings · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype B — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>.earn-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:20px;margin-top:24px}
+.wal{padding:32px}
+.chart{display:flex;align-items:flex-end;gap:8px;height:100px;margin:14px 0 6px}.chart i{flex:1;background:var(--blue-100);border-radius:6px 6px 2px 2px}.chart i:nth-child(6){background:var(--blue)}
+.of{gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.pm{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:#fff;font-weight:800;flex:none}
+@media (max-width:1080px){.earn-top{grid-template-columns:1fr 1fr}.wal{grid-column:1/-1}}
+@media (max-width:620px){.earn-top{grid-template-columns:1fr}.wal .d-xl{font-size:56px!important}.of{flex-wrap:wrap}}</style></head>
+<body>
+<header class="top"><div class="wrap">
+<a href="index.html" aria-label="TukTakKaj home" style="text-decoration:none"><span class="mark">TukTak<i>Kaj</i></span></a>
+<nav class="nav"><a href="tasks.html" class="">Browse tasks</a><a href="job-tasker.html" class="">My jobs</a><a href="earnings.html" class="on">Earnings</a></nav><div class="top-r"><div class="lang"><span class="on">EN</span><span class="bn">বাং</span></div><span class="role hide-m">TukTaker</span><a class="bell" href="#" aria-label="Notifications"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><b>3</b></a><div class="av sm c1">JA</div></div></div></header>
+<main>
+<section class="wrap" style="padding-top:36px;padding-bottom:80px">
+ <div class="row between wrapx" style="gap:14px"><h1 class="d-l">Earnings</h1><div class="chips" data-group><button class="chip" type="button">This week</button><button class="chip on" type="button">November</button><button class="chip" type="button">2026</button></div></div>
+ <div class="earn-top">
+  <div class="panel-blue wal"><span class="xs b" style="letter-spacing:.08em;opacity:.8">AVAILABLE TO CASH OUT</span><div class="d-xl" style="font-size:72px;margin:8px 0">৳7,860</div>
+   <p class="sm" style="opacity:.9">Pending release: <b>৳1,126</b> (1 job awaiting approval)</p>
+   <div class="row wrapx" style="gap:10px;margin-top:22px"><button class="btn btn-white btn-lg" data-open="m-cash">Cash out</button><span class="xs" style="opacity:.85">Min ৳500 · max ৳10,000 per request · ৳5 fee</span></div></div>
+  <div class="card pad"><span class="xs b mute">EARNED IN NOVEMBER</span><div class="d-m" style="margin:6px 0">৳38,450</div>
+   <div class="chart"><i style="height:40%" title="Week 1"></i><i style="height:62%" title="Week 2"></i><i style="height:55%" title="Week 3"></i><i style="height:80%" title="Week 4"></i><i style="height:74%" title="Week 5"></i><i style="height:95%" title="Week 6"></i><i style="height:60%" title="Week 7"></i></div><div class="xs mute row between"><span>Mon</span><span>Sun</span></div></div>
+  <div class="card pad"><span class="xs b mute">HOW A ৳1,400 JOB PAYS OUT</span>
+   <div class="sum" style="margin-top:8px"><div class="row"><span>Offer</span><b>৳1,400</b></div><div class="row mute"><span>Fee 17%</span><span>−৳238</span></div><div class="row mute"><span>VAT 15% on fee</span><span>−৳36</span></div><div class="row tot"><span>You get</span><span style="color:var(--green)">৳1,126</span></div></div>
+   <p class="xs faint" style="margin-top:8px">Placeholder rates (D28, D29).</p></div>
+ </div>
+ <div class="g2" style="margin-top:24px;align-items:start">
+  <div class="card pad"><div class="row between"><h2 class="h3">Activity</h2><a href="#" class="sm b">Download statement</a></div><div class="scroll-x" style="margin-top:8px"><table class="tbl"><tbody><tr><td class="mute">Today</td><td><b>Payout to bKash ••678</b></td><td><span class='pill green'>Paid</span></td><td class="r b" style="color:var(--navy)">−৳5,000</td></tr><tr><td class="mute">Today</td><td><b>Fee for payout</b></td><td></td><td class="r b" style="color:var(--navy)">−৳5</td></tr><tr><td class="mute">Yesterday</td><td><b>TK-24051 · IPS installation · released</b></td><td><span class='pill green'>Released</span></td><td class="r b" style="color:var(--green)">+৳2,534</td></tr><tr><td class="mute">5 Nov</td><td><b>TK-24017 · Kitchen light fitting · auto-released after 48 h</b></td><td><span class='pill green'>Released</span></td><td class="r b" style="color:var(--green)">+৳724</td></tr><tr><td class="mute">4 Nov</td><td><b>Payout to bKash ••678</b></td><td><span class='pill amber'>Processing</span></td><td class="r b" style="color:var(--navy)">−৳3,000</td></tr><tr><td class="mute">3 Nov</td><td><b>TK-23999 · DB board check · disputed</b></td><td><span class='pill red'>Frozen</span></td><td class="r b" style="color:var(--navy)">—</td></tr></tbody></table></div></div>
+  <div class="card pad"><div class="row between"><h2 class="h3">My offers</h2><a href="tasks.html" class="sm b">Find more tasks</a></div><div style="margin-top:8px"><div class="row between of"><span class="grow sm"><b>Replace 3 switch boards and fix ceiling fan wiring</b></span><span class="pill green">In progress</span><b class="num" style="width:76px;text-align:right">৳1,400</b></div><div class="row between of"><span class="grow sm"><b>Install 2 ceiling lights, Panchlaish</b></span><span class="pill ">Pending</span><b class="num" style="width:76px;text-align:right">৳650</b></div><div class="row between of"><span class="grow sm"><b>Rewire shop DB board, GEC</b></span><span class="pill amber">Countered · ৳3,800</span><b class="num" style="width:76px;text-align:right">৳4,200</b></div><div class="row between of"><span class="grow sm"><b>Fix doorbell, Nasirabad</b></span><span class="pill grey">Not chosen</span><b class="num" style="width:76px;text-align:right">৳300</b></div><div class="row between of"><span class="grow sm"><b>IPS battery change</b></span><span class="pill grey">Withdrawn</span><b class="num" style="width:76px;text-align:right">৳900</b></div><div class="row between of"><span class="grow sm"><b>Fan regulator change</b></span><span class="pill grey">Expired</span><b class="num" style="width:76px;text-align:right">৳350</b></div></div>
+   <div class="hr"></div><div class="row between"><div><b class="sm">Gold TukTaker</b><div class="xs mute">13 tasks to Platinum · lower fee from Platinum (proposed)</div></div><span class="pill amber">Gold</span></div></div>
+ </div>
+</section>
+<div class="modal-bg" id="m-cash" role="dialog" aria-modal="true" aria-labelledby="m-cash-t"><div class="modal">
+<div class="modal-head"><h3 class="d-s" id="m-cash-t">Cash out</h3><button class="x" data-close aria-label="Close"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+<div class="modal-body"><div class="field"><label class="lbl">Amount</label><div class="money"><span>৳</span><input value="5,000"></div><p class="hint">Available ৳7,860 · min ৳500 · max ৳10,000</p></div>
+<div class="field"><label class="lbl">Send to</label><div class="stack" data-group><button class="opt on" type="button" style="align-items:center"><span class="pm" style="background:#E2136E">b</span><span class="grow"><b class="sm">bKash</b><span class="xs mute" style="display:block">017XX-XXX678 · verified</span></span></button><button class="opt" type="button" style="align-items:center"><span class="pm" style="background:#F7941D">N</span><span class="grow"><b class="sm">Nagad</b><span class="xs mute" style="display:block">Add a Nagad number</span></span></button></div></div>
+<div class="sum card pad-s" style="margin-top:16px"><div class="row"><span>Cash out</span><b>৳5,000</b></div><div class="row mute"><span>Fee</span><span>−৳5</span></div><div class="row tot"><span>You receive</span><span>৳4,995</span></div></div>
+<button class="btn btn-blue btn-lg btn-block" style="margin-top:18px" data-close>Request cash out</button>
+<p class="xs faint" style="margin-top:10px;text-align:center">Reviewed by our team, then sent — usually the same working day.</p></div></div></div></main>
+<footer class="foot"><div class="wrap">
+<div class="foot-g">
+ <div><span class="mark inv">TukTak<i>Kaj</i></span><p class="sm" style="margin:14px 0 18px;max-width:300px">Post any small job in Chattogram, compare offers from NID-verified TukTakers, and pay only when it's done.</p>
+  <a href="tel:999" style="display:inline-flex;gap:8px;align-items:center;color:var(--lime);font-weight:800"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Emergency? Call 999</a></div>
+ <div><h4>Discover</h4><a href="index.html#how">How it works</a><a href="tasks.html">Browse tasks</a><a href="signup.html?role=tasker">Earn as a TukTaker</a><a href="#">Trust &amp; safety</a></div>
+ <div><h4>Popular categories</h4><a href="tasks.html">Utilities</a><a href="tasks.html">Cleaning</a><a href="tasks.html">Small Construction</a><a href="tasks.html">Moving</a><a href="tasks.html">Delivery</a><a href="tasks.html">Tutor</a></div>
+ <div><h4>Areas</h4><a href="tasks.html">Khulshi</a><a href="tasks.html">Panchlaish</a><a href="tasks.html">Agrabad</a><a href="tasks.html">Halishahar</a><a href="tasks.html">Chandgaon</a><a href="tasks.html">Bayazid</a></div>
+ <div><h4>TukTak Technology</h4><p class="sm" style="line-height:1.7">D-3, CPDL Chandralok, 645/C Zakir Hossain Road, Khulshi, Chattogram</p><a href="mailto:info@tuktakkaj.com">info@tuktakkaj.com</a><a href="#">Hotline 09XXX-XXXXXX</a></div>
+</div>
+<div class="foot-b"><span>© 2026 TukTak Technology · Trade licence TRAD/CHTG/XXXXX</span><span>Payments by SSLCommerz · Cash out to bKash &amp; Nagad</span><span><a href="#" style="display:inline">Terms</a> · <a href="#" style="display:inline">Privacy</a></span></div>
+</div></footer>
+<div class="proto">Design B · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>
