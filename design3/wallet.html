@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wallet · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype C — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style></style></head>
+<body class="">
+<header class="top"><div class="wrap">
+<a href="partner.html" aria-label="TukTakKaj home" style="text-decoration:none"><span class="mark">TukTak<i>Kaj</i><b></b></span></a><span class="pill hide-t" style="margin-left:-6px">TukTaker</span>
+<div class="top-r"><div class="lang"><span class="on">EN</span><span class="bn">বাং</span></div><a class="lnk hide-m" href="partner.html">Find work</a><a class="lnk hide-m" href="wallet.html">Wallet</a><a class="bell" href="partner.html" aria-label="Notifications"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><b>5</b></a><a class="who" href="tuktaker.html"><span class="av sm c1">JA</span><span class="hide-m">Jahangir</span></a></div></div></header>
+<main>
+<div class="wrap" style="padding:28px 24px 72px">
+ <nav class="crumbs" style="padding-top:0"><a href="partner.html">Dashboard</a><span>/</span>Wallet</nav>
+ <h1 class="h-l">Wallet</h1>
+ <div class="two" style="margin-top:20px">
+  <div>
+   <div class="g3">
+    <div class="escrow"><span class="sm" style="color:#A9CDB7">Available to cash out</span><div class="amt" style="margin-top:4px">৳8,450</div><button class="btn btn-sun btn-sm" style="margin-top:14px" data-open="cash">Cash out</button></div>
+    <div class="kpi"><span>Held in Secure Pay</span><b>৳1,126</b><small style="color:var(--slate)">1 job awaiting approval</small></div>
+    <div class="kpi"><span>Earned in November</span><b>৳9,740</b><small>after fees and VAT</small></div></div>
+   <div class="ltabs" data-group style="margin-top:26px"><button class="on" data-show="tx">Transactions</button><button data-show="po">Cash outs</button></div>
+   <div data-pane="tx" class="card scroll-x" style="margin-top:16px"><table class="tbl"><thead><tr><th>Date</th><th>Job</th><th>Status</th><th class="r">Job price</th><th class="r">Fee + VAT</th><th class="r">You get</th></tr></thead><tbody><tr><td class="mute nw">8 Nov</td><td><b>TK-24109 · Geyser connection</b></td><td><span class="pill ">Released</span></td><td class="r">৳900</td><td class="r mute">−৳176</td><td class="r b" style="color:var(--green)">+৳724</td></tr><tr><td class="mute nw">6 Nov</td><td><b>Cash out to bKash 01XXX-XXX245</b></td><td><span class="pill grey">Paid</span></td><td class="r">—</td><td class="r mute">—</td><td class="r b" style="color:var(--ink)">−৳5,000</td></tr><tr><td class="mute nw">5 Nov</td><td><b>TK-24071 · IPS installation</b></td><td><span class="pill ">Released</span></td><td class="r">৳1,200</td><td class="r mute">−৳235</td><td class="r b" style="color:var(--green)">+৳965</td></tr><tr><td class="mute nw">3 Nov</td><td><b>TK-24117 · Fan & switch boards</b></td><td><span class="pill amber">Held · approve by 5 Nov</span></td><td class="r">৳1,400</td><td class="r mute">−৳274</td><td class="r b" style="color:var(--green)">+৳1,126</td></tr><tr><td class="mute nw">1 Nov</td><td><b>TK-23990 · DB board repair</b></td><td><span class="pill ">Released</span></td><td class="r">৳2,100</td><td class="r mute">−৳411</td><td class="r b" style="color:var(--green)">+৳1,689</td></tr></tbody></table></div>
+   <div data-pane="po" hidden class="card scroll-x" style="margin-top:16px"><table class="tbl"><thead><tr><th>Requested</th><th>To</th><th>Status</th><th class="r">Amount</th></tr></thead><tbody>
+    <tr><td class="nw">6 Nov</td><td>bKash ···245</td><td><span class="pill">Paid</span></td><td class="r b">৳5,000</td></tr>
+    <tr><td class="nw">30 Oct</td><td>Nagad ···245</td><td><span class="pill">Paid</span></td><td class="r b">৳3,200</td></tr>
+    <tr><td class="nw">22 Oct</td><td>bKash ···245</td><td><span class="pill red">Failed · number mismatch</span></td><td class="r b">৳2,000</td></tr></tbody></table></div>
+  </div>
+  <aside class="sum" style="display:grid;gap:14px">
+   <div class="card pad"><h3 class="h-s">How your money moves</h3><ol class="tl sm" style="margin-top:14px">
+    <li><span class="n">1</span><div><h4>Seeker pays</h4><p>Money is held in Secure Pay before you go.</p></div></li>
+    <li><span class="n">2</span><div><h4>Seeker approves</h4><p>Or it releases automatically after 48 hours.</p></div></li>
+    <li><span class="n">3</span><div><h4>Wallet</h4><p>Job price minus 17% fee and 15% VAT on the fee.</p></div></li>
+    <li><span class="n">4</span><div><h4>Cash out</h4><p>To bKash or Nagad, ৳500–10,000.</p></div></li></ol></div>
+   <div class="note warn"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>Fee and VAT rates shown are placeholders until TukTak confirms them.</span></div>
+  </aside>
+ </div>
+</div><div class="modal-bg" id="cash" role="dialog" aria-modal="true" aria-labelledby="cash-t"><div class="modal">
+<div class="modal-head"><h3 id="cash-t">Cash out</h3><button class="x" data-close aria-label="Close"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+<div class="modal-body">
+<p class="sm mute">Available: <b style="color:var(--ink)">৳8,450</b></p>
+<div class="field" style="margin-top:14px"><label class="lbl">Amount (৳)</label><input class="inp" value="5,000" style="font-family:var(--head);font-size:18px;font-weight:600"><p class="hint">Minimum ৳500, maximum ৳10,000 per day. Fee ৳5.</p></div>
+<p class="lbl" style="margin-top:16px">Send to</p>
+<div class="stack"><label class="radio"><input type="radio" name="w" checked><b class="grow">bKash</b><span class="xs faint">01XXX-XXX245</span></label><label class="radio"><input type="radio" name="w"><b class="grow">Nagad</b><span class="xs faint">01XXX-XXX245</span></label></div>
+<div class="sum" style="position:static;margin-top:14px"><div class="line"><span class="mute">Fee</span><span>৳5</span></div><div class="line tot"><span>You get</span><span class="price">৳4,995</span></div></div>
+<button class="btn btn-green btn-block btn-lg" style="margin-top:14px" data-close>Request cash out</button>
+<p class="xs faint" style="text-align:center;margin-top:8px">Reviewed by our team, usually paid within 24 hours.</p></div></div></div></main>
+
+<footer class="foot"><div class="wrap">
+ <div><h4>Contact</h4><p>Hotline 09XXX-XXXXXX<br><a href="mailto:info@tuktakkaj.com" style="display:inline;padding:0">info@tuktakkaj.com</a></p>
+  <p class="b" style="margin-top:12px">Office</p><p>D-3, CPDL Chandralok, 645/C Zakir Hossain Road, Khulshi, Chattogram</p>
+  <p class="b" style="margin-top:12px">Trade licence</p><p class="sm">TRAD/CHTG/XXXXX/2026</p></div>
+ <div><h4>TukTakKaj</h4><a href="index.html#how">How it works</a><a href="services.html">All services</a><a href="partner.html">Become a TukTaker</a><a href="#">Trust &amp; safety</a><a href="#">Help centre</a></div>
+ <div><h4>Policies</h4><a href="#">Terms for Seekers</a><a href="#">Terms for TukTakers</a><a href="#">Privacy policy</a><a href="#">Refund &amp; dispute policy</a><a class="sos" href="tel:999"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Emergency 999</a></div>
+ <div class="r"><h4>Get the app</h4><p class="mute">Post jobs, chat and track your TukTaker from your phone.</p><div class="stores"><a class="store" href="#"><svg viewBox="0 0 24 24"><path fill="#0D7A5F" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.100V3.300c0-.5.200-.9.600-1.100z"/><path fill="#F3C44A" d="m16.700 8.700-3.300 3.300 3.300 3.300 3.700-2.100c.800-.5.800-1.700 0-2.200z"/><path fill="#055240" d="M13.400 12 3.600 21.800c.3.200.8.200 1.200 0l11.900-6.500z"/><path fill="#2B4C32" d="M4.800 2.200c-.4-.2-.9-.2-1.200 0L13.400 12l3.300-3.300z"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a><a class="store" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.8 1.2 1.8 2.6 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.200 .8c1.300 0 2.200-1.200 3-2.400.900-1.400 1.300-2.700 1.300-2.800-.1 0-2.400-.9-2.400-3.700zM14 5.400c.700-.800 1.100-1.900 1-3-.900 0-2.100.600-2.800 1.400-.6.700-1.200 1.800-1 2.900 1 .1 2.100-.5 2.800-1.300z"/></svg><span><small>Download on the</small><b>App Store</b></span></a></div>
+  <p class="sm mute" style="margin-top:14px">Payments by SSLCommerz · Cash out to bKash &amp; Nagad</p></div>
+</div><div class="foot-b">© 2026 TukTak Technology · All rights reserved</div></footer>
+<div class="proto">Design C · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>

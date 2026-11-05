@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log in · TukTakKaj</title>
+<meta name="description" content="TukTakKaj UI prototype C — mock data, not a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style></style></head>
+<body class="">
+<header class="top"><div class="wrap">
+<a href="index.html" aria-label="TukTakKaj home" style="text-decoration:none"><span class="mark">TukTak<i>Kaj</i><b></b></span></a><button class="area" type="button"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Khulshi <svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+<div class="top-r"><div class="lang"><span class="on">EN</span><span class="bn">বাং</span></div><a class="btn btn-line btn-sm hide-m" href="partner.html">Become a TukTaker</a><a class="lnk hide-s" href="services.html">All services</a><a class="lnk" href="login.html">Login</a></div></div></header>
+<main>
+<section class="auth"><div class="card">
+ <div data-wizard>
+  <div data-step>
+   <div class="dots"><i class="on"></i><i></i><i></i></div>
+   <h1 class="h-m">Log in or sign up</h1><p class="mute sm" style="margin:6px 0 22px">One mobile number, one account. We'll text you a code.</p>
+   <label class="lbl" for="m">Mobile number</label>
+   <div class="cc-in"><span>+880</span><input id="m" class="inp" value="17XX-XXX678" inputmode="tel"></div>
+   <p class="hint">Grameenphone, Robi, Banglalink, Teletalk and Airtel numbers work.</p>
+   <button class="btn btn-green btn-block btn-lg" style="margin-top:20px" data-next>Send code</button>
+   <p class="xs faint" style="margin-top:16px;text-align:center">By continuing you agree to the <a href="#">Terms</a> and <a href="#">Privacy policy</a>.</p>
+  </div>
+  <div data-step>
+   <div class="dots"><i class="on"></i><i class="on"></i><i></i></div>
+   <h1 class="h-m">Enter the 6-digit code</h1><p class="mute sm" style="margin:6px 0 22px">Sent to +880 17XX-XXX678 · <a href="#" data-prev>Change</a></p>
+   <div class="otp"><input inputmode="numeric" value="4"><input inputmode="numeric" value="8"><input inputmode="numeric" value="2"><input inputmode="numeric"><input inputmode="numeric"><input inputmode="numeric"></div>
+   <p class="sm mute" style="margin-top:14px">Resend code in <span class="cd" data-countdown="45"></span></p>
+   <button class="btn btn-green btn-block btn-lg" style="margin-top:20px" data-next>Verify</button>
+  </div>
+  <div data-step>
+   <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+   <h1 class="h-m">New here. How will you use TukTakKaj?</h1><p class="mute sm" style="margin:6px 0 18px">Each number has one role. You can't switch later.</p>
+   <div class="rolepick">
+    <label><input type="radio" name="role" checked><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><b>I need jobs done</b><span>Post tasks and hire</span></label>
+    <label><input type="radio" name="role"><svg class="ic " viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><b>I want to earn</b><span>Find tasks as a TukTaker</span></label></div>
+   <div class="field" style="margin-top:18px"><label class="lbl" for="n">Full name</label><input id="n" class="inp" value="Tahmid Rahman"></div>
+   <div class="field"><label class="lbl">Area</label><select class="sel"><option>Khulshi</option><option>Panchlaish</option><option>Agrabad</option></select></div>
+   <div class="note" style="margin-top:16px"><svg class="ic ic-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M14 10h4"/><path d="M14 14h4"/></svg><span>TukTakers also upload the front and back of their NID. You can send offers once it's approved, usually within 24 hours.</span></div>
+   <a class="btn btn-green btn-block btn-lg" style="margin-top:20px" href="orders.html">Create account</a>
+  </div>
+ </div>
+</div></section></main>
+
+
+<div class="proto">Design C · mock data <a href="screens.html">All screens</a></div>
+<script src="assets/app.js"></script>
+<script></script>
+</body></html>
